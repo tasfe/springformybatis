@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_rankMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_rank" >
+    <id column="rankID" property="rankid" jdbcType="INTEGER" />
+    <result column="rank_parenid" property="rankParenid" jdbcType="INTEGER" />
+    <result column="rank_name" property="rankName" jdbcType="VARCHAR" />
+    <result column="rank_code" property="rankCode" jdbcType="VARCHAR" />
+    <result column="rank_order" property="rankOrder" jdbcType="INTEGER" />
+    <result column="rank_des" property="rankDes" jdbcType="VARCHAR" />
+    <result column="rank_honor" property="rankHonor" jdbcType="VARCHAR" />
+     <result column="rank_channel" property="rankChannel" jdbcType="VARCHAR" />
+    <result column="rank_channelcount" property="rankChannelcount" jdbcType="INTEGER" />
+    <result column="rank_templet" property="rankTemplet" jdbcType="VARCHAR" />
+    <result column="rank_company" property="rankCompany" jdbcType="VARCHAR" />
+    <association property="prank" column="rank_parenid" javaType="com.hedgehog.domain.biz_prank" select="com.hedgehog.mapper.biz_prankMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rankID, rank_parenid, rank_name, rank_code, rank_order, rank_des, rank_honor, rank_channel, 
+    rank_channelcount, rank_templet, rank_company
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_rankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_rank
+    where rankID = #{rankid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_rank
+    where rankID = #{rankid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_rankExample" >
+    delete from biz_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_rank" >
+    insert into biz_rank (rankID, rank_parenid, rank_name, 
+      rank_code, rank_order, rank_des, 
+      rank_honor)
+    values (#{rankid,jdbcType=INTEGER}, #{rankParenid,jdbcType=INTEGER}, #{rankName,jdbcType=VARCHAR}, 
+      #{rankCode,jdbcType=VARCHAR}, #{rankOrder,jdbcType=INTEGER}, #{rankDes,jdbcType=VARCHAR}, 
+      #{rankHonor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_rank" >
+    insert into biz_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rankid != null" >
+        rankID,
+      </if>
+      <if test="rankParenid != null" >
+        rank_parenid,
+      </if>
+      <if test="rankName != null" >
+        rank_name,
+      </if>
+      <if test="rankCode != null" >
+        rank_code,
+      </if>
+      <if test="rankOrder != null" >
+        rank_order,
+      </if>
+      <if test="rankDes != null" >
+        rank_des,
+      </if>
+      <if test="rankHonor != null" >
+        rank_honor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rankid != null" >
+        #{rankid,jdbcType=INTEGER},
+      </if>
+      <if test="rankParenid != null" >
+        #{rankParenid,jdbcType=INTEGER},
+      </if>
+      <if test="rankName != null" >
+        #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankCode != null" >
+        #{rankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rankOrder != null" >
+        #{rankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="rankDes != null" >
+        #{rankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="rankHonor != null" >
+        #{rankHonor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_rankExample" resultType="java.lang.Integer" >
+    select count(*) from biz_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_rank
+    <set >
+      <if test="record.rankid != null" >
+        rankID = #{record.rankid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankParenid != null" >
+        rank_parenid = #{record.rankParenid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankName != null" >
+        rank_name = #{record.rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankCode != null" >
+        rank_code = #{record.rankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankOrder != null" >
+        rank_order = #{record.rankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankDes != null" >
+        rank_des = #{record.rankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankHonor != null" >
+        rank_honor = #{record.rankHonor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_rank
+    set rankID = #{record.rankid,jdbcType=INTEGER},
+      rank_parenid = #{record.rankParenid,jdbcType=INTEGER},
+      rank_name = #{record.rankName,jdbcType=VARCHAR},
+      rank_code = #{record.rankCode,jdbcType=VARCHAR},
+      rank_order = #{record.rankOrder,jdbcType=INTEGER},
+      rank_des = #{record.rankDes,jdbcType=VARCHAR},
+      rank_honor = #{record.rankHonor,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_rank" >
+    update biz_rank
+    <set >
+      <if test="rankParenid != null" >
+        rank_parenid = #{rankParenid,jdbcType=INTEGER},
+      </if>
+      <if test="rankName != null" >
+        rank_name = #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankCode != null" >
+        rank_code = #{rankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rankOrder != null" >
+        rank_order = #{rankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="rankDes != null" >
+        rank_des = #{rankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="rankHonor != null" >
+        rank_honor = #{rankHonor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rankID = #{rankid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_rank" >
+    update biz_rank
+    set rank_parenid = #{rankParenid,jdbcType=INTEGER},
+      rank_name = #{rankName,jdbcType=VARCHAR},
+      rank_code = #{rankCode,jdbcType=VARCHAR},
+      rank_order = #{rankOrder,jdbcType=INTEGER},
+      rank_des = #{rankDes,jdbcType=VARCHAR},
+      rank_honor = #{rankHonor,jdbcType=VARCHAR}
+    where rankID = #{rankid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByParentid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select
+  <include refid="Base_Column_List" />
+    from biz_rank
+    where rank_parenid = #{value}
+  </select>
+</mapper>

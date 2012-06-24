@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_GroupMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_Group" >
+    <id column="GroupID" property="groupid" jdbcType="INTEGER" />
+    <result column="G_CName" property="gCname" jdbcType="VARCHAR" />
+    <result column="G_ParentID" property="gParentid" jdbcType="INTEGER" />
+    <result column="G_ShowOrder" property="gShoworder" jdbcType="INTEGER" />
+    <result column="G_Level" property="gLevel" jdbcType="INTEGER" />
+    <result column="G_ChildCount" property="gChildcount" jdbcType="INTEGER" />
+    <result column="G_Delete" property="gDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GroupID, G_CName, G_ParentID, G_ShowOrder, G_Level, G_ChildCount, G_Delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_GroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_Group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_Group
+    where GroupID = #{groupid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_Group
+    where GroupID = #{groupid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_GroupExample" >
+    delete from sys_Group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_Group" >
+    insert into sys_Group (GroupID, G_CName, G_ParentID, 
+      G_ShowOrder, G_Level, G_ChildCount, 
+      G_Delete)
+    values (#{groupid,jdbcType=INTEGER}, #{gCname,jdbcType=VARCHAR}, #{gParentid,jdbcType=INTEGER}, 
+      #{gShoworder,jdbcType=INTEGER}, #{gLevel,jdbcType=INTEGER}, #{gChildcount,jdbcType=INTEGER}, 
+      #{gDelete,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_Group" >
+    insert into sys_Group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupid != null" >
+        GroupID,
+      </if>
+      <if test="gCname != null" >
+        G_CName,
+      </if>
+      <if test="gParentid != null" >
+        G_ParentID,
+      </if>
+      <if test="gShoworder != null" >
+        G_ShowOrder,
+      </if>
+      <if test="gLevel != null" >
+        G_Level,
+      </if>
+      <if test="gChildcount != null" >
+        G_ChildCount,
+      </if>
+      <if test="gDelete != null" >
+        G_Delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="gCname != null" >
+        #{gCname,jdbcType=VARCHAR},
+      </if>
+      <if test="gParentid != null" >
+        #{gParentid,jdbcType=INTEGER},
+      </if>
+      <if test="gShoworder != null" >
+        #{gShoworder,jdbcType=INTEGER},
+      </if>
+      <if test="gLevel != null" >
+        #{gLevel,jdbcType=INTEGER},
+      </if>
+      <if test="gChildcount != null" >
+        #{gChildcount,jdbcType=INTEGER},
+      </if>
+      <if test="gDelete != null" >
+        #{gDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_GroupExample" resultType="java.lang.Integer" >
+    select count(*) from sys_Group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_Group
+    <set >
+      <if test="record.groupid != null" >
+        GroupID = #{record.groupid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gCname != null" >
+        G_CName = #{record.gCname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gParentid != null" >
+        G_ParentID = #{record.gParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gShoworder != null" >
+        G_ShowOrder = #{record.gShoworder,jdbcType=INTEGER},
+      </if>
+      <if test="record.gLevel != null" >
+        G_Level = #{record.gLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.gChildcount != null" >
+        G_ChildCount = #{record.gChildcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.gDelete != null" >
+        G_Delete = #{record.gDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_Group
+    set GroupID = #{record.groupid,jdbcType=INTEGER},
+      G_CName = #{record.gCname,jdbcType=VARCHAR},
+      G_ParentID = #{record.gParentid,jdbcType=INTEGER},
+      G_ShowOrder = #{record.gShoworder,jdbcType=INTEGER},
+      G_Level = #{record.gLevel,jdbcType=INTEGER},
+      G_ChildCount = #{record.gChildcount,jdbcType=INTEGER},
+      G_Delete = #{record.gDelete,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_Group" >
+    update sys_Group
+    <set >
+      <if test="gCname != null" >
+        G_CName = #{gCname,jdbcType=VARCHAR},
+      </if>
+      <if test="gParentid != null" >
+        G_ParentID = #{gParentid,jdbcType=INTEGER},
+      </if>
+      <if test="gShoworder != null" >
+        G_ShowOrder = #{gShoworder,jdbcType=INTEGER},
+      </if>
+      <if test="gLevel != null" >
+        G_Level = #{gLevel,jdbcType=INTEGER},
+      </if>
+      <if test="gChildcount != null" >
+        G_ChildCount = #{gChildcount,jdbcType=INTEGER},
+      </if>
+      <if test="gDelete != null" >
+        G_Delete = #{gDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where GroupID = #{groupid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_Group" >
+    update sys_Group
+    set G_CName = #{gCname,jdbcType=VARCHAR},
+      G_ParentID = #{gParentid,jdbcType=INTEGER},
+      G_ShowOrder = #{gShoworder,jdbcType=INTEGER},
+      G_Level = #{gLevel,jdbcType=INTEGER},
+      G_ChildCount = #{gChildcount,jdbcType=INTEGER},
+      G_Delete = #{gDelete,jdbcType=TINYINT}
+    where GroupID = #{groupid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,304 @@
+
+@charset "utf-8";
+/* CSS Document */
+
+body{font-family:"宋体"; font-size:12px; margin:0 auto; padding:0; background:url(/resources/images/top_bg.gif) top repeat-x;}
+
+.wall{ width:970px; height:auto; margin:0 auto;}
+
+.top{ width:100%; height:28px; background-color:#f7f7f7; border-bottom:#d8d8d8 solid 1px;}
+.topd{width:960px; height:28px; margin:0 auto;}
+.top_left{ float:left; color:#444; line-height:28px;}
+.top_left a {color:#336699; text-decoration:none}
+.top_right{float:right;line-height:28px;}
+.top_right a {color:#444; text-decoration:none}
+
+.logo{width:960px; height:105px; margin:0px; padding:0px;}
+.logo_zggsdh{float:left; margin-top:20px; margin-left:5px;}
+.logo-right{ float:left; width:700px; margin-top:20px; margin-left:10px;}
+.logo-right ul{ margin:0; padding:0;width:500px; list-style:none}
+.logo-right ul li{ float:left; font-size:14px; width:60px; margin:0px 10px; line-height:30px;}
+.logo-right ul li a{ color:#00F;}
+.chaxun{ width:400px; height:30px;}
+.bt1{  width:60px; height:30px; vertical-align:bottom; margin-left:5px;}
+.logo-right-right{ float:right; width:200px; color:#ff7300;font-size:14px;}
+
+
+
+
+.zhongjian {
+	margin-left: auto;width: 100%; margin-right: auto;
+}
+.f div{
+	margin:0px;
+}
+.zhongjian .left-col {
+	float: left;width:70%;
+}
+.keyword {
+	color: red
+}
+.zhongjian .rowblank {
+	width: 1%
+}
+.zhongjian .right-col {
+	float: right;width:29%; border-left:#999 solid 1px;
+}
+.bi {
+	margin-top:5px; margin-bottom: 12px;width:100%; height: 25px; background-color: #e4e4e6; font-size:12px;
+}
+.bi a {
+	color: black
+}
+.bi .swsy {
+	padding-left: 12px; float: left; padding-top: 6px;
+}
+.bi .jrsc {
+	padding-left: 12px; float: left; padding-top: 6px
+}
+.bi .jgtj {
+ float: right; margin-right: 10px; padding-top: 6px
+}
+.ss_jianjie {
+ color: black;width:79%; margin:0px; font-size:12px;
+}
+.ss_dizhi {
+	 color: green
+}
+.p {
+	padding-left: 11px; font-size: 14px; padding-bottom: 18px; word-spacing: 4px; padding-top: 5px; float:left;  
+}
+.p a {
+	margin-left: 1px; color: blue; margin-right: 1px
+}
+.p a:visited {
+	margin-left: 1px; color: blue; margin-right: 1px
+}
+.f {
+	font-size: 100%; padding-bottom: 18px; word-wrap: break-all; line-height: 21px; padding-top:5px; text-align: left; word-wrap: break-word; padding-left:16px;
+}
+.f a {
+	color: blue
+}
+.f a:visited {
+	color: blue
+}
+.f14 {
+	font-size: 90%; float: left; overflow: hidden;width: 84px; color: #0000d5; padding-top: 5px; white-space: nowrap; text-align: left
+}
+.f14 a {
+	color: #0000d5
+}
+.f14 a:visited {
+	color: #0000d5
+}
+.s {
+	padding-left: 29px; float: left; height: 25px; text-align: left
+}
+.rightcommend {
+	 border-left: #e1e1e1 1px solid; height: 100%
+}
+.r {
+	FONT-WEIGHT: normal; padding-top: 8px; text-align: left
+}
+.r .sheng {
+	font-size: 14px; float: left;width: 100%; white-space: nowrap; text-align: left
+}
+.r .sheng a {
+	FONT-WEIGHT: bold
+}
+.r .sheng a:visited {
+	
+}
+.r a {
+	color: #0000d5
+}
+.r a:visited {
+	color: #0000d5
+}
+.shiquxian {
+	margin-top: 5px! important; float: left; padding-bottom: 20px; margin-left: 7px; text-align: left
+}
+.shiquxian li {
+	FONT-WEIGHT: normal; font-size: 90%; float: left; overflow: hidden;width: 105px; color: #000000; line-height: 25px; white-space: nowrap; list-style-type: none; background-color: transparent; text-align: left
+}
+.shiquxian li a {
+	FONT-WEIGHT: normal; font-size: 90%; float: left; overflow: hidden; color: #000000; white-space: nowrap; text-decoration: underline
+}
+.shiquxian li a:visited {
+	font-size: 90%; overflow: hidden; color: #000000; white-space: nowrap; text-decoration: underline
+}
+.shiquxian li a:hover {
+	font-size: 90%; overflow: hidden; color: #ff6600; white-space: nowrap; text-decoration: none
+}
+.commendinfo_link {
+	FONT-WEIGHT: bold; width:100%; color: blue;  text-align: left;margin-left: 7px;
+}
+.commendinfo_link a{
+	 font-size:12px; color:#03F;
+}
+.neir_right2 {
+	margin-top: 5px! important; float: left; padding-bottom: 3px; margin-left:1px; text-align: left;width:100%;
+}
+.neir_right2 li {
+	FONT-WEIGHT: normal; font-size: 80%; float: left; overflow: hidden;width:80%; color: #000000; line-height: 25px; white-space: nowrap; list-style-type: none; background-color: transparent; text-align: left
+}
+.neir_right2 li a {
+	float: left; color: #000000; text-decoration: underline
+}
+.neir_right2 li a:visited {
+	color: #000000; text-decoration: underline
+}
+.neir_right2 li a:hover {
+	color: #ff6600; text-decoration: none
+}
+.wuxinxi {
+	font-size: 20px
+}
+.fwl11401 {
+	margin-top: -10px; float: left;width:100%; color: #ff6600
+}
+.fwl11401 object {
+	float: right;width: 500px; margin-right: -100px; height: 11px
+}
+.title2 {
+	font-size: 12px; float: left; overflow: hidden;width: 184px; color:Gray; white-space: nowrap
+}
+.fwl114 {
+	font-size: 12px; float: right;width: 360px; color: #ff6600; text-align: right; overflow:hidden; white-space:nowrap;
+}
+.fwl114 a {
+	color: #ff6600
+}
+.fwl114 a:visited {
+	color: #ff6600
+}
+.fwl114 a:hover {
+	color: #ff6600
+}
+.Tit {
+	font-size: 14px; padding-top: 19px; height: 20px
+}
+.Tit .navigation {
+	
+}
+.Tit .navigation UL li {
+	padding-right: 10px; padding-left: 12px
+}
+.Tit object {
+	margin-left: -90px;width: 100%; height: 20px
+}
+.fB {
+	FONT-WEIGHT: bold
+}
+.logo_lg {
+	float: left; margin-bottom: 10px; padding-top: 3px
+}
+.i {
+	WIDTH: 310px; height: 50px
+}
+.top_you {
+	margin-bottom: 18px;width: 100%; text-align: center
+}
+.index_search {
+	LEFT: -111px; float: left; position: absolute; top: 40px
+}
+#bottom1 {
+	CLEaR: both; font-size: 12px; color: #565455; line-height: 21px; text-align: center
+}
+#bottom1 a {
+	font-size: 12px; color: #565455
+}
+#bottom1 a:visited {
+	font-size: 12px; color: #565455
+}
+#bottom1 a:hover {
+	font-size: 12px; color: #ff6600
+}
+#div1 {
+	CLEaR: both; font-size: 12px; text-align: center
+}
+#div1 a {
+	CLEaR: both; font-size: 12px; color: black; text-align: center
+}
+#resultSearch {
+	
+}
+#bottom2 {
+	CLEaR: both; color: #cccccc; line-height: 21px; padding-top: 5px; text-align: center
+}
+#bottom2 a {
+	color: #cccccc
+}
+#bottom2 a:visited {
+	color: #cccccc
+}
+#bottom2 a:hover {
+	color: #ff6600
+}
+.da_bottom {
+	WIDTH: 960px; text-align: center
+}
+.bottom_biao_biao {
+	margin-left: -100px;width: 960px; padding-top: 6px; text-align: center
+}
+.bottom_biao {
+	WIDTH: 300px; padding-top: 6px
+}
+.bottom_biao1 {
+	WIDTH: 70px; padding-top: 6px
+}
+.xgss {
+	CLEaR: both; overflow: hidden;width: 100%; background-color: #eff2fa; text-align: left
+}
+.ss {
+	padding-left:12px; FONT-WEIGHT: bold; font-size: 90%; float: left; padding-bottom: 0px;width: 110px; padding-top:25px; text-align: left
+}
+.song {
+	float: left;width: 600px; color: #0000d5; padding-top: 10px; text-align: left; padding-bottom:10px;
+}
+.result_commendinfo {
+	text-align: left
+}
+.result_commendinfo object {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.link{width:960px; float:left; margin-top:10px;}
+.link  a{ color:#555; text-decoration:underline; line-height:15px;}
+
+.copyright {width:960px; margin:0 auto; }
+.copyright_sm {border-bottom:3px solid #ff7300; color:#cccccc; text-align:center; padding-bottom:3px;}
+.copyright_lj { text-align:center; margin-top:5px;}
+.copyright_lj a{color:#565455;}
+.copyright_body {color:000; text-align:center; margin-top:10px;}
+.copyright_body  a{ color:#565455}
+
+

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_commoninfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_commoninfo" >
+    <id column="commoninfoID" property="commoninfoid" jdbcType="INTEGER" />
+    <result column="cmm_name" property="cmmName" jdbcType="VARCHAR" />
+    <result column="cmm_menuID" property="cmmMenuid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_commoninfo" extends="BaseResultMap" >
+    <result column="cmm_vallue" property="cmmVallue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    commoninfoID, cmm_name, cmm_menuID
+  </sql>
+  <sql id="Blob_Column_List" >
+    cmm_vallue
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_commoninfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_commoninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_commoninfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_commoninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_commoninfo
+    where commoninfoID = #{commoninfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_commoninfo
+    where commoninfoID = #{commoninfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_commoninfoExample" >
+    delete from web_commoninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_commoninfo" >
+    insert into web_commoninfo (commoninfoID, cmm_name, cmm_menuID, 
+      cmm_vallue)
+    values (#{commoninfoid,jdbcType=INTEGER}, #{cmmName,jdbcType=VARCHAR}, #{cmmMenuid,jdbcType=INTEGER}, 
+      #{cmmVallue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_commoninfo" >
+    insert into web_commoninfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commoninfoid != null" >
+        commoninfoID,
+      </if>
+      <if test="cmmName != null" >
+        cmm_name,
+      </if>
+      <if test="cmmMenuid != null" >
+        cmm_menuID,
+      </if>
+      <if test="cmmVallue != null" >
+        cmm_vallue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commoninfoid != null" >
+        #{commoninfoid,jdbcType=INTEGER},
+      </if>
+      <if test="cmmName != null" >
+        #{cmmName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmmMenuid != null" >
+        #{cmmMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="cmmVallue != null" >
+        #{cmmVallue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_commoninfoExample" resultType="java.lang.Integer" >
+    select count(*) from web_commoninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_commoninfo
+    <set >
+      <if test="record.commoninfoid != null" >
+        commoninfoID = #{record.commoninfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmmName != null" >
+        cmm_name = #{record.cmmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmmMenuid != null" >
+        cmm_menuID = #{record.cmmMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmmVallue != null" >
+        cmm_vallue = #{record.cmmVallue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_commoninfo
+    set commoninfoID = #{record.commoninfoid,jdbcType=INTEGER},
+      cmm_name = #{record.cmmName,jdbcType=VARCHAR},
+      cmm_menuID = #{record.cmmMenuid,jdbcType=INTEGER},
+      cmm_vallue = #{record.cmmVallue,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_commoninfo
+    set commoninfoID = #{record.commoninfoid,jdbcType=INTEGER},
+      cmm_name = #{record.cmmName,jdbcType=VARCHAR},
+      cmm_menuID = #{record.cmmMenuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_commoninfo" >
+    update web_commoninfo
+    <set >
+      <if test="cmmName != null" >
+        cmm_name = #{cmmName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmmMenuid != null" >
+        cmm_menuID = #{cmmMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="cmmVallue != null" >
+        cmm_vallue = #{cmmVallue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where commoninfoID = #{commoninfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_commoninfo" >
+    update web_commoninfo
+    set cmm_name = #{cmmName,jdbcType=VARCHAR},
+      cmm_menuID = #{cmmMenuid,jdbcType=INTEGER},
+      cmm_vallue = #{cmmVallue,jdbcType=LONGVARCHAR}
+    where commoninfoID = #{commoninfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_commoninfo" >
+    update web_commoninfo
+    set cmm_name = #{cmmName,jdbcType=VARCHAR},
+      cmm_menuID = #{cmmMenuid,jdbcType=INTEGER}
+    where commoninfoID = #{commoninfoid,jdbcType=INTEGER}
+  </update>
+  <select id="selectWebCommoninfoInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap">
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

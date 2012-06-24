@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_channelMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_channel" >
+    <id column="channelID" property="channelid" jdbcType="INTEGER" />
+    <result column="ch_Name" property="chName" jdbcType="VARCHAR" />
+    <result column="ch_Code" property="chCode" jdbcType="VARCHAR" />
+    <result column="ch_url" property="chUrl" jdbcType="VARCHAR" />
+    <result column="ch_Editor" property="chEditor" jdbcType="VARCHAR" />
+    <result column="ch_Readonly" property="chReadonly" jdbcType="TINYINT" />
+    <result column="ch_Havesub" property="chHavesub" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByChannelCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+   from biz_channel where ch_Code=#{value}
+  </select>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    channelID, ch_Name, ch_Code, ch_url, ch_Editor, ch_Readonly, ch_Havesub
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_channelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_channel
+    where channelID = #{channelid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_channel
+    where channelID = #{channelid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_channelExample" >
+    delete from biz_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_channel" >
+    insert into biz_channel (channelID, ch_Name, ch_Code, 
+      ch_url, ch_Editor, ch_Readonly, 
+      ch_Havesub)
+    values (#{channelid,jdbcType=INTEGER}, #{chName,jdbcType=VARCHAR}, #{chCode,jdbcType=VARCHAR}, 
+      #{chUrl,jdbcType=VARCHAR}, #{chEditor,jdbcType=VARCHAR}, #{chReadonly,jdbcType=TINYINT}, 
+      #{chHavesub,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_channel" >
+    insert into biz_channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelid != null" >
+        channelID,
+      </if>
+      <if test="chName != null" >
+        ch_Name,
+      </if>
+      <if test="chCode != null" >
+        ch_Code,
+      </if>
+      <if test="chUrl != null" >
+        ch_url,
+      </if>
+      <if test="chEditor != null" >
+        ch_Editor,
+      </if>
+      <if test="chReadonly != null" >
+        ch_Readonly,
+      </if>
+      <if test="chHavesub != null" >
+        ch_Havesub,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelid != null" >
+        #{channelid,jdbcType=INTEGER},
+      </if>
+      <if test="chName != null" >
+        #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="chCode != null" >
+        #{chCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chUrl != null" >
+        #{chUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chEditor != null" >
+        #{chEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="chReadonly != null" >
+        #{chReadonly,jdbcType=TINYINT},
+      </if>
+      <if test="chHavesub != null" >
+        #{chHavesub,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_channelExample" resultType="java.lang.Integer" >
+    select count(*) from biz_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_channel
+    <set >
+      <if test="record.channelid != null" >
+        channelID = #{record.channelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.chName != null" >
+        ch_Name = #{record.chName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chCode != null" >
+        ch_Code = #{record.chCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chUrl != null" >
+        ch_url = #{record.chUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chEditor != null" >
+        ch_Editor = #{record.chEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chReadonly != null" >
+        ch_Readonly = #{record.chReadonly,jdbcType=TINYINT},
+      </if>
+      <if test="record.chHavesub != null" >
+        ch_Havesub = #{record.chHavesub,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_channel
+    set channelID = #{record.channelid,jdbcType=INTEGER},
+      ch_Name = #{record.chName,jdbcType=VARCHAR},
+      ch_Code = #{record.chCode,jdbcType=VARCHAR},
+      ch_url = #{record.chUrl,jdbcType=VARCHAR},
+      ch_Editor = #{record.chEditor,jdbcType=VARCHAR},
+      ch_Readonly = #{record.chReadonly,jdbcType=TINYINT},
+      ch_Havesub = #{record.chHavesub,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_channel" >
+    update biz_channel
+    <set >
+      <if test="chName != null" >
+        ch_Name = #{chName,jdbcType=VARCHAR},
+      </if>
+      <if test="chCode != null" >
+        ch_Code = #{chCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chUrl != null" >
+        ch_url = #{chUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chEditor != null" >
+        ch_Editor = #{chEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="chReadonly != null" >
+        ch_Readonly = #{chReadonly,jdbcType=TINYINT},
+      </if>
+      <if test="chHavesub != null" >
+        ch_Havesub = #{chHavesub,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where channelID = #{channelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_channel" >
+    update biz_channel
+    set ch_Name = #{chName,jdbcType=VARCHAR},
+      ch_Code = #{chCode,jdbcType=VARCHAR},
+      ch_url = #{chUrl,jdbcType=VARCHAR},
+      ch_Editor = #{chEditor,jdbcType=VARCHAR},
+      ch_Readonly = #{chReadonly,jdbcType=TINYINT},
+      ch_Havesub = #{chHavesub,jdbcType=VARCHAR}
+    where channelID = #{channelid,jdbcType=INTEGER}
+  </update>
+</mapper>

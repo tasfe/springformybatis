@@ -1,0 +1,70 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+<!--<start id="tile_template"/>-->
+   <definition name="advanced_template" template="/WEB-INF/views/jsp/tradeweb/templet/advanced/template.jsp">  
+     <put-attribute name="title" value="default title"/>  
+     <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header.jsp"/> 
+     <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left.jsp"/>  
+     <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/content.jsp"/>         
+   </definition>
+<!--<end id="tile_template"/>-->
+<definition name="advanced_home" extends="advanced_template">  
+        <put-attribute name="title" value="首页"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/index.jsp"/>  
+      </definition>
+      <definition name="advanced_news" extends="advanced_template">  
+        <put-attribute name="title" value="新闻动态"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_news.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_news.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/news.jsp"/>  
+      </definition>
+      <definition name="advanced_news_detail" extends="advanced_template">  
+        <put-attribute name="title" value="新闻动态 详细"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_news_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_news.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/news_detail.jsp"/>  
+      </definition>
+      <definition name="advanced_product" extends="advanced_template">  
+        <put-attribute name="title" value="产品发布"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_product.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_product.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/product.jsp"/>  
+      </definition>
+      <definition name="advanced_product_detail" extends="advanced_template">  
+        <put-attribute name="title" value="产品发布 详细"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_product_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_product.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/product_detail.jsp"/>  
+      </definition>
+      <definition name="advanced_purvey" extends="advanced_template">  
+        <put-attribute name="title" value="供求信息"/>
+         <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_purvey.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_purvey.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/purvey.jsp"/>  
+      </definition>
+      <definition name="advanced_purvey_detail" extends="advanced_template">  
+        <put-attribute name="title" value="供求信息 详细"/>
+         <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_news_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_purvey.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/purvey_detail.jsp"/>  
+      </definition>
+      <definition name="advanced_freeweb" extends="advanced_template">  
+        <put-attribute name="title" value="自由页面"/> 
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_intro.jsp"/>      
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/freeweb.jsp"/>  
+      </definition>
+      <definition name="advanced_guestbook" extends="advanced_template">  
+        <put-attribute name="title" value="客户留言"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_guestbook.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/guestbook.jsp"/>  
+      </definition>
+      <definition name="advanced_intro" extends="advanced_template">  
+        <put-attribute name="title" value="企业介绍"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/header_intro.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/tiles/left_intro.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/advanced/intro.jsp"/>  
+      </definition>
+</tiles-definitions>

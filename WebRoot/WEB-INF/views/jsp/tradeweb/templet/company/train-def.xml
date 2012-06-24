@@ -1,0 +1,70 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+<!--<start id="tile_template"/>-->
+   <definition name="company_template" template="/WEB-INF/views/jsp/tradeweb/templet/company/template.jsp">  
+     <put-attribute name="title" value="default title"/>  
+     <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header.jsp"/> 
+     <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left.jsp"/>  
+     <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/content.jsp"/>         
+   </definition>
+<!--<end id="tile_template"/>-->
+<definition name="company_home" extends="company_template">  
+        <put-attribute name="title" value="首页"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/index.jsp"/>  
+      </definition>
+      <definition name="company_news" extends="company_template">  
+        <put-attribute name="title" value="新闻动态"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_news.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_news.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/news.jsp"/>  
+      </definition>
+      <definition name="company_news_detail" extends="company_template">  
+        <put-attribute name="title" value="新闻动态 详细"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_news_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_news.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/news_detail.jsp"/>  
+      </definition>
+      <definition name="company_product" extends="company_template">  
+        <put-attribute name="title" value="产品发布"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_product.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_product.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/product.jsp"/>  
+      </definition>
+      <definition name="company_product_detail" extends="company_template">  
+        <put-attribute name="title" value="产品发布 详细"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_product_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_product.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/product_detail.jsp"/>  
+      </definition>
+      <definition name="company_purvey" extends="company_template">  
+        <put-attribute name="title" value="供求信息"/>
+         <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_purvey.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_purvey.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/purvey.jsp"/>  
+      </definition>
+      <definition name="company_purvey_detail" extends="company_template">  
+        <put-attribute name="title" value="供求信息 详细"/>
+         <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_news_detail.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_purvey.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/purvey_detail.jsp"/>  
+      </definition>
+      <definition name="company_freeweb" extends="company_template">  
+        <put-attribute name="title" value="自由页面"/> 
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_intro.jsp"/>      
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/freeweb.jsp"/>  
+      </definition>
+      <definition name="company_guestbook" extends="company_template">  
+        <put-attribute name="title" value="客户留言"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_guestbook.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/guestbook.jsp"/>  
+      </definition>
+      <definition name="company_intro" extends="company_template">  
+        <put-attribute name="title" value="企业介绍"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/header_intro.jsp"/>
+        <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/templet/company/tiles/left_intro.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/company/intro.jsp"/>  
+      </definition>
+</tiles-definitions>

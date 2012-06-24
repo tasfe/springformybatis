@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_EventMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_Event" >
+    <id column="EventID" property="eventid" jdbcType="INTEGER" />
+    <result column="E_U_LoginName" property="eULoginname" jdbcType="VARCHAR" />
+    <result column="E_UserID" property="eUserid" jdbcType="INTEGER" />
+    <result column="E_DateTime" property="eDatetime" jdbcType="TIMESTAMP" />
+    <result column="E_ApplicationID" property="eApplicationid" jdbcType="INTEGER" />
+    <result column="E_A_AppName" property="eAAppname" jdbcType="VARCHAR" />
+    <result column="E_M_Name" property="eMName" jdbcType="VARCHAR" />
+    <result column="E_M_PageCode" property="eMPagecode" jdbcType="VARCHAR" />
+    <result column="E_From" property="eFrom" jdbcType="VARCHAR" />
+    <result column="E_Type" property="eType" jdbcType="TINYINT" />
+    <result column="E_IP" property="eIp" jdbcType="VARCHAR" />
+    <result column="E_Record" property="eRecord" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EventID, E_U_LoginName, E_UserID, E_DateTime, E_ApplicationID, E_A_AppName, E_M_Name, 
+    E_M_PageCode, E_From, E_Type, E_IP, E_Record
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_EventExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_Event
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_Event
+    where EventID = #{eventid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_Event
+    where EventID = #{eventid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_EventExample" >
+    delete from sys_Event
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_Event" >
+    insert into sys_Event (EventID, E_U_LoginName, E_UserID, 
+      E_DateTime, E_ApplicationID, E_A_AppName, 
+      E_M_Name, E_M_PageCode, E_From, 
+      E_Type, E_IP, E_Record
+      )
+    values (#{eventid,jdbcType=INTEGER}, #{eULoginname,jdbcType=VARCHAR}, #{eUserid,jdbcType=INTEGER}, 
+      #{eDatetime,jdbcType=TIMESTAMP}, #{eApplicationid,jdbcType=INTEGER}, #{eAAppname,jdbcType=VARCHAR}, 
+      #{eMName,jdbcType=VARCHAR}, #{eMPagecode,jdbcType=VARCHAR}, #{eFrom,jdbcType=VARCHAR}, 
+      #{eType,jdbcType=TINYINT}, #{eIp,jdbcType=VARCHAR}, #{eRecord,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_Event" >
+    insert into sys_Event
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eventid != null" >
+        EventID,
+      </if>
+      <if test="eULoginname != null" >
+        E_U_LoginName,
+      </if>
+      <if test="eUserid != null" >
+        E_UserID,
+      </if>
+      <if test="eDatetime != null" >
+        E_DateTime,
+      </if>
+      <if test="eApplicationid != null" >
+        E_ApplicationID,
+      </if>
+      <if test="eAAppname != null" >
+        E_A_AppName,
+      </if>
+      <if test="eMName != null" >
+        E_M_Name,
+      </if>
+      <if test="eMPagecode != null" >
+        E_M_PageCode,
+      </if>
+      <if test="eFrom != null" >
+        E_From,
+      </if>
+      <if test="eType != null" >
+        E_Type,
+      </if>
+      <if test="eIp != null" >
+        E_IP,
+      </if>
+      <if test="eRecord != null" >
+        E_Record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eventid != null" >
+        #{eventid,jdbcType=INTEGER},
+      </if>
+      <if test="eULoginname != null" >
+        #{eULoginname,jdbcType=VARCHAR},
+      </if>
+      <if test="eUserid != null" >
+        #{eUserid,jdbcType=INTEGER},
+      </if>
+      <if test="eDatetime != null" >
+        #{eDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eApplicationid != null" >
+        #{eApplicationid,jdbcType=INTEGER},
+      </if>
+      <if test="eAAppname != null" >
+        #{eAAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="eMName != null" >
+        #{eMName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMPagecode != null" >
+        #{eMPagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="eFrom != null" >
+        #{eFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="eType != null" >
+        #{eType,jdbcType=TINYINT},
+      </if>
+      <if test="eIp != null" >
+        #{eIp,jdbcType=VARCHAR},
+      </if>
+      <if test="eRecord != null" >
+        #{eRecord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_EventExample" resultType="java.lang.Integer" >
+    select count(*) from sys_Event
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_Event
+    <set >
+      <if test="record.eventid != null" >
+        EventID = #{record.eventid,jdbcType=INTEGER},
+      </if>
+      <if test="record.eULoginname != null" >
+        E_U_LoginName = #{record.eULoginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eUserid != null" >
+        E_UserID = #{record.eUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.eDatetime != null" >
+        E_DateTime = #{record.eDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eApplicationid != null" >
+        E_ApplicationID = #{record.eApplicationid,jdbcType=INTEGER},
+      </if>
+      <if test="record.eAAppname != null" >
+        E_A_AppName = #{record.eAAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eMName != null" >
+        E_M_Name = #{record.eMName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eMPagecode != null" >
+        E_M_PageCode = #{record.eMPagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eFrom != null" >
+        E_From = #{record.eFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eType != null" >
+        E_Type = #{record.eType,jdbcType=TINYINT},
+      </if>
+      <if test="record.eIp != null" >
+        E_IP = #{record.eIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eRecord != null" >
+        E_Record = #{record.eRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_Event
+    set EventID = #{record.eventid,jdbcType=INTEGER},
+      E_U_LoginName = #{record.eULoginname,jdbcType=VARCHAR},
+      E_UserID = #{record.eUserid,jdbcType=INTEGER},
+      E_DateTime = #{record.eDatetime,jdbcType=TIMESTAMP},
+      E_ApplicationID = #{record.eApplicationid,jdbcType=INTEGER},
+      E_A_AppName = #{record.eAAppname,jdbcType=VARCHAR},
+      E_M_Name = #{record.eMName,jdbcType=VARCHAR},
+      E_M_PageCode = #{record.eMPagecode,jdbcType=VARCHAR},
+      E_From = #{record.eFrom,jdbcType=VARCHAR},
+      E_Type = #{record.eType,jdbcType=TINYINT},
+      E_IP = #{record.eIp,jdbcType=VARCHAR},
+      E_Record = #{record.eRecord,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_Event" >
+    update sys_Event
+    <set >
+      <if test="eULoginname != null" >
+        E_U_LoginName = #{eULoginname,jdbcType=VARCHAR},
+      </if>
+      <if test="eUserid != null" >
+        E_UserID = #{eUserid,jdbcType=INTEGER},
+      </if>
+      <if test="eDatetime != null" >
+        E_DateTime = #{eDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eApplicationid != null" >
+        E_ApplicationID = #{eApplicationid,jdbcType=INTEGER},
+      </if>
+      <if test="eAAppname != null" >
+        E_A_AppName = #{eAAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="eMName != null" >
+        E_M_Name = #{eMName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMPagecode != null" >
+        E_M_PageCode = #{eMPagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="eFrom != null" >
+        E_From = #{eFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="eType != null" >
+        E_Type = #{eType,jdbcType=TINYINT},
+      </if>
+      <if test="eIp != null" >
+        E_IP = #{eIp,jdbcType=VARCHAR},
+      </if>
+      <if test="eRecord != null" >
+        E_Record = #{eRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EventID = #{eventid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_Event" >
+    update sys_Event
+    set E_U_LoginName = #{eULoginname,jdbcType=VARCHAR},
+      E_UserID = #{eUserid,jdbcType=INTEGER},
+      E_DateTime = #{eDatetime,jdbcType=TIMESTAMP},
+      E_ApplicationID = #{eApplicationid,jdbcType=INTEGER},
+      E_A_AppName = #{eAAppname,jdbcType=VARCHAR},
+      E_M_Name = #{eMName,jdbcType=VARCHAR},
+      E_M_PageCode = #{eMPagecode,jdbcType=VARCHAR},
+      E_From = #{eFrom,jdbcType=VARCHAR},
+      E_Type = #{eType,jdbcType=TINYINT},
+      E_IP = #{eIp,jdbcType=VARCHAR},
+      E_Record = #{eRecord,jdbcType=VARCHAR}
+    where EventID = #{eventid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_submenuoperMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_submenuoper" >
+    <id column="submenuoperID" property="submenuoperid" jdbcType="INTEGER" />
+    <result column="submenuoper_parentID" property="submenuoperParentid" jdbcType="INTEGER" />
+    <result column="submenuoper_name" property="submenuoperName" jdbcType="VARCHAR" />
+    <result column="submenuoper_link" property="submenuoperLink" jdbcType="VARCHAR" />
+    <result column="submenuoper_order" property="submenuoperOrder" jdbcType="INTEGER" />
+    <result column="submenuoper_class" property="submenuoperClass" jdbcType="VARCHAR" />
+    <result column="submenuoper_target" property="submenuoperTarget" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    submenuoperID, submenuoper_parentID, submenuoper_name, submenuoper_link, submenuoper_order, 
+    submenuoper_class, submenuoper_target
+  </sql>
+  <select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   select 
+    <include refid="Base_Column_List" />
+    from biz_submenuoper
+    where submenuoper_parentID=#{value} and submenuoper_class='1' order by submenuoper_order
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_submenuoperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_submenuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_submenuoper
+    where submenuoperID = #{submenuoperid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_submenuoper
+    where submenuoperID = #{submenuoperid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_submenuoperExample" >
+    delete from biz_submenuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_submenuoper" >
+    insert into biz_submenuoper (submenuoperID, submenuoper_parentID, 
+      submenuoper_name, submenuoper_link, submenuoper_order, 
+      submenuoper_class, submenuoper_target)
+    values (#{submenuoperid,jdbcType=INTEGER}, #{submenuoperParentid,jdbcType=INTEGER}, 
+      #{submenuoperName,jdbcType=VARCHAR}, #{submenuoperLink,jdbcType=VARCHAR}, #{submenuoperOrder,jdbcType=INTEGER}, 
+      #{submenuoperClass,jdbcType=VARCHAR}, #{submenuoperTarget,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_submenuoper" >
+    insert into biz_submenuoper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="submenuoperid != null" >
+        submenuoperID,
+      </if>
+      <if test="submenuoperParentid != null" >
+        submenuoper_parentID,
+      </if>
+      <if test="submenuoperName != null" >
+        submenuoper_name,
+      </if>
+      <if test="submenuoperLink != null" >
+        submenuoper_link,
+      </if>
+      <if test="submenuoperOrder != null" >
+        submenuoper_order,
+      </if>
+      <if test="submenuoperClass != null" >
+        submenuoper_class,
+      </if>
+      <if test="submenuoperTarget != null" >
+        submenuoper_target,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="submenuoperid != null" >
+        #{submenuoperid,jdbcType=INTEGER},
+      </if>
+      <if test="submenuoperParentid != null" >
+        #{submenuoperParentid,jdbcType=INTEGER},
+      </if>
+      <if test="submenuoperName != null" >
+        #{submenuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperLink != null" >
+        #{submenuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperOrder != null" >
+        #{submenuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="submenuoperClass != null" >
+        #{submenuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperTarget != null" >
+        #{submenuoperTarget,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_submenuoperExample" resultType="java.lang.Integer" >
+    select count(*) from biz_submenuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_submenuoper
+    <set >
+      <if test="record.submenuoperid != null" >
+        submenuoperID = #{record.submenuoperid,jdbcType=INTEGER},
+      </if>
+      <if test="record.submenuoperParentid != null" >
+        submenuoper_parentID = #{record.submenuoperParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.submenuoperName != null" >
+        submenuoper_name = #{record.submenuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submenuoperLink != null" >
+        submenuoper_link = #{record.submenuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submenuoperOrder != null" >
+        submenuoper_order = #{record.submenuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.submenuoperClass != null" >
+        submenuoper_class = #{record.submenuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submenuoperTarget != null" >
+        submenuoper_target = #{record.submenuoperTarget,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_submenuoper
+    set submenuoperID = #{record.submenuoperid,jdbcType=INTEGER},
+      submenuoper_parentID = #{record.submenuoperParentid,jdbcType=INTEGER},
+      submenuoper_name = #{record.submenuoperName,jdbcType=VARCHAR},
+      submenuoper_link = #{record.submenuoperLink,jdbcType=VARCHAR},
+      submenuoper_order = #{record.submenuoperOrder,jdbcType=INTEGER},
+      submenuoper_class = #{record.submenuoperClass,jdbcType=VARCHAR},
+      submenuoper_target = #{record.submenuoperTarget,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_submenuoper" >
+    update biz_submenuoper
+    <set >
+      <if test="submenuoperParentid != null" >
+        submenuoper_parentID = #{submenuoperParentid,jdbcType=INTEGER},
+      </if>
+      <if test="submenuoperName != null" >
+        submenuoper_name = #{submenuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperLink != null" >
+        submenuoper_link = #{submenuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperOrder != null" >
+        submenuoper_order = #{submenuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="submenuoperClass != null" >
+        submenuoper_class = #{submenuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="submenuoperTarget != null" >
+        submenuoper_target = #{submenuoperTarget,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where submenuoperID = #{submenuoperid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_submenuoper" >
+    update biz_submenuoper
+    set submenuoper_parentID = #{submenuoperParentid,jdbcType=INTEGER},
+      submenuoper_name = #{submenuoperName,jdbcType=VARCHAR},
+      submenuoper_link = #{submenuoperLink,jdbcType=VARCHAR},
+      submenuoper_order = #{submenuoperOrder,jdbcType=INTEGER},
+      submenuoper_class = #{submenuoperClass,jdbcType=VARCHAR},
+      submenuoper_target = #{submenuoperTarget,jdbcType=VARCHAR}
+    where submenuoperID = #{submenuoperid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_newsMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_news" >
+    <id column="NewsID" property="newsid" jdbcType="INTEGER" />
+    <result column="News_Title" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="News_Class" property="newsClass" jdbcType="INTEGER" />
+    <result column="News_Source" property="newsSource" jdbcType="VARCHAR" />
+    <result column="News_Properties" property="newsProperties" jdbcType="VARCHAR" />
+    <result column="News_Summery" property="newsSummery" jdbcType="VARCHAR" />
+    <result column="News_Keywords" property="newsKeywords" jdbcType="VARCHAR" />
+    <result column="News_Hits" property="newsHits" jdbcType="INTEGER" />
+    <result column="News_Updatetime" property="newsUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="News_menuID" property="newsMenuid" jdbcType="INTEGER" />
+    <association property="newsclass" column="News_Class" javaType="com.hedgehog.domain.web_newsclass" select="com.hedgehog.mapper.web_newsclassMapper.selectByPrimaryKey" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_news" extends="BaseResultMap" >
+    <result column="News_Content" property="newsContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NewsID, News_Title, News_Class, News_Source, News_Properties, News_Summery, News_Keywords, 
+    News_Hits, News_Updatetime, News_menuID
+  </sql>
+  <sql id="Blob_Column_List" >
+    News_Content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_newsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_newsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_news
+    where NewsID = #{newsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_news
+    where NewsID = #{newsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_newsExample" >
+    delete from web_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_news" >
+    insert into web_news (NewsID, News_Title, News_Class, 
+      News_Source, News_Properties, News_Summery, 
+      News_Keywords, News_Hits, News_Updatetime, 
+      News_menuID, News_Content)
+    values (#{newsid,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, #{newsClass,jdbcType=INTEGER}, 
+      #{newsSource,jdbcType=VARCHAR}, #{newsProperties,jdbcType=VARCHAR}, #{newsSummery,jdbcType=VARCHAR}, 
+      #{newsKeywords,jdbcType=VARCHAR}, #{newsHits,jdbcType=INTEGER}, #{newsUpdatetime,jdbcType=TIMESTAMP}, 
+      #{newsMenuid,jdbcType=INTEGER}, #{newsContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_news" >
+    insert into web_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        NewsID,
+      </if>
+      <if test="newsTitle != null" >
+        News_Title,
+      </if>
+      <if test="newsClass != null" >
+        News_Class,
+      </if>
+      <if test="newsSource != null" >
+        News_Source,
+      </if>
+      <if test="newsProperties != null" >
+        News_Properties,
+      </if>
+      <if test="newsSummery != null" >
+        News_Summery,
+      </if>
+      <if test="newsKeywords != null" >
+        News_Keywords,
+      </if>
+      <if test="newsHits != null" >
+        News_Hits,
+      </if>
+      <if test="newsUpdatetime != null" >
+        News_Updatetime,
+      </if>
+      <if test="newsMenuid != null" >
+        News_menuID,
+      </if>
+      <if test="newsContent != null" >
+        News_Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        #{newsid,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null" >
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsClass != null" >
+        #{newsClass,jdbcType=INTEGER},
+      </if>
+      <if test="newsSource != null" >
+        #{newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsProperties != null" >
+        #{newsProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="newsSummery != null" >
+        #{newsSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="newsKeywords != null" >
+        #{newsKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="newsHits != null" >
+        #{newsHits,jdbcType=INTEGER},
+      </if>
+      <if test="newsUpdatetime != null" >
+        #{newsUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsMenuid != null" >
+        #{newsMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="newsContent != null" >
+        #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_newsExample" resultType="java.lang.Integer" >
+    select count(*) from web_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_news
+    <set >
+      <if test="record.newsid != null" >
+        NewsID = #{record.newsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsTitle != null" >
+        News_Title = #{record.newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsClass != null" >
+        News_Class = #{record.newsClass,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsSource != null" >
+        News_Source = #{record.newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsProperties != null" >
+        News_Properties = #{record.newsProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsSummery != null" >
+        News_Summery = #{record.newsSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsKeywords != null" >
+        News_Keywords = #{record.newsKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsHits != null" >
+        News_Hits = #{record.newsHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsUpdatetime != null" >
+        News_Updatetime = #{record.newsUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.newsMenuid != null" >
+        News_menuID = #{record.newsMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsContent != null" >
+        News_Content = #{record.newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_news
+    set NewsID = #{record.newsid,jdbcType=INTEGER},
+      News_Title = #{record.newsTitle,jdbcType=VARCHAR},
+      News_Class = #{record.newsClass,jdbcType=INTEGER},
+      News_Source = #{record.newsSource,jdbcType=VARCHAR},
+      News_Properties = #{record.newsProperties,jdbcType=VARCHAR},
+      News_Summery = #{record.newsSummery,jdbcType=VARCHAR},
+      News_Keywords = #{record.newsKeywords,jdbcType=VARCHAR},
+      News_Hits = #{record.newsHits,jdbcType=INTEGER},
+      News_Updatetime = #{record.newsUpdatetime,jdbcType=TIMESTAMP},
+      News_menuID = #{record.newsMenuid,jdbcType=INTEGER},
+      News_Content = #{record.newsContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_news
+    set NewsID = #{record.newsid,jdbcType=INTEGER},
+      News_Title = #{record.newsTitle,jdbcType=VARCHAR},
+      News_Class = #{record.newsClass,jdbcType=INTEGER},
+      News_Source = #{record.newsSource,jdbcType=VARCHAR},
+      News_Properties = #{record.newsProperties,jdbcType=VARCHAR},
+      News_Summery = #{record.newsSummery,jdbcType=VARCHAR},
+      News_Keywords = #{record.newsKeywords,jdbcType=VARCHAR},
+      News_Hits = #{record.newsHits,jdbcType=INTEGER},
+      News_Updatetime = #{record.newsUpdatetime,jdbcType=TIMESTAMP},
+      News_menuID = #{record.newsMenuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_news" >
+    update web_news
+    <set >
+      <if test="newsTitle != null" >
+        News_Title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsClass != null" >
+        News_Class = #{newsClass,jdbcType=INTEGER},
+      </if>
+      <if test="newsSource != null" >
+        News_Source = #{newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsProperties != null" >
+        News_Properties = #{newsProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="newsSummery != null" >
+        News_Summery = #{newsSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="newsKeywords != null" >
+        News_Keywords = #{newsKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="newsHits != null" >
+        News_Hits = #{newsHits,jdbcType=INTEGER},
+      </if>
+      <if test="newsUpdatetime != null" >
+        News_Updatetime = #{newsUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsMenuid != null" >
+        News_menuID = #{newsMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="newsContent != null" >
+        News_Content = #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where NewsID = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_news" >
+    update web_news
+    set News_Title = #{newsTitle,jdbcType=VARCHAR},
+      News_Class = #{newsClass,jdbcType=INTEGER},
+      News_Source = #{newsSource,jdbcType=VARCHAR},
+      News_Properties = #{newsProperties,jdbcType=VARCHAR},
+      News_Summery = #{newsSummery,jdbcType=VARCHAR},
+      News_Keywords = #{newsKeywords,jdbcType=VARCHAR},
+      News_Hits = #{newsHits,jdbcType=INTEGER},
+      News_Updatetime = #{newsUpdatetime,jdbcType=TIMESTAMP},
+      News_menuID = #{newsMenuid,jdbcType=INTEGER},
+      News_Content = #{newsContent,jdbcType=LONGVARCHAR}
+    where NewsID = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_news" >
+    update web_news
+    set News_Title = #{newsTitle,jdbcType=VARCHAR},
+      News_Class = #{newsClass,jdbcType=INTEGER},
+      News_Source = #{newsSource,jdbcType=VARCHAR},
+      News_Properties = #{newsProperties,jdbcType=VARCHAR},
+      News_Summery = #{newsSummery,jdbcType=VARCHAR},
+      News_Keywords = #{newsKeywords,jdbcType=VARCHAR},
+      News_Hits = #{newsHits,jdbcType=INTEGER},
+      News_Updatetime = #{newsUpdatetime,jdbcType=TIMESTAMP},
+      News_menuID = #{newsMenuid,jdbcType=INTEGER}
+    where NewsID = #{newsid,jdbcType=INTEGER}
+  </update>
+  <select id="selectWebNewsInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap">
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+<select id="selectCountByClass" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select count(*) from web_news where News_Class=#{value}
+</select>
+</mapper>

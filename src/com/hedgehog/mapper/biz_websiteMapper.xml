@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_websiteMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_website" >
+    <id column="websiteID" property="websiteid" jdbcType="INTEGER" />
+    <result column="w_memberID" property="wMemberid" jdbcType="INTEGER" />
+    <result column="w_templet" property="wTemplet" jdbcType="VARCHAR" />
+    <result column="w_BComType" property="wBcomtype" jdbcType="VARCHAR" />
+    <result column="w_SComType" property="wScomtype" jdbcType="INTEGER" />
+    <result column="w_ComName" property="wComname" jdbcType="VARCHAR" />
+    <result column="w_Title" property="wTitle" jdbcType="VARCHAR" />
+    <result column="eComName" property="ecomname" jdbcType="VARCHAR" />
+    <result column="w_city" property="wCity" jdbcType="INTEGER" />
+    <result column="w_Property" property="wProperty" jdbcType="VARCHAR" />
+    <result column="w_Address" property="wAddress" jdbcType="VARCHAR" />
+    <result column="w_Mail" property="wMail" jdbcType="VARCHAR" />
+    <result column="w_tel" property="wTel" jdbcType="VARCHAR" />
+    <result column="w_fax" property="wFax" jdbcType="VARCHAR" />
+    <result column="w_zip" property="wZip" jdbcType="VARCHAR" />
+    <result column="w_calling" property="wCalling" jdbcType="VARCHAR" />
+    <result column="w_Contacts" property="wContacts" jdbcType="VARCHAR" />
+    <result column="w_province" property="wProvince" jdbcType="INTEGER" />
+    <result column="w_Logo" property="wLogo" jdbcType="VARCHAR" />
+    <result column="w_LogoHref" property="wLogohref" jdbcType="VARCHAR" />
+    <result column="w_LogoTitle" property="wLogotitle" jdbcType="VARCHAR" />
+    <result column="w_Company" property="wCompany" jdbcType="VARCHAR" />
+    <result column="w_CompanyText" property="wCompanytext" jdbcType="VARCHAR" />
+    <result column="w_UserComText" property="wUsercomtext" jdbcType="INTEGER" />
+    <result column="w_Banner" property="wBanner" jdbcType="VARCHAR" />
+    <result column="w_counter" property="wCounter" jdbcType="BIGINT" />
+    <result column="w_domain" property="wDomain" jdbcType="VARCHAR" />
+    <result column="w_ICP" property="wIcp" jdbcType="VARCHAR" />
+    <result column="w_ICPHref" property="wIcphref" jdbcType="VARCHAR" />
+    <association property="member" column="w_memberID" javaType="com.hedgehog.domain.biz_member" select="com.hedgehog.mapper.biz_memberMapper.selectByPrimaryKey"/>
+    <association property="city" column="w_city" javaType="com.hedgehog.domain.biz_city" select="com.hedgehog.mapper.biz_cityMapper.selectByPrimaryKey"/>
+    <association property="province" column="w_province" javaType="com.hedgehog.domain.biz_province" select="com.hedgehog.mapper.biz_provinceMapper.selectByPrimaryKey"/>
+    
+  </resultMap>
+  
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.biz_websiteWithBLOBs" extends="BaseResultMap" >  
+    <result column="w_FootNote" property="wFootnote" jdbcType="LONGVARCHAR" />
+    <result column="w_Free" property="wFree" jdbcType="VARCHAR" />
+    <result column="w_FreeText" property="wFreetext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    websiteID, w_memberID, w_templet, w_BComType, w_SComType, w_ComName, w_Title, eComName, 
+    w_city, w_Property, w_Address, w_Mail, w_tel, w_fax, w_zip, w_calling, w_Contacts, 
+    w_province, w_Logo, w_LogoHref, w_LogoTitle, w_Company, w_CompanyText, w_UserComText, 
+    w_Banner, w_counter, w_domain, w_ICP, w_ICPHref
+  </sql>
+  <sql id="Blob_Column_List" >
+    w_FootNote,
+    w_Free,
+    w_FreeText
+  </sql>
+  
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.biz_websiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_website
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_websiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_website
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_website
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </select>
+   <select id="selectByPrimaryKeyWrap" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />    
+    from biz_website
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMemberID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+   select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_website
+    where w_memberID = #{memberid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_website
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_websiteExample" >
+    delete from biz_website
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_website" >
+    insert into biz_website (websiteID, w_memberID, w_templet, 
+      w_BComType, w_SComType, w_ComName, 
+      w_Title, eComName, w_city, 
+      w_Property, w_Address, w_Mail, 
+      w_tel, w_fax, w_zip, w_calling, 
+      w_Contacts, w_province, w_Logo, 
+      w_LogoHref, w_LogoTitle, w_Company, 
+      w_CompanyText, w_UserComText, w_Banner, 
+      w_counter, w_domain, w_ICP, 
+      w_ICPHref, w_FootNote)
+    values (#{websiteid,jdbcType=INTEGER}, #{wMemberid,jdbcType=INTEGER}, #{wTemplet,jdbcType=VARCHAR}, 
+      #{wBcomtype,jdbcType=VARCHAR}, #{wScomtype,jdbcType=INTEGER}, #{wComname,jdbcType=VARCHAR}, 
+      #{wTitle,jdbcType=VARCHAR}, #{ecomname,jdbcType=VARCHAR}, #{wCity,jdbcType=INTEGER}, 
+      #{wProperty,jdbcType=VARCHAR}, #{wAddress,jdbcType=VARCHAR}, #{wMail,jdbcType=VARCHAR}, 
+      #{wTel,jdbcType=VARCHAR}, #{wFax,jdbcType=VARCHAR}, #{wZip,jdbcType=VARCHAR}, #{wCalling,jdbcType=VARCHAR}, 
+      #{wContacts,jdbcType=VARCHAR}, #{wProvince,jdbcType=INTEGER}, #{wLogo,jdbcType=VARCHAR}, 
+      #{wLogohref,jdbcType=VARCHAR}, #{wLogotitle,jdbcType=VARCHAR}, #{wCompany,jdbcType=VARCHAR}, 
+      #{wCompanytext,jdbcType=VARCHAR}, #{wUsercomtext,jdbcType=INTEGER}, #{wBanner,jdbcType=VARCHAR}, 
+      #{wCounter,jdbcType=BIGINT}, #{wDomain,jdbcType=VARCHAR}, #{wIcp,jdbcType=VARCHAR}, 
+      #{wIcphref,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_website" >
+    insert into biz_website
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="websiteid != null" >
+        websiteID,
+      </if>
+      <if test="wMemberid != null" >
+        w_memberID,
+      </if>
+      <if test="wTemplet != null" >
+        w_templet,
+      </if>
+      <if test="wBcomtype != null" >
+        w_BComType,
+      </if>
+      <if test="wScomtype != null" >
+        w_SComType,
+      </if>
+      <if test="wComname != null" >
+        w_ComName,
+      </if>
+      <if test="wTitle != null" >
+        w_Title,
+      </if>
+      <if test="ecomname != null" >
+        eComName,
+      </if>
+      <if test="wCity != null" >
+        w_city,
+      </if>
+      <if test="wProperty != null" >
+        w_Property,
+      </if>
+      <if test="wAddress != null" >
+        w_Address,
+      </if>
+      <if test="wMail != null" >
+        w_Mail,
+      </if>
+      <if test="wTel != null" >
+        w_tel,
+      </if>
+      <if test="wFax != null" >
+        w_fax,
+      </if>
+      <if test="wZip != null" >
+        w_zip,
+      </if>
+      <if test="wCalling != null" >
+        w_calling,
+      </if>
+      <if test="wContacts != null" >
+        w_Contacts,
+      </if>
+      <if test="wProvince != null" >
+        w_province,
+      </if>
+      <if test="wLogo != null" >
+        w_Logo,
+      </if>
+      <if test="wLogohref != null" >
+        w_LogoHref,
+      </if>
+      <if test="wLogotitle != null" >
+        w_LogoTitle,
+      </if>
+      <if test="wCompany != null" >
+        w_Company,
+      </if>
+      <if test="wCompanytext != null" >
+        w_CompanyText,
+      </if>
+      <if test="wUsercomtext != null" >
+        w_UserComText,
+      </if>
+      <if test="wBanner != null" >
+        w_Banner,
+      </if>
+      <if test="wCounter != null" >
+        w_counter,
+      </if>
+      <if test="wDomain != null" >
+        w_domain,
+      </if>
+      <if test="wIcp != null" >
+        w_ICP,
+      </if>
+      <if test="wIcphref != null" >
+        w_ICPHref,
+      </if>      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="websiteid != null" >
+        #{websiteid,jdbcType=INTEGER},
+      </if>
+      <if test="wMemberid != null" >
+        #{wMemberid,jdbcType=INTEGER},
+      </if>
+      <if test="wTemplet != null" >
+        #{wTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="wBcomtype != null" >
+        #{wBcomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="wScomtype != null" >
+        #{wScomtype,jdbcType=INTEGER},
+      </if>
+      <if test="wComname != null" >
+        #{wComname,jdbcType=VARCHAR},
+      </if>
+      <if test="wTitle != null" >
+        #{wTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ecomname != null" >
+        #{ecomname,jdbcType=VARCHAR},
+      </if>
+      <if test="wCity != null" >
+        #{wCity,jdbcType=INTEGER},
+      </if>
+      <if test="wProperty != null" >
+        #{wProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="wAddress != null" >
+        #{wAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wMail != null" >
+        #{wMail,jdbcType=VARCHAR},
+      </if>
+      <if test="wTel != null" >
+        #{wTel,jdbcType=VARCHAR},
+      </if>
+      <if test="wFax != null" >
+        #{wFax,jdbcType=VARCHAR},
+      </if>
+      <if test="wZip != null" >
+        #{wZip,jdbcType=VARCHAR},
+      </if>
+      <if test="wCalling != null" >
+        #{wCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="wContacts != null" >
+        #{wContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="wProvince != null" >
+        #{wProvince,jdbcType=INTEGER},
+      </if>
+      <if test="wLogo != null" >
+        #{wLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogohref != null" >
+        #{wLogohref,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogotitle != null" >
+        #{wLogotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompany != null" >
+        #{wCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompanytext != null" >
+        #{wCompanytext,jdbcType=VARCHAR},
+      </if>
+      <if test="wUsercomtext != null" >
+        #{wUsercomtext,jdbcType=INTEGER},
+      </if>
+      <if test="wBanner != null" >
+        #{wBanner,jdbcType=VARCHAR},
+      </if>
+      <if test="wCounter != null" >
+        #{wCounter,jdbcType=BIGINT},
+      </if>
+      <if test="wDomain != null" >
+        #{wDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcp != null" >
+        #{wIcp,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcphref != null" >
+        #{wIcphref,jdbcType=VARCHAR},
+      </if>      
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_websiteExample" resultType="java.lang.Integer" >
+    select count(*) from biz_website
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_website
+    <set >
+      <if test="record.websiteid != null" >
+        websiteID = #{record.websiteid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wMemberid != null" >
+        w_memberID = #{record.wMemberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wTemplet != null" >
+        w_templet = #{record.wTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wBcomtype != null" >
+        w_BComType = #{record.wBcomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wScomtype != null" >
+        w_SComType = #{record.wScomtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.wComname != null" >
+        w_ComName = #{record.wComname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wTitle != null" >
+        w_Title = #{record.wTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecomname != null" >
+        eComName = #{record.ecomname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCity != null" >
+        w_city = #{record.wCity,jdbcType=INTEGER},
+      </if>
+      <if test="record.wProperty != null" >
+        w_Property = #{record.wProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wAddress != null" >
+        w_Address = #{record.wAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wMail != null" >
+        w_Mail = #{record.wMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wTel != null" >
+        w_tel = #{record.wTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wFax != null" >
+        w_fax = #{record.wFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wZip != null" >
+        w_zip = #{record.wZip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCalling != null" >
+        w_calling = #{record.wCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wContacts != null" >
+        w_Contacts = #{record.wContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wProvince != null" >
+        w_province = #{record.wProvince,jdbcType=INTEGER},
+      </if>
+      <if test="record.wLogo != null" >
+        w_Logo = #{record.wLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wLogohref != null" >
+        w_LogoHref = #{record.wLogohref,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wLogotitle != null" >
+        w_LogoTitle = #{record.wLogotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCompany != null" >
+        w_Company = #{record.wCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCompanytext != null" >
+        w_CompanyText = #{record.wCompanytext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wUsercomtext != null" >
+        w_UserComText = #{record.wUsercomtext,jdbcType=INTEGER},
+      </if>
+      <if test="record.wBanner != null" >
+        w_Banner = #{record.wBanner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCounter != null" >
+        w_counter = #{record.wCounter,jdbcType=BIGINT},
+      </if>
+      <if test="record.wDomain != null" >
+        w_domain = #{record.wDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wIcp != null" >
+        w_ICP = #{record.wIcp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wIcphref != null" >
+        w_ICPHref = #{record.wIcphref,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wFootnote != null" >
+        w_FootNote = #{record.wFootnote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update biz_website
+    set websiteID = #{record.websiteid,jdbcType=INTEGER},
+      w_memberID = #{record.wMemberid,jdbcType=INTEGER},
+      w_templet = #{record.wTemplet,jdbcType=VARCHAR},
+      w_BComType = #{record.wBcomtype,jdbcType=VARCHAR},
+      w_SComType = #{record.wScomtype,jdbcType=INTEGER},
+      w_ComName = #{record.wComname,jdbcType=VARCHAR},
+      w_Title = #{record.wTitle,jdbcType=VARCHAR},
+      eComName = #{record.ecomname,jdbcType=VARCHAR},
+      w_city = #{record.wCity,jdbcType=INTEGER},
+      w_Property = #{record.wProperty,jdbcType=VARCHAR},
+      w_Address = #{record.wAddress,jdbcType=VARCHAR},
+      w_Mail = #{record.wMail,jdbcType=VARCHAR},
+      w_tel = #{record.wTel,jdbcType=VARCHAR},
+      w_fax = #{record.wFax,jdbcType=VARCHAR},
+      w_zip = #{record.wZip,jdbcType=VARCHAR},
+      w_calling = #{record.wCalling,jdbcType=VARCHAR},
+      w_Contacts = #{record.wContacts,jdbcType=VARCHAR},
+      w_province = #{record.wProvince,jdbcType=INTEGER},
+      w_Logo = #{record.wLogo,jdbcType=VARCHAR},
+      w_LogoHref = #{record.wLogohref,jdbcType=VARCHAR},
+      w_LogoTitle = #{record.wLogotitle,jdbcType=VARCHAR},
+      w_Company = #{record.wCompany,jdbcType=VARCHAR},
+      w_CompanyText = #{record.wCompanytext,jdbcType=VARCHAR},
+      w_UserComText = #{record.wUsercomtext,jdbcType=INTEGER},
+      w_Banner = #{record.wBanner,jdbcType=VARCHAR},
+      w_counter = #{record.wCounter,jdbcType=BIGINT},
+      w_domain = #{record.wDomain,jdbcType=VARCHAR},
+      w_ICP = #{record.wIcp,jdbcType=VARCHAR},
+      w_ICPHref = #{record.wIcphref,jdbcType=VARCHAR},
+      w_FootNote = #{record.wFootnote,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_website
+    set websiteID = #{record.websiteid,jdbcType=INTEGER},
+      w_memberID = #{record.wMemberid,jdbcType=INTEGER},
+      w_templet = #{record.wTemplet,jdbcType=VARCHAR},
+      w_BComType = #{record.wBcomtype,jdbcType=VARCHAR},
+      w_SComType = #{record.wScomtype,jdbcType=INTEGER},
+      w_ComName = #{record.wComname,jdbcType=VARCHAR},
+      w_Title = #{record.wTitle,jdbcType=VARCHAR},
+      eComName = #{record.ecomname,jdbcType=VARCHAR},
+      w_city = #{record.wCity,jdbcType=INTEGER},
+      w_Property = #{record.wProperty,jdbcType=VARCHAR},
+      w_Address = #{record.wAddress,jdbcType=VARCHAR},
+      w_Mail = #{record.wMail,jdbcType=VARCHAR},
+      w_tel = #{record.wTel,jdbcType=VARCHAR},
+      w_fax = #{record.wFax,jdbcType=VARCHAR},
+      w_zip = #{record.wZip,jdbcType=VARCHAR},
+      w_calling = #{record.wCalling,jdbcType=VARCHAR},
+      w_Contacts = #{record.wContacts,jdbcType=VARCHAR},
+      w_province = #{record.wProvince,jdbcType=INTEGER},
+      w_Logo = #{record.wLogo,jdbcType=VARCHAR},
+      w_LogoHref = #{record.wLogohref,jdbcType=VARCHAR},
+      w_LogoTitle = #{record.wLogotitle,jdbcType=VARCHAR},
+      w_Company = #{record.wCompany,jdbcType=VARCHAR},
+      w_CompanyText = #{record.wCompanytext,jdbcType=VARCHAR},
+      w_UserComText = #{record.wUsercomtext,jdbcType=INTEGER},
+      w_Banner = #{record.wBanner,jdbcType=VARCHAR},
+      w_counter = #{record.wCounter,jdbcType=BIGINT},
+      w_domain = #{record.wDomain,jdbcType=VARCHAR},
+      w_ICP = #{record.wIcp,jdbcType=VARCHAR},
+      w_ICPHref = #{record.wIcphref,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_website" >
+    update biz_website
+    <set >
+      <if test="wMemberid != null" >
+        w_memberID = #{wMemberid,jdbcType=INTEGER},
+      </if>
+      <if test="wTemplet != null" >
+        w_templet = #{wTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="wBcomtype != null" >
+        w_BComType = #{wBcomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="wScomtype != null" >
+        w_SComType = #{wScomtype,jdbcType=INTEGER},
+      </if>
+      <if test="wComname != null" >
+        w_ComName = #{wComname,jdbcType=VARCHAR},
+      </if>
+      <if test="wTitle != null" >
+        w_Title = #{wTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ecomname != null" >
+        eComName = #{ecomname,jdbcType=VARCHAR},
+      </if>
+      <if test="wCity != null" >
+        w_city = #{wCity,jdbcType=INTEGER},
+      </if>
+      <if test="wProperty != null" >
+        w_Property = #{wProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="wAddress != null" >
+        w_Address = #{wAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wMail != null" >
+        w_Mail = #{wMail,jdbcType=VARCHAR},
+      </if>
+      <if test="wTel != null" >
+        w_tel = #{wTel,jdbcType=VARCHAR},
+      </if>
+      <if test="wFax != null" >
+        w_fax = #{wFax,jdbcType=VARCHAR},
+      </if>
+      <if test="wZip != null" >
+        w_zip = #{wZip,jdbcType=VARCHAR},
+      </if>
+      <if test="wCalling != null" >
+        w_calling = #{wCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="wContacts != null" >
+        w_Contacts = #{wContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="wProvince != null" >
+        w_province = #{wProvince,jdbcType=INTEGER},
+      </if>
+      <if test="wLogo != null" >
+        w_Logo = #{wLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogohref != null" >
+        w_LogoHref = #{wLogohref,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogotitle != null" >
+        w_LogoTitle = #{wLogotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompany != null" >
+        w_Company = #{wCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompanytext != null" >
+        w_CompanyText = #{wCompanytext,jdbcType=VARCHAR},
+      </if>
+      <if test="wUsercomtext != null" >
+        w_UserComText = #{wUsercomtext,jdbcType=INTEGER},
+      </if>
+      <if test="wBanner != null" >
+        w_Banner = #{wBanner,jdbcType=VARCHAR},
+      </if>
+      <if test="wCounter != null" >
+        w_counter = #{wCounter,jdbcType=BIGINT},
+      </if>
+      <if test="wDomain != null" >
+        w_domain = #{wDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcp != null" >
+        w_ICP = #{wIcp,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcphref != null" >
+        w_ICPHref = #{wIcphref,jdbcType=VARCHAR},
+      </if>     
+    </set>
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </update>
+   <update id="updateByPrimaryKeySelectiveWrap" parameterType="com.hedgehog.domain.biz_websiteWithBLOBs" >
+    update biz_website
+    <set >
+      <if test="wMemberid != null" >
+        w_memberID = #{wMemberid,jdbcType=INTEGER},
+      </if>
+      <if test="wTemplet != null" >
+        w_templet = #{wTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="wBcomtype != null" >
+        w_BComType = #{wBcomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="wScomtype != null" >
+        w_SComType = #{wScomtype,jdbcType=INTEGER},
+      </if>
+      <if test="wComname != null" >
+        w_ComName = #{wComname,jdbcType=VARCHAR},
+      </if>
+      <if test="wTitle != null" >
+        w_Title = #{wTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ecomname != null" >
+        eComName = #{ecomname,jdbcType=VARCHAR},
+      </if>
+      <if test="wCity != null" >
+        w_city = #{wCity,jdbcType=INTEGER},
+      </if>
+      <if test="wProperty != null" >
+        w_Property = #{wProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="wAddress != null" >
+        w_Address = #{wAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wMail != null" >
+        w_Mail = #{wMail,jdbcType=VARCHAR},
+      </if>
+      <if test="wTel != null" >
+        w_tel = #{wTel,jdbcType=VARCHAR},
+      </if>
+      <if test="wFax != null" >
+        w_fax = #{wFax,jdbcType=VARCHAR},
+      </if>
+      <if test="wZip != null" >
+        w_zip = #{wZip,jdbcType=VARCHAR},
+      </if>
+      <if test="wCalling != null" >
+        w_calling = #{wCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="wContacts != null" >
+        w_Contacts = #{wContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="wProvince != null" >
+        w_province = #{wProvince,jdbcType=INTEGER},
+      </if>
+      <if test="wLogo != null" >
+        w_Logo = #{wLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogohref != null" >
+        w_LogoHref = #{wLogohref,jdbcType=VARCHAR},
+      </if>
+      <if test="wLogotitle != null" >
+        w_LogoTitle = #{wLogotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompany != null" >
+        w_Company = #{wCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="wCompanytext != null" >
+        w_CompanyText = #{wCompanytext,jdbcType=VARCHAR},
+      </if>
+      <if test="wUsercomtext != null" >
+        w_UserComText = #{wUsercomtext,jdbcType=INTEGER},
+      </if>
+      <if test="wBanner != null" >
+        w_Banner = #{wBanner,jdbcType=VARCHAR},
+      </if>
+      <if test="wCounter != null" >
+        w_counter = #{wCounter,jdbcType=BIGINT},
+      </if>
+      <if test="wDomain != null" >
+        w_domain = #{wDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcp != null" >
+        w_ICP = #{wIcp,jdbcType=VARCHAR},
+      </if>
+      <if test="wIcphref != null" >
+        w_ICPHref = #{wIcphref,jdbcType=VARCHAR},
+      </if>
+      <if test="wFree != null" >
+        w_Free = #{wFree,jdbcType=VARCHAR},
+      </if>
+      <if test="wFootnote != null" >
+        w_FootNote = #{wFootnote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="wFreetext != null" >
+        w_FreeText = #{wFreetext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.biz_website" >
+    update biz_website
+    set w_memberID = #{wMemberid,jdbcType=INTEGER},
+      w_templet = #{wTemplet,jdbcType=VARCHAR},
+      w_BComType = #{wBcomtype,jdbcType=VARCHAR},
+      w_SComType = #{wScomtype,jdbcType=INTEGER},
+      w_ComName = #{wComname,jdbcType=VARCHAR},
+      w_Title = #{wTitle,jdbcType=VARCHAR},
+      eComName = #{ecomname,jdbcType=VARCHAR},
+      w_city = #{wCity,jdbcType=INTEGER},
+      w_Property = #{wProperty,jdbcType=VARCHAR},
+      w_Address = #{wAddress,jdbcType=VARCHAR},
+      w_Mail = #{wMail,jdbcType=VARCHAR},
+      w_tel = #{wTel,jdbcType=VARCHAR},
+      w_fax = #{wFax,jdbcType=VARCHAR},
+      w_zip = #{wZip,jdbcType=VARCHAR},
+      w_calling = #{wCalling,jdbcType=VARCHAR},
+      w_Contacts = #{wContacts,jdbcType=VARCHAR},
+      w_province = #{wProvince,jdbcType=INTEGER},
+      w_Logo = #{wLogo,jdbcType=VARCHAR},
+      w_LogoHref = #{wLogohref,jdbcType=VARCHAR},
+      w_LogoTitle = #{wLogotitle,jdbcType=VARCHAR},
+      w_Company = #{wCompany,jdbcType=VARCHAR},
+      w_CompanyText = #{wCompanytext,jdbcType=VARCHAR},
+      w_UserComText = #{wUsercomtext,jdbcType=INTEGER},
+      w_Banner = #{wBanner,jdbcType=VARCHAR},
+      w_counter = #{wCounter,jdbcType=BIGINT},
+      w_domain = #{wDomain,jdbcType=VARCHAR},
+      w_ICP = #{wIcp,jdbcType=VARCHAR},
+      w_ICPHref = #{wIcphref,jdbcType=VARCHAR}      
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_website" >
+    update biz_website
+    set w_memberID = #{wMemberid,jdbcType=INTEGER},
+      w_templet = #{wTemplet,jdbcType=VARCHAR},
+      w_BComType = #{wBcomtype,jdbcType=VARCHAR},
+      w_SComType = #{wScomtype,jdbcType=INTEGER},
+      w_ComName = #{wComname,jdbcType=VARCHAR},
+      w_Title = #{wTitle,jdbcType=VARCHAR},
+      eComName = #{ecomname,jdbcType=VARCHAR},
+      w_city = #{wCity,jdbcType=INTEGER},
+      w_Property = #{wProperty,jdbcType=VARCHAR},
+      w_Address = #{wAddress,jdbcType=VARCHAR},
+      w_Mail = #{wMail,jdbcType=VARCHAR},
+      w_tel = #{wTel,jdbcType=VARCHAR},
+      w_fax = #{wFax,jdbcType=VARCHAR},
+      w_zip = #{wZip,jdbcType=VARCHAR},
+      w_calling = #{wCalling,jdbcType=VARCHAR},
+      w_Contacts = #{wContacts,jdbcType=VARCHAR},
+      w_province = #{wProvince,jdbcType=INTEGER},
+      w_Logo = #{wLogo,jdbcType=VARCHAR},
+      w_LogoHref = #{wLogohref,jdbcType=VARCHAR},
+      w_LogoTitle = #{wLogotitle,jdbcType=VARCHAR},
+      w_Company = #{wCompany,jdbcType=VARCHAR},
+      w_CompanyText = #{wCompanytext,jdbcType=VARCHAR},
+      w_UserComText = #{wUsercomtext,jdbcType=INTEGER},
+      w_Banner = #{wBanner,jdbcType=VARCHAR},
+      w_counter = #{wCounter,jdbcType=BIGINT},
+      w_domain = #{wDomain,jdbcType=VARCHAR},
+      w_ICP = #{wIcp,jdbcType=VARCHAR},
+      w_ICPHref = #{wIcphref,jdbcType=VARCHAR}
+    where websiteID = #{websiteid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByMember" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">  
+  select * from biz_website where w_memberID=#{value}  
+  </select>
+<select id="selectRecordInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

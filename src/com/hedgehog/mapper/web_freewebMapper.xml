@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_freewebMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_freeweb" >
+    <id column="freewebID" property="freewebid" jdbcType="INTEGER" />
+    <result column="freeweb_menuID" property="freewebMenuid" jdbcType="INTEGER" />
+    <result column="freeweb_summery" property="freewebSummery" jdbcType="VARCHAR" />
+    <result column="freeweb_keywords" property="freewebKeywords" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_freeweb" extends="BaseResultMap" >
+    <result column="freeweb_content" property="freewebContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    freewebID, freeweb_menuID, freeweb_summery, freeweb_keywords
+  </sql>
+  <sql id="Blob_Column_List" >
+    freeweb_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_freewebExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_freeweb
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_freewebExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_freeweb
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_freeweb
+    where freewebID = #{freewebid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMenuid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_freeweb
+    where freeweb_menuID = #{menuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_freeweb
+    where freewebID = #{freewebid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_freewebExample" >
+    delete from web_freeweb
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_freeweb" >
+    insert into web_freeweb (freewebID, freeweb_menuID, freeweb_summery, 
+      freeweb_keywords, freeweb_content)
+    values (#{freewebid,jdbcType=INTEGER}, #{freewebMenuid,jdbcType=INTEGER}, #{freewebSummery,jdbcType=VARCHAR}, 
+      #{freewebKeywords,jdbcType=VARCHAR}, #{freewebContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_freeweb" >
+    insert into web_freeweb
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="freewebid != null" >
+        freewebID,
+      </if>
+      <if test="freewebMenuid != null" >
+        freeweb_menuID,
+      </if>
+      <if test="freewebSummery != null" >
+        freeweb_summery,
+      </if>
+      <if test="freewebKeywords != null" >
+        freeweb_keywords,
+      </if>
+      <if test="freewebContent != null" >
+        freeweb_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="freewebid != null" >
+        #{freewebid,jdbcType=INTEGER},
+      </if>
+      <if test="freewebMenuid != null" >
+        #{freewebMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="freewebSummery != null" >
+        #{freewebSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="freewebKeywords != null" >
+        #{freewebKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="freewebContent != null" >
+        #{freewebContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_freewebExample" resultType="java.lang.Integer" >
+    select count(*) from web_freeweb
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_freeweb
+    <set >
+      <if test="record.freewebid != null" >
+        freewebID = #{record.freewebid,jdbcType=INTEGER},
+      </if>
+      <if test="record.freewebMenuid != null" >
+        freeweb_menuID = #{record.freewebMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.freewebSummery != null" >
+        freeweb_summery = #{record.freewebSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freewebKeywords != null" >
+        freeweb_keywords = #{record.freewebKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freewebContent != null" >
+        freeweb_content = #{record.freewebContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_freeweb
+    set freewebID = #{record.freewebid,jdbcType=INTEGER},
+      freeweb_menuID = #{record.freewebMenuid,jdbcType=INTEGER},
+      freeweb_summery = #{record.freewebSummery,jdbcType=VARCHAR},
+      freeweb_keywords = #{record.freewebKeywords,jdbcType=VARCHAR},
+      freeweb_content = #{record.freewebContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_freeweb
+    set freewebID = #{record.freewebid,jdbcType=INTEGER},
+      freeweb_menuID = #{record.freewebMenuid,jdbcType=INTEGER},
+      freeweb_summery = #{record.freewebSummery,jdbcType=VARCHAR},
+      freeweb_keywords = #{record.freewebKeywords,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_freeweb" >
+    update web_freeweb
+    <set >
+      <if test="freewebMenuid != null" >
+        freeweb_menuID = #{freewebMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="freewebSummery != null" >
+        freeweb_summery = #{freewebSummery,jdbcType=VARCHAR},
+      </if>
+      <if test="freewebKeywords != null" >
+        freeweb_keywords = #{freewebKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="freewebContent != null" >
+        freeweb_content = #{freewebContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where freewebID = #{freewebid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_freeweb" >
+    update web_freeweb
+    set freeweb_menuID = #{freewebMenuid,jdbcType=INTEGER},
+      freeweb_summery = #{freewebSummery,jdbcType=VARCHAR},
+      freeweb_keywords = #{freewebKeywords,jdbcType=VARCHAR},
+      freeweb_content = #{freewebContent,jdbcType=LONGVARCHAR}
+    where freewebID = #{freewebid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_freeweb" >
+    update web_freeweb
+    set freeweb_menuID = #{freewebMenuid,jdbcType=INTEGER},
+      freeweb_summery = #{freewebSummery,jdbcType=VARCHAR},
+      freeweb_keywords = #{freewebKeywords,jdbcType=VARCHAR}
+    where freewebID = #{freewebid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,139 @@
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+
+<definition name="admin_template" template="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_template.jsp">  
+     <put-attribute name="head" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_head.jsp"/>          
+     <put-attribute name="top" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_top.jsp"/>
+     <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_left.jsp"/> 
+     <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/content.jsp"/> 
+   </definition>
+   
+   <!--<start id="spittleListTileDef"/>--> 
+   <definition name="tradeweb/admin_type" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_type.jsp" />
+   </definition>
+   <!--<end id="spittleListTileDef"/>-->   
+   <definition name="tradeweb/admin_typeEdit" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_typeEdit.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_attrib" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_attrib.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_template" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" 
+                   value="/WEB-INF/views/jsp/tradeweb/manage/admin_template.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_templatesel" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" 
+                   value="/WEB-INF/views/jsp/tradeweb/manage/admin_templatesel.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_news" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_news.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_newsEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_newsEdit.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_newstype" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_newstype.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_newstypeEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_newstypeEdit.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_product" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_product.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_productEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_productEdit.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_producttype" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_producttype.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_producttypeEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_producttypeEdit.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_purvey" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_purvey.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_purveyEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_purveyEdit.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_purveytype" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_purveytype.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_purveytypeEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_purveytypeEdit.jsp" />
+   </definition>
+   
+   <definition name="tradeweb/admin_intro" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_intro.jsp" />
+   </definition>   
+   <definition name="tradeweb/admin_introEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_introEdit.jsp" />
+   </definition> 
+   
+   <definition name="tradeweb/admin_guestbook" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_guestbook.jsp" />
+   </definition>  
+   <definition name="tradeweb/admin_guestbookEdit" extends="admin_template">
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_guestbookEdit.jsp" />
+   </definition>  
+   <definition name="tradeweb/admin_freeweb" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_freeweb.jsp" />
+   </definition>  
+   <definition name="tradeweb/admin_freewebshow" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_freewebshow.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_copyright" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_copyright.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_website" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_website.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_website1" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_website1.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_website2" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_website2.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_friendlink" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_friendlink.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_friendlinkEdit" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_friendlinkEdit.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_setpwd" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_setpwd.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_manager" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_manager.jsp" />
+   </definition>
+   <definition name="tradeweb/admin_updown" extends="admin_template">
+   <put-attribute name="left" value="/WEB-INF/views/jsp/tradeweb/manage/tiles/admin_systemleft.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/manage/admin_updown.jsp" />
+   </definition>   
+</tiles-definitions>

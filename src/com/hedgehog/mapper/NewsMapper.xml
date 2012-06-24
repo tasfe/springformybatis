@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!--
+    version: $Id: UserMapper.xml 2444 2010-09-15 07:38:37Z simone.tripodi $
+-->
+<mapper namespace="com.hedgehog.mapper.NewsMapper">
+<!--<resultMap type="com.hoo.entity.Account" id="accountResultMap">-->
+<!--		<id property="accountId" column="account_id" />-->
+<!--		<result property="username" column="username" />-->
+<!--		<result property="password" column="password" />-->
+<!--		<result property="createTime" column="create_time" />-->
+<!--	</resultMap>-->
+<!--<parameterMap type="java.util.HashMap" id="swapParameters">   -->
+<!--    <parameter property="TableName"  javaType="java.lang.String" jdbcType="NVARCHAR" mode="IN"/>   -->
+<!--    <parameter property="ReturnFields"  javaType="java.lang.String" jdbcType="NVARCHAR" mode="IN"/>  -->
+<!--    <parameter property="PageSize"  javaType="java.lang.Integer" jdbcType="INTEGER" mode="IN"/>-->
+<!--    <parameter property="PageIndex"  javaType="java.lang.Integer" jdbcType="INTEGER" mode="IN"/>-->
+<!--    <parameter property="Where"  javaType="java.lang.String" jdbcType="NVARCHAR" mode="IN"/>-->
+<!--    <parameter property="Orderfld"  javaType="java.lang.String" jdbcType="NVARCHAR" mode="IN"/>-->
+<!--    <parameter property="OrderType"  javaType="java.lang.Integer" jdbcType="INTEGER" mode="IN"/>-->
+<!--    <parameter property="RecordCount"  javaType="java.lang.Integer" jdbcType="INTEGER" mode="OUT"/>-->
+<!--</parameterMap> -->
+
+
+<!--<resultMap type="" id="">-->
+<!--<result />-->
+<!--</resultMap>java.util.HashMap-->
+<select id="selectNewsInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultType="com.hedgehog.domain.ProNew" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+    <select id="getNewsList" resultType="com.hedgehog.domain.ProNew">    
+        select top 30 NewsID,News_Title from PRO_NEWS order by NewsID desc
+    </select>
+    <select id="getNews"  resultType="com.hedgehog.domain.ProNew" parameterType="java.lang.String">
+        select * from PRO_NEWS where NewsID=#{value}
+    </select>
+    <insert id="addNews" parameterType="com.hedgehog.domain.ProNew" useGeneratedKeys="true" keyProperty="NewsID">   
+    Insert Into PRO_NEWS (      
+      News_NesortID,
+      News_Title,
+      News_From,
+      News_Summery,
+      News_Content,
+      NEWS_HITS,
+      News_Keywords,
+      News_UpdateTime,
+      News_Tempstr,
+      News_Tempint
+      )Values(     
+      #{News_NesortID},
+      #{News_Title},
+      #{News_From},
+      #{News_Summery},
+      #{News_Content},
+      #{News_Hits},
+      #{News_Keywords},
+      #{News_UpdateTime},
+      #{News_Tempstr},
+      #{News_Tempint}
+      )
+    </insert>
+    <update id="updateNews" parameterType="com.hedgehog.domain.ProNew">
+    update PRO_NEWS set
+    News_NesortID=#{News_NesortID},
+      News_Title=#{News_Title},
+      News_From=#{News_From},
+      News_Summery=#{News_Summery},
+      News_Content=#{News_Content},
+      News_Hits=#{News_Hits},
+      News_Keywords=#{News_Keywords},
+      News_UpdateTime=#{News_UpdateTime},
+      News_Tempstr=#{News_Tempstr},
+      News_Tempint=#{News_Tempint}    
+    where NewsID=#{NewsID}
+    </update>
+    <delete id="deleteNews" parameterType="java.lang.String">
+    delete PRO_NEWS where  NewsID=#{value}
+    </delete>
+
+</mapper>

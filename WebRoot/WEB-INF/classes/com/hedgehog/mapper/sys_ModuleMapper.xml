@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_ModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_Module" >
+    <id column="M_PageCode" property="mPagecode" jdbcType="VARCHAR" />
+    <id column="M_ApplicationID" property="mApplicationid" jdbcType="INTEGER" />
+    <result column="ModuleID" property="moduleid" jdbcType="INTEGER" />
+    <result column="M_ParentID" property="mParentid" jdbcType="INTEGER" />
+    <result column="M_CName" property="mCname" jdbcType="VARCHAR" />
+    <result column="M_Directory" property="mDirectory" jdbcType="VARCHAR" />
+    <result column="M_OrderLevel" property="mOrderlevel" jdbcType="VARCHAR" />
+    <result column="M_IsSystem" property="mIssystem" jdbcType="TINYINT" />
+    <result column="M_Close" property="mClose" jdbcType="TINYINT" />
+    <result column="M_Icon" property="mIcon" jdbcType="VARCHAR" />
+    <collection  property="list_submodule" javaType="ArrayList" column="ModuleID"
+    ofType="com.hedgehog.domain.sys_Module" select="selectModuleForsubmodule" />
+  </resultMap>  
+  <select id="selectModuleForsubmodule" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select * from sys_Module where M_Close=0 and M_ParentID =#{value} order by M_OrderLevel 
+  </select>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    M_PageCode, M_ApplicationID, ModuleID, M_ParentID, M_CName, M_Directory, M_OrderLevel, 
+    M_IsSystem, M_Close, M_Icon
+  </sql>
+<!--  注意检查1-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_ModuleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_Module
+    where M_PageCode = #{mPagecode,jdbcType=VARCHAR}
+      and M_ApplicationID = #{mApplicationid,jdbcType=INTEGER}
+  </select>
+  <!--  注意检查2-->
+  <delete id="deleteByPrimaryKey" parameterType="com.hedgehog.domain.sys_ModuleKey" >
+    delete from sys_Module
+    where M_PageCode = #{mPagecode,jdbcType=VARCHAR}
+      and M_ApplicationID = #{mApplicationid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_Module" >
+    insert into sys_Module (M_PageCode, M_ApplicationID, ModuleID, 
+      M_ParentID, M_CName, M_Directory, 
+      M_OrderLevel, M_IsSystem, M_Close, 
+      M_Icon)
+    values (#{mPagecode,jdbcType=VARCHAR}, #{mApplicationid,jdbcType=INTEGER}, #{moduleid,jdbcType=INTEGER}, 
+      #{mParentid,jdbcType=INTEGER}, #{mCname,jdbcType=VARCHAR}, #{mDirectory,jdbcType=VARCHAR}, 
+      #{mOrderlevel,jdbcType=VARCHAR}, #{mIssystem,jdbcType=TINYINT}, #{mClose,jdbcType=TINYINT}, 
+      #{mIcon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_Module" >
+    insert into sys_Module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mPagecode != null" >
+        M_PageCode,
+      </if>
+      <if test="mApplicationid != null" >
+        M_ApplicationID,
+      </if>
+      <if test="moduleid != null" >
+        ModuleID,
+      </if>
+      <if test="mParentid != null" >
+        M_ParentID,
+      </if>
+      <if test="mCname != null" >
+        M_CName,
+      </if>
+      <if test="mDirectory != null" >
+        M_Directory,
+      </if>
+      <if test="mOrderlevel != null" >
+        M_OrderLevel,
+      </if>
+      <if test="mIssystem != null" >
+        M_IsSystem,
+      </if>
+      <if test="mClose != null" >
+        M_Close,
+      </if>
+      <if test="mIcon != null" >
+        M_Icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mPagecode != null" >
+        #{mPagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="mApplicationid != null" >
+        #{mApplicationid,jdbcType=INTEGER},
+      </if>
+      <if test="moduleid != null" >
+        #{moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="mParentid != null" >
+        #{mParentid,jdbcType=INTEGER},
+      </if>
+      <if test="mCname != null" >
+        #{mCname,jdbcType=VARCHAR},
+      </if>
+      <if test="mDirectory != null" >
+        #{mDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="mOrderlevel != null" >
+        #{mOrderlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mIssystem != null" >
+        #{mIssystem,jdbcType=TINYINT},
+      </if>
+      <if test="mClose != null" >
+        #{mClose,jdbcType=TINYINT},
+      </if>
+      <if test="mIcon != null" >
+        #{mIcon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_Module
+    <set >
+      <if test="record.mPagecode != null" >
+        M_PageCode = #{record.mPagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mApplicationid != null" >
+        M_ApplicationID = #{record.mApplicationid,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleid != null" >
+        ModuleID = #{record.moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mParentid != null" >
+        M_ParentID = #{record.mParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mCname != null" >
+        M_CName = #{record.mCname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mDirectory != null" >
+        M_Directory = #{record.mDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mOrderlevel != null" >
+        M_OrderLevel = #{record.mOrderlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mIssystem != null" >
+        M_IsSystem = #{record.mIssystem,jdbcType=TINYINT},
+      </if>
+      <if test="record.mClose != null" >
+        M_Close = #{record.mClose,jdbcType=TINYINT},
+      </if>
+      <if test="record.mIcon != null" >
+        M_Icon = #{record.mIcon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_Module
+    set M_PageCode = #{record.mPagecode,jdbcType=VARCHAR},
+      M_ApplicationID = #{record.mApplicationid,jdbcType=INTEGER},
+      ModuleID = #{record.moduleid,jdbcType=INTEGER},
+      M_ParentID = #{record.mParentid,jdbcType=INTEGER},
+      M_CName = #{record.mCname,jdbcType=VARCHAR},
+      M_Directory = #{record.mDirectory,jdbcType=VARCHAR},
+      M_OrderLevel = #{record.mOrderlevel,jdbcType=VARCHAR},
+      M_IsSystem = #{record.mIssystem,jdbcType=TINYINT},
+      M_Close = #{record.mClose,jdbcType=TINYINT},
+      M_Icon = #{record.mIcon,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_Module" >
+    update sys_Module
+    <set >
+      <if test="moduleid != null" >
+        ModuleID = #{moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="mParentid != null" >
+        M_ParentID = #{mParentid,jdbcType=INTEGER},
+      </if>
+      <if test="mCname != null" >
+        M_CName = #{mCname,jdbcType=VARCHAR},
+      </if>
+      <if test="mDirectory != null" >
+        M_Directory = #{mDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="mOrderlevel != null" >
+        M_OrderLevel = #{mOrderlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mIssystem != null" >
+        M_IsSystem = #{mIssystem,jdbcType=TINYINT},
+      </if>
+      <if test="mClose != null" >
+        M_Close = #{mClose,jdbcType=TINYINT},
+      </if>
+      <if test="mIcon != null" >
+        M_Icon = #{mIcon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where M_PageCode = #{mPagecode,jdbcType=VARCHAR}
+      and M_ApplicationID = #{mApplicationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_Module" >
+    update sys_Module
+    set ModuleID = #{moduleid,jdbcType=INTEGER},
+      M_ParentID = #{mParentid,jdbcType=INTEGER},
+      M_CName = #{mCname,jdbcType=VARCHAR},
+      M_Directory = #{mDirectory,jdbcType=VARCHAR},
+      M_OrderLevel = #{mOrderlevel,jdbcType=VARCHAR},
+      M_IsSystem = #{mIssystem,jdbcType=TINYINT},
+      M_Close = #{mClose,jdbcType=TINYINT},
+      M_Icon = #{mIcon,jdbcType=VARCHAR}
+    where M_PageCode = #{mPagecode,jdbcType=VARCHAR}
+      and M_ApplicationID = #{mApplicationid,jdbcType=INTEGER}
+  </update>
+  <select id="selectRecordInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_ModuleExtPermissionsMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_ModuleExtPermissions" >
+    <id column="ModuleID" property="moduleid" jdbcType="INTEGER" />
+    <id column="PermissionValue" property="permissionvalue" jdbcType="INTEGER" />
+    <result column="ExtPermissionID" property="extpermissionid" jdbcType="INTEGER" />
+    <result column="PermissionName" property="permissionname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ModuleID, PermissionValue, ExtPermissionID, PermissionName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_ModuleExtPermissionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_ModuleExtPermission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_ModuleExtPermissionsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_ModuleExtPermission
+    where ModuleID = #{moduleid,jdbcType=INTEGER}
+      and PermissionValue = #{permissionvalue,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hedgehog.domain.sys_ModuleExtPermissionsKey" >
+    delete from sys_ModuleExtPermission
+    where ModuleID = #{moduleid,jdbcType=INTEGER}
+      and PermissionValue = #{permissionvalue,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_ModuleExtPermissionsExample" >
+    delete from sys_ModuleExtPermission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_ModuleExtPermissions" >
+    insert into sys_ModuleExtPermission (ModuleID, PermissionValue, ExtPermissionID, 
+      PermissionName)
+    values (#{moduleid,jdbcType=INTEGER}, #{permissionvalue,jdbcType=INTEGER}, #{extpermissionid,jdbcType=INTEGER}, 
+      #{permissionname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_ModuleExtPermissions" >
+    insert into sys_ModuleExtPermission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moduleid != null" >
+        ModuleID,
+      </if>
+      <if test="permissionvalue != null" >
+        PermissionValue,
+      </if>
+      <if test="extpermissionid != null" >
+        ExtPermissionID,
+      </if>
+      <if test="permissionname != null" >
+        PermissionName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moduleid != null" >
+        #{moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="permissionvalue != null" >
+        #{permissionvalue,jdbcType=INTEGER},
+      </if>
+      <if test="extpermissionid != null" >
+        #{extpermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="permissionname != null" >
+        #{permissionname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_ModuleExtPermissionsExample" resultType="java.lang.Integer" >
+    select count(*) from sys_ModuleExtPermission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_ModuleExtPermission
+    <set >
+      <if test="record.moduleid != null" >
+        ModuleID = #{record.moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.permissionvalue != null" >
+        PermissionValue = #{record.permissionvalue,jdbcType=INTEGER},
+      </if>
+      <if test="record.extpermissionid != null" >
+        ExtPermissionID = #{record.extpermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.permissionname != null" >
+        PermissionName = #{record.permissionname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_ModuleExtPermission
+    set ModuleID = #{record.moduleid,jdbcType=INTEGER},
+      PermissionValue = #{record.permissionvalue,jdbcType=INTEGER},
+      ExtPermissionID = #{record.extpermissionid,jdbcType=INTEGER},
+      PermissionName = #{record.permissionname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_ModuleExtPermissions" >
+    update sys_ModuleExtPermission
+    <set >
+      <if test="extpermissionid != null" >
+        ExtPermissionID = #{extpermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="permissionname != null" >
+        PermissionName = #{permissionname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ModuleID = #{moduleid,jdbcType=INTEGER}
+      and PermissionValue = #{permissionvalue,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_ModuleExtPermissions" >
+    update sys_ModuleExtPermission
+    set ExtPermissionID = #{extpermissionid,jdbcType=INTEGER},
+      PermissionName = #{permissionname,jdbcType=VARCHAR}
+    where ModuleID = #{moduleid,jdbcType=INTEGER}
+      and PermissionValue = #{permissionvalue,jdbcType=INTEGER}
+  </update>
+</mapper>

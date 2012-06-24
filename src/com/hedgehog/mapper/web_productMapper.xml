@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_productMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_product" >
+    <id column="ProductID" property="productid" jdbcType="INTEGER" />
+    <result column="Product_menuID" property="productMenuid" jdbcType="INTEGER" />
+    <result column="Product_Class" property="productClass" jdbcType="INTEGER" />
+    <result column="Product_Name" property="productName" jdbcType="VARCHAR" />
+    <result column="Product_Type" property="productType" jdbcType="VARCHAR" />
+    <result column="Product_Market" property="productMarket" jdbcType="VARCHAR" />
+    <result column="Product_Promote" property="productPromote" jdbcType="VARCHAR" />
+    <result column="Product_Thumbs" property="productThumbs" jdbcType="VARCHAR" />    
+     <result column="Product_Property" property="productProperty" jdbcType="VARCHAR" />
+    <result column="Product_updatetime" property="productUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="Product_hits" property="productHits" jdbcType="INTEGER" />
+    <association property="productclass" column="Product_Class" javaType="com.hedgehog.domain.web_productclass" select="com.hedgehog.mapper.web_productclassMapper.selectByPrimaryKey" />
+    <association property="menu" column="Product_menuID" javaType="com.hedgehog.domain.biz_menu" select="com.hedgehog.mapper.biz_menuMapper.selectByPrimaryKey"/>  
+  </resultMap>
+ <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_product" extends="BaseResultMap" >
+    <result column="Product_Des" property="productDes" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ProductID, Product_menuID, Product_Class, Product_Name, Product_Type, Product_Market, 
+    Product_Promote, Product_Thumbs, Product_Property, Product_updatetime, Product_hits
+  </sql>
+  <sql id="Blob_Column_List" >
+    Product_Des
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_productExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_productExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_product
+    where ProductID = #{productid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_product
+    where ProductID = #{productid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_productExample" >
+    delete from web_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_product" >
+    insert into web_product (ProductID, Product_menuID, Product_Class, 
+      Product_Name, Product_Type, Product_Market, 
+      Product_Promote, Product_Thumbs, Product_Property, 
+      Product_updatetime, Product_hits, Product_Des
+      )
+    values (#{productid,jdbcType=INTEGER}, #{productMenuid,jdbcType=INTEGER}, #{productClass,jdbcType=INTEGER}, 
+      #{productName,jdbcType=VARCHAR}, #{productType,jdbcType=VARCHAR}, #{productMarket,jdbcType=VARCHAR}, 
+      #{productPromote,jdbcType=VARCHAR}, #{productThumbs,jdbcType=VARCHAR}, #{productProperty,jdbcType=VARCHAR}, 
+      #{productUpdatetime,jdbcType=TIMESTAMP}, #{productHits,jdbcType=INTEGER}, #{productDes,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_product" >
+    insert into web_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        ProductID,
+      </if>
+      <if test="productMenuid != null" >
+        Product_menuID,
+      </if>
+      <if test="productClass != null" >
+        Product_Class,
+      </if>
+      <if test="productName != null" >
+        Product_Name,
+      </if>
+      <if test="productType != null" >
+        Product_Type,
+      </if>
+      <if test="productMarket != null" >
+        Product_Market,
+      </if>
+      <if test="productPromote != null" >
+        Product_Promote,
+      </if>
+      <if test="productThumbs != null" >
+        Product_Thumbs,
+      </if>
+      <if test="productProperty != null" >
+        Product_Property,
+      </if>
+      <if test="productUpdatetime != null" >
+        Product_updatetime,
+      </if>
+      <if test="productHits != null" >
+        Product_hits,
+      </if>
+      <if test="productDes != null" >
+        Product_Des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="productMenuid != null" >
+        #{productMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="productClass != null" >
+        #{productClass,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productMarket != null" >
+        #{productMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="productPromote != null" >
+        #{productPromote,jdbcType=VARCHAR},
+      </if>
+      <if test="productThumbs != null" >
+        #{productThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="productProperty != null" >
+        #{productProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="productUpdatetime != null" >
+        #{productUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productHits != null" >
+        #{productHits,jdbcType=INTEGER},
+      </if>
+      <if test="productDes != null" >
+        #{productDes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_productExample" resultType="java.lang.Integer" >
+    select count(*) from web_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_product
+    <set >
+      <if test="record.productid != null" >
+        ProductID = #{record.productid,jdbcType=INTEGER},
+      </if>
+      <if test="record.productMenuid != null" >
+        Product_menuID = #{record.productMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.productClass != null" >
+        Product_Class = #{record.productClass,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        Product_Name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productType != null" >
+        Product_Type = #{record.productType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productMarket != null" >
+        Product_Market = #{record.productMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPromote != null" >
+        Product_Promote = #{record.productPromote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productThumbs != null" >
+        Product_Thumbs = #{record.productThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productProperty != null" >
+        Product_Property = #{record.productProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productUpdatetime != null" >
+        Product_updatetime = #{record.productUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productHits != null" >
+        Product_hits = #{record.productHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.productDes != null" >
+        Product_Des = #{record.productDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_product
+    set ProductID = #{record.productid,jdbcType=INTEGER},
+      Product_menuID = #{record.productMenuid,jdbcType=INTEGER},
+      Product_Class = #{record.productClass,jdbcType=INTEGER},
+      Product_Name = #{record.productName,jdbcType=VARCHAR},
+      Product_Type = #{record.productType,jdbcType=VARCHAR},
+      Product_Market = #{record.productMarket,jdbcType=VARCHAR},
+      Product_Promote = #{record.productPromote,jdbcType=VARCHAR},
+      Product_Thumbs = #{record.productThumbs,jdbcType=VARCHAR},
+      Product_Property = #{record.productProperty,jdbcType=VARCHAR},
+      Product_updatetime = #{record.productUpdatetime,jdbcType=TIMESTAMP},
+      Product_hits = #{record.productHits,jdbcType=INTEGER},
+      Product_Des = #{record.productDes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_product
+    set ProductID = #{record.productid,jdbcType=INTEGER},
+      Product_menuID = #{record.productMenuid,jdbcType=INTEGER},
+      Product_Class = #{record.productClass,jdbcType=INTEGER},
+      Product_Name = #{record.productName,jdbcType=VARCHAR},
+      Product_Type = #{record.productType,jdbcType=VARCHAR},
+      Product_Market = #{record.productMarket,jdbcType=VARCHAR},
+      Product_Promote = #{record.productPromote,jdbcType=VARCHAR},
+      Product_Thumbs = #{record.productThumbs,jdbcType=VARCHAR},
+      Product_Property = #{record.productProperty,jdbcType=VARCHAR},
+      Product_updatetime = #{record.productUpdatetime,jdbcType=TIMESTAMP},
+      Product_hits = #{record.productHits,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_product" >
+    update web_product
+    <set >
+      <if test="productMenuid != null" >
+        Product_menuID = #{productMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="productClass != null" >
+        Product_Class = #{productClass,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        Product_Name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        Product_Type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productMarket != null" >
+        Product_Market = #{productMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="productPromote != null" >
+        Product_Promote = #{productPromote,jdbcType=VARCHAR},
+      </if>
+      <if test="productThumbs != null" >
+        Product_Thumbs = #{productThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="productProperty != null" >
+        Product_Property = #{productProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="productUpdatetime != null" >
+        Product_updatetime = #{productUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productHits != null" >
+        Product_hits = #{productHits,jdbcType=INTEGER},
+      </if>
+      <if test="productDes != null" >
+        Product_Des = #{productDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ProductID = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_product" >
+    update web_product
+    set Product_menuID = #{productMenuid,jdbcType=INTEGER},
+      Product_Class = #{productClass,jdbcType=INTEGER},
+      Product_Name = #{productName,jdbcType=VARCHAR},
+      Product_Type = #{productType,jdbcType=VARCHAR},
+      Product_Market = #{productMarket,jdbcType=VARCHAR},
+      Product_Promote = #{productPromote,jdbcType=VARCHAR},
+      Product_Thumbs = #{productThumbs,jdbcType=VARCHAR},
+      Product_Property = #{productProperty,jdbcType=VARCHAR},
+      Product_updatetime = #{productUpdatetime,jdbcType=TIMESTAMP},
+      Product_hits = #{productHits,jdbcType=INTEGER},
+      Product_Des = #{productDes,jdbcType=LONGVARCHAR}
+    where ProductID = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_product" >
+    update web_product
+    set Product_menuID = #{productMenuid,jdbcType=INTEGER},
+      Product_Class = #{productClass,jdbcType=INTEGER},
+      Product_Name = #{productName,jdbcType=VARCHAR},
+      Product_Type = #{productType,jdbcType=VARCHAR},
+      Product_Market = #{productMarket,jdbcType=VARCHAR},
+      Product_Promote = #{productPromote,jdbcType=VARCHAR},
+      Product_Thumbs = #{productThumbs,jdbcType=VARCHAR},
+      Product_Property = #{productProperty,jdbcType=VARCHAR},
+      Product_updatetime = #{productUpdatetime,jdbcType=TIMESTAMP},
+      Product_hits = #{productHits,jdbcType=INTEGER}
+    where ProductID = #{productid,jdbcType=INTEGER}
+  </update>
+  
+<select id="selectWebProductInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap">
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+<select id="selectCountByClass" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select count(*) from web_product where Product_Class=#{value}
+</select>
+
+</mapper>

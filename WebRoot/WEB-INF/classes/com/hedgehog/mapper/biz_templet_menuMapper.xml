@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_templet_menuMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_templet_menu" >
+    <id column="tmID" property="tmid" jdbcType="INTEGER" />
+    <result column="tm_t_code" property="tmTCode" jdbcType="VARCHAR" />
+    <result column="tm_ch_code" property="tmChCode" jdbcType="VARCHAR" />
+    <result column="tm_index" property="tmIndex" jdbcType="INTEGER" />
+    <result column="tm_name" property="tmName" jdbcType="VARCHAR" />
+    <result column="tm_view" property="tmView" jdbcType="VARCHAR" />
+    <result column="tm_target" property="tmTarget" jdbcType="CHAR" />
+    <result column="tm_class" property="tmClass" jdbcType="VARCHAR" />
+    <result column="tm_enable" property="tmEnable" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.biz_templet_menu" extends="BaseResultMap" >
+    <result column="tm_content" property="tmContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tmID, tm_t_code, tm_ch_code, tm_index, tm_name, tm_view, tm_target, tm_class, tm_enable
+  </sql>
+  <sql id="Blob_Column_List" >
+    tm_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.biz_templet_menuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_templet_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_templet_menuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_templet_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_templet_menu
+    where tmID = #{tmid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_templet_menu
+    where tmID = #{tmid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_templet_menuExample" >
+    delete from biz_templet_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_templet_menu" >
+    insert into biz_templet_menu (tmID, tm_t_code, tm_ch_code, 
+      tm_index, tm_name, tm_view, 
+      tm_target, tm_class, tm_enable, 
+      tm_content)
+    values (#{tmid,jdbcType=INTEGER}, #{tmTCode,jdbcType=VARCHAR}, #{tmChCode,jdbcType=VARCHAR}, 
+      #{tmIndex,jdbcType=INTEGER}, #{tmName,jdbcType=VARCHAR}, #{tmView,jdbcType=VARCHAR}, 
+      #{tmTarget,jdbcType=CHAR}, #{tmClass,jdbcType=VARCHAR}, #{tmEnable,jdbcType=INTEGER}, 
+      #{tmContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_templet_menu" >
+    insert into biz_templet_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tmid != null" >
+        tmID,
+      </if>
+      <if test="tmTCode != null" >
+        tm_t_code,
+      </if>
+      <if test="tmChCode != null" >
+        tm_ch_code,
+      </if>
+      <if test="tmIndex != null" >
+        tm_index,
+      </if>
+      <if test="tmName != null" >
+        tm_name,
+      </if>
+      <if test="tmView != null" >
+        tm_view,
+      </if>
+      <if test="tmTarget != null" >
+        tm_target,
+      </if>
+      <if test="tmClass != null" >
+        tm_class,
+      </if>
+      <if test="tmEnable != null" >
+        tm_enable,
+      </if>
+      <if test="tmContent != null" >
+        tm_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tmid != null" >
+        #{tmid,jdbcType=INTEGER},
+      </if>
+      <if test="tmTCode != null" >
+        #{tmTCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmChCode != null" >
+        #{tmChCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmIndex != null" >
+        #{tmIndex,jdbcType=INTEGER},
+      </if>
+      <if test="tmName != null" >
+        #{tmName,jdbcType=VARCHAR},
+      </if>
+      <if test="tmView != null" >
+        #{tmView,jdbcType=VARCHAR},
+      </if>
+      <if test="tmTarget != null" >
+        #{tmTarget,jdbcType=CHAR},
+      </if>
+      <if test="tmClass != null" >
+        #{tmClass,jdbcType=VARCHAR},
+      </if>
+      <if test="tmEnable != null" >
+        #{tmEnable,jdbcType=INTEGER},
+      </if>
+      <if test="tmContent != null" >
+        #{tmContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_templet_menuExample" resultType="java.lang.Integer" >
+    select count(*) from biz_templet_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_templet_menu
+    <set >
+      <if test="record.tmid != null" >
+        tmID = #{record.tmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tmTCode != null" >
+        tm_t_code = #{record.tmTCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmChCode != null" >
+        tm_ch_code = #{record.tmChCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmIndex != null" >
+        tm_index = #{record.tmIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.tmName != null" >
+        tm_name = #{record.tmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmView != null" >
+        tm_view = #{record.tmView,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmTarget != null" >
+        tm_target = #{record.tmTarget,jdbcType=CHAR},
+      </if>
+      <if test="record.tmClass != null" >
+        tm_class = #{record.tmClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmEnable != null" >
+        tm_enable = #{record.tmEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.tmContent != null" >
+        tm_content = #{record.tmContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update biz_templet_menu
+    set tmID = #{record.tmid,jdbcType=INTEGER},
+      tm_t_code = #{record.tmTCode,jdbcType=VARCHAR},
+      tm_ch_code = #{record.tmChCode,jdbcType=VARCHAR},
+      tm_index = #{record.tmIndex,jdbcType=INTEGER},
+      tm_name = #{record.tmName,jdbcType=VARCHAR},
+      tm_view = #{record.tmView,jdbcType=VARCHAR},
+      tm_target = #{record.tmTarget,jdbcType=CHAR},
+      tm_class = #{record.tmClass,jdbcType=VARCHAR},
+      tm_enable = #{record.tmEnable,jdbcType=INTEGER},
+      tm_content = #{record.tmContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_templet_menu
+    set tmID = #{record.tmid,jdbcType=INTEGER},
+      tm_t_code = #{record.tmTCode,jdbcType=VARCHAR},
+      tm_ch_code = #{record.tmChCode,jdbcType=VARCHAR},
+      tm_index = #{record.tmIndex,jdbcType=INTEGER},
+      tm_name = #{record.tmName,jdbcType=VARCHAR},
+      tm_view = #{record.tmView,jdbcType=VARCHAR},
+      tm_target = #{record.tmTarget,jdbcType=CHAR},
+      tm_class = #{record.tmClass,jdbcType=VARCHAR},
+      tm_enable = #{record.tmEnable,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_templet_menu" >
+    update biz_templet_menu
+    <set >
+      <if test="tmTCode != null" >
+        tm_t_code = #{tmTCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmChCode != null" >
+        tm_ch_code = #{tmChCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmIndex != null" >
+        tm_index = #{tmIndex,jdbcType=INTEGER},
+      </if>
+      <if test="tmName != null" >
+        tm_name = #{tmName,jdbcType=VARCHAR},
+      </if>
+      <if test="tmView != null" >
+        tm_view = #{tmView,jdbcType=VARCHAR},
+      </if>
+      <if test="tmTarget != null" >
+        tm_target = #{tmTarget,jdbcType=CHAR},
+      </if>
+      <if test="tmClass != null" >
+        tm_class = #{tmClass,jdbcType=VARCHAR},
+      </if>
+      <if test="tmEnable != null" >
+        tm_enable = #{tmEnable,jdbcType=INTEGER},
+      </if>
+      <if test="tmContent != null" >
+        tm_content = #{tmContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tmID = #{tmid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.biz_templet_menu" >
+    update biz_templet_menu
+    set tm_t_code = #{tmTCode,jdbcType=VARCHAR},
+      tm_ch_code = #{tmChCode,jdbcType=VARCHAR},
+      tm_index = #{tmIndex,jdbcType=INTEGER},
+      tm_name = #{tmName,jdbcType=VARCHAR},
+      tm_view = #{tmView,jdbcType=VARCHAR},
+      tm_target = #{tmTarget,jdbcType=CHAR},
+      tm_class = #{tmClass,jdbcType=VARCHAR},
+      tm_enable = #{tmEnable,jdbcType=INTEGER},
+      tm_content = #{tmContent,jdbcType=LONGVARCHAR}
+    where tmID = #{tmid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_templet_menu" >
+    update biz_templet_menu
+    set tm_t_code = #{tmTCode,jdbcType=VARCHAR},
+      tm_ch_code = #{tmChCode,jdbcType=VARCHAR},
+      tm_index = #{tmIndex,jdbcType=INTEGER},
+      tm_name = #{tmName,jdbcType=VARCHAR},
+      tm_view = #{tmView,jdbcType=VARCHAR},
+      tm_target = #{tmTarget,jdbcType=CHAR},
+      tm_class = #{tmClass,jdbcType=VARCHAR},
+      tm_enable = #{tmEnable,jdbcType=INTEGER}
+    where tmID = #{tmid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,37 @@
+
+@charset "utf-8";
+/* CSS Document */
+
+body{font-family:"宋体"; font-size:12px; margin:0 auto; padding:0; background:url(/resources/images/top_bg.gif) top repeat-x;}
+
+.wall{ width:970px; height:auto; margin:0 auto; margin-top:20px;}
+
+
+.logo{width:960px; height:105px; margin:0px; padding:0px;}
+.logo_zggsdh{float:left; margin-top:20px; margin-left:5px;}
+.logo-right{ float:left; width:480px; margin-top:20px; margin-left:10px;}
+.logo-right ul{ margin:0; padding:0;width:360px; list-style:none}
+.logo-right ul li{ float:left; font-size:14px; width:60px; margin:0px 10px; line-height:30px;}
+.logo-right ul li a{ color:#00F;}
+
+.chaxun{ width:400px!important; width:320px; height:25px; padding-top:5px;}
+.bt1{  width:60px; height:30px; vertical-align:bottom; margin-left:5px;}
+.logo-right-right{ float:right; width:200px; color:#ff7300;font-size:14px; margin:0; padding:0; }
+
+.zhongjian{ width:960px; height:auto;}
+
+
+
+
+
+.link{width:960px; float:left; margin-top:10px;}
+.link  a{ color:#555; text-decoration:underline; line-height:15px;}
+
+.copyright {width:960px; margin:0 auto; }
+.copyright_sm {border-bottom:3px solid #ff7300; color:#cccccc; text-align:center; padding-bottom:3px;}
+.copyright_lj { text-align:center; margin-top:5px;}
+.copyright_lj a{color:#565455;}
+.copyright_body {color:000; text-align:center; margin-top:10px;}
+.copyright_body  a{ color:#565455}
+
+
