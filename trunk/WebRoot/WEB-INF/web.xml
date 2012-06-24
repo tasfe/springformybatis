@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!-- ckfinder -->
+	<servlet>
+		<servlet-name>ConnectorServlet</servlet-name>
+		<servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+		<init-param>
+			<param-name>XMLConfig</param-name>
+			<param-value>/WEB-INF/config.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConnectorServlet</servlet-name>
+		<url-pattern>
+			/ckfinder/core/connector/java/connector.java
+		</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>FileUploadFilter</filter-name>
+		<filter-class>com.ckfinder.connector.FileUploadFilter</filter-class>
+                <init-param>
+                    <param-name>sessionCookieName</param-name>
+                    <param-value>JSESSIONID</param-value>
+                </init-param>
+                <init-param>
+                    <param-name>sessionParameterName</param-name>
+                    <param-value>jsessionid</param-value>
+                </init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>FileUploadFilter</filter-name>
+		<url-pattern>
+			/ckfinder/core/connector/java/connector.java
+     	 </url-pattern>
+	</filter-mapping>
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+<servlet>
+<servlet-name>UploadServlet</servlet-name>
+<servlet-class>com.hedgehog.action.UploadServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>UploadServlet</servlet-name>
+<url-pattern>/UploadServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>FileDownloadServlet</servlet-name>
+<servlet-class>com.hedgehog.action.FileDownloadServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>FileDownloadServlet</servlet-name>
+<url-pattern>/FileDownloadServlet</url-pattern>
+</servlet-mapping>
+<!-- fckeditor -->
+<!--<servlet>
+		<servlet-name>Connector</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.connector.ConnectorServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SimpleUploader</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.uploader.SimpleUploaderServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFile</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFile</param-name>
+			<param-value>php|php3|php5|phtml|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|dll|reg|cgi</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsImage</param-name>
+			<param-value>jpg|gif|jpeg|png|bmp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsImage</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFlash</param-name>
+			<param-value>swf|fla</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFlash</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+  <servlet-mapping>
+    <servlet-name>Connector</servlet-name>
+    <url-pattern>/FCKeditor/editor/filemanager/browser/default/connectors/jsp/connector</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SimpleUploader</servlet-name>
+    <url-pattern>/FCKeditor/editor/filemanager/upload/simpleuploader</url-pattern>
+  </servlet-mapping>  -->
+<!-- hibernate session filter --> 
+
+
+<!--<servlet>
+    <servlet-name>searchresult</servlet-name>
+    <jsp-file>//WEB-INF/views/jsp/searchresult.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>searchresult</servlet-name>
+    <url-pattern>/searchresult</url-pattern>
+</servlet-mapping>-->
+
+<filter>
+<filter-name>encodingFilter</filter-name>
+<filter-class>
+org.springframework.web.filter.CharacterEncodingFilter
+</filter-class>
+<init-param>
+<param-name>encoding</param-name>
+<param-value>utf-8</param-value>
+</init-param>
+<init-param>
+<param-name>forceEncoding</param-name>
+<param-value>true</param-value>
+</init-param>
+</filter>
+<filter-mapping>
+<filter-name>encodingFilter</filter-name>
+<url-pattern>*.jsp</url-pattern>
+</filter-mapping>
+<filter-mapping>
+<filter-name>encodingFilter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+
+<!--  
+<filter>   
+        <filter-name>Acegi</filter-name>   
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>   
+        <init-param>   
+            <param-name>targetClass</param-name>   
+            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>   
+        </init-param>   
+    </filter>   
+    <filter-mapping>   
+        <filter-name>Acegi</filter-name>   
+        <url-pattern>*.html</url-pattern>   
+    </filter-mapping>
+    -->
+
+    
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<init-param> <param-name>contextConfigLocation</param-name>            
+		<param-value>/WEB-INF/dispatcherServlet-servlet.xml</param-value>            
+		</init-param> 
+		<load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+         <servlet-name>dispatcherServlet</servlet-name>
+         <url-pattern>/</url-pattern>
+	</servlet-mapping>
+<listener><listener-class>org.springframework.web.util.Log4jConfigListener</listener-class></listener>
+<listener><listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></listener>    
+<!-- spring config -->
+<context-param>
+<param-name>contextConfigLocation</param-name>
+<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+</context-param>
+<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+	<welcome-file-list>
+		<welcome-file>news/list</welcome-file>
+	</welcome-file-list>
+<jsp-config>
+<!--<taglib>-->
+<!--<taglib-uri>/spring</taglib-uri>-->
+<!--<taglib-location>/WEB-INF/spring.tld</taglib-location>-->
+<!--</taglib>-->
+</jsp-config>
+</web-app>

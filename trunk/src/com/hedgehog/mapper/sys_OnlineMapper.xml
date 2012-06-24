@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_OnlineMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_Online" >
+    <id column="O_SessionID" property="oSessionid" jdbcType="VARCHAR" />
+    <result column="OnlineID" property="onlineid" jdbcType="INTEGER" />
+    <result column="O_UserName" property="oUsername" jdbcType="VARCHAR" />
+    <result column="O_Ip" property="oIp" jdbcType="VARCHAR" />
+    <result column="O_LoginTime" property="oLogintime" jdbcType="TIMESTAMP" />
+    <result column="O_LastTime" property="oLasttime" jdbcType="TIMESTAMP" />
+    <result column="O_LastUrl" property="oLasturl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    O_SessionID, OnlineID, O_UserName, O_Ip, O_LoginTime, O_LastTime, O_LastUrl
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_OnlineExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_Online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_Online
+    where O_SessionID = #{oSessionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_Online
+    where O_SessionID = #{oSessionid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_OnlineExample" >
+    delete from sys_Online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_Online" >
+    insert into sys_Online (O_SessionID, OnlineID, O_UserName, 
+      O_Ip, O_LoginTime, O_LastTime, 
+      O_LastUrl)
+    values (#{oSessionid,jdbcType=VARCHAR}, #{onlineid,jdbcType=INTEGER}, #{oUsername,jdbcType=VARCHAR}, 
+      #{oIp,jdbcType=VARCHAR}, #{oLogintime,jdbcType=TIMESTAMP}, #{oLasttime,jdbcType=TIMESTAMP}, 
+      #{oLasturl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_Online" >
+    insert into sys_Online
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oSessionid != null" >
+        O_SessionID,
+      </if>
+      <if test="onlineid != null" >
+        OnlineID,
+      </if>
+      <if test="oUsername != null" >
+        O_UserName,
+      </if>
+      <if test="oIp != null" >
+        O_Ip,
+      </if>
+      <if test="oLogintime != null" >
+        O_LoginTime,
+      </if>
+      <if test="oLasttime != null" >
+        O_LastTime,
+      </if>
+      <if test="oLasturl != null" >
+        O_LastUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oSessionid != null" >
+        #{oSessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineid != null" >
+        #{onlineid,jdbcType=INTEGER},
+      </if>
+      <if test="oUsername != null" >
+        #{oUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="oIp != null" >
+        #{oIp,jdbcType=VARCHAR},
+      </if>
+      <if test="oLogintime != null" >
+        #{oLogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oLasttime != null" >
+        #{oLasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oLasturl != null" >
+        #{oLasturl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_OnlineExample" resultType="java.lang.Integer" >
+    select count(*) from sys_Online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_Online
+    <set >
+      <if test="record.oSessionid != null" >
+        O_SessionID = #{record.oSessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineid != null" >
+        OnlineID = #{record.onlineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.oUsername != null" >
+        O_UserName = #{record.oUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oIp != null" >
+        O_Ip = #{record.oIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oLogintime != null" >
+        O_LoginTime = #{record.oLogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oLasttime != null" >
+        O_LastTime = #{record.oLasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oLasturl != null" >
+        O_LastUrl = #{record.oLasturl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_Online
+    set O_SessionID = #{record.oSessionid,jdbcType=VARCHAR},
+      OnlineID = #{record.onlineid,jdbcType=INTEGER},
+      O_UserName = #{record.oUsername,jdbcType=VARCHAR},
+      O_Ip = #{record.oIp,jdbcType=VARCHAR},
+      O_LoginTime = #{record.oLogintime,jdbcType=TIMESTAMP},
+      O_LastTime = #{record.oLasttime,jdbcType=TIMESTAMP},
+      O_LastUrl = #{record.oLasturl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_Online" >
+    update sys_Online
+    <set >
+      <if test="onlineid != null" >
+        OnlineID = #{onlineid,jdbcType=INTEGER},
+      </if>
+      <if test="oUsername != null" >
+        O_UserName = #{oUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="oIp != null" >
+        O_Ip = #{oIp,jdbcType=VARCHAR},
+      </if>
+      <if test="oLogintime != null" >
+        O_LoginTime = #{oLogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oLasttime != null" >
+        O_LastTime = #{oLasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oLasturl != null" >
+        O_LastUrl = #{oLasturl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where O_SessionID = #{oSessionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_Online" >
+    update sys_Online
+    set OnlineID = #{onlineid,jdbcType=INTEGER},
+      O_UserName = #{oUsername,jdbcType=VARCHAR},
+      O_Ip = #{oIp,jdbcType=VARCHAR},
+      O_LoginTime = #{oLogintime,jdbcType=TIMESTAMP},
+      O_LastTime = #{oLasttime,jdbcType=TIMESTAMP},
+      O_LastUrl = #{oLasturl,jdbcType=VARCHAR}
+    where O_SessionID = #{oSessionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_menuoperMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_menuoper" >
+    <id column="menuoperID" property="menuoperid" jdbcType="INTEGER" />
+    <result column="menuoper_name" property="menuoperName" jdbcType="VARCHAR" />
+    <result column="menuoper_link" property="menuoperLink" jdbcType="VARCHAR" />
+    <result column="menuoper_order" property="menuoperOrder" jdbcType="INTEGER" />
+    <result column="menuoper_appID" property="menuoperAppid" jdbcType="INTEGER" />
+    <result column="menuoper_class" property="menuoperClass" jdbcType="VARCHAR" />
+    <result column="menuoper_target" property="menuoperTarget" jdbcType="VARCHAR" />
+    <result column="menuoper_appcode" property="menuoperAppcode" jdbcType="VARCHAR" />
+
+<collection  property="list_submenuoper" javaType="ArrayList" column="menuoperID"
+    ofType="com.hedgehog.domain.biz_submenuoper" select="com.hedgehog.mapper.biz_submenuoperMapper.selectByParentID" />
+    
+       
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    menuoperID, menuoper_name, menuoper_link, menuoper_order, menuoper_appID, menuoper_class, 
+    menuoper_target, menuoper_appcode
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_menuoperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_menuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+   <select id="selectByAppKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select 
+    <include refid="Base_Column_List" />
+    from biz_menuoper where menuoper_appID=#{value} order by menuoper_order   
+   </select>
+   <select id="selectByAppcode" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select 
+    <include refid="Base_Column_List" />
+    from biz_menuoper where menuoper_appcode=#{value} order by menuoper_order 
+   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_menuoper
+    where menuoperID = #{menuoperid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_menuoper
+    where menuoperID = #{menuoperid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_menuoperExample" >
+    delete from biz_menuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_menuoper" >
+    insert into biz_menuoper (menuoperID, menuoper_name, menuoper_link, 
+      menuoper_order, menuoper_appID, menuoper_class, 
+      menuoper_target, menuoper_appcode)
+    values (#{menuoperid,jdbcType=INTEGER}, #{menuoperName,jdbcType=VARCHAR}, #{menuoperLink,jdbcType=VARCHAR}, 
+      #{menuoperOrder,jdbcType=INTEGER}, #{menuoperAppid,jdbcType=INTEGER}, #{menuoperClass,jdbcType=VARCHAR}, 
+      #{menuoperTarget,jdbcType=VARCHAR}, #{menuoperAppcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_menuoper" >
+    insert into biz_menuoper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuoperid != null" >
+        menuoperID,
+      </if>
+      <if test="menuoperName != null" >
+        menuoper_name,
+      </if>
+      <if test="menuoperLink != null" >
+        menuoper_link,
+      </if>
+      <if test="menuoperOrder != null" >
+        menuoper_order,
+      </if>
+      <if test="menuoperAppid != null" >
+        menuoper_appID,
+      </if>
+      <if test="menuoperClass != null" >
+        menuoper_class,
+      </if>
+      <if test="menuoperTarget != null" >
+        menuoper_target,
+      </if>
+      <if test="menuoperAppcode != null" >
+        menuoper_appcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuoperid != null" >
+        #{menuoperid,jdbcType=INTEGER},
+      </if>
+      <if test="menuoperName != null" >
+        #{menuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperLink != null" >
+        #{menuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperOrder != null" >
+        #{menuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="menuoperAppid != null" >
+        #{menuoperAppid,jdbcType=INTEGER},
+      </if>
+      <if test="menuoperClass != null" >
+        #{menuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperTarget != null" >
+        #{menuoperTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperAppcode != null" >
+        #{menuoperAppcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_menuoperExample" resultType="java.lang.Integer" >
+    select count(*) from biz_menuoper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_menuoper
+    <set >
+      <if test="record.menuoperid != null" >
+        menuoperID = #{record.menuoperid,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuoperName != null" >
+        menuoper_name = #{record.menuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuoperLink != null" >
+        menuoper_link = #{record.menuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuoperOrder != null" >
+        menuoper_order = #{record.menuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuoperAppid != null" >
+        menuoper_appID = #{record.menuoperAppid,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuoperClass != null" >
+        menuoper_class = #{record.menuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuoperTarget != null" >
+        menuoper_target = #{record.menuoperTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuoperAppcode != null" >
+        menuoper_appcode = #{record.menuoperAppcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_menuoper
+    set menuoperID = #{record.menuoperid,jdbcType=INTEGER},
+      menuoper_name = #{record.menuoperName,jdbcType=VARCHAR},
+      menuoper_link = #{record.menuoperLink,jdbcType=VARCHAR},
+      menuoper_order = #{record.menuoperOrder,jdbcType=INTEGER},
+      menuoper_appID = #{record.menuoperAppid,jdbcType=INTEGER},
+      menuoper_class = #{record.menuoperClass,jdbcType=VARCHAR},
+      menuoper_target = #{record.menuoperTarget,jdbcType=VARCHAR},
+      menuoper_appcode = #{record.menuoperAppcode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_menuoper" >
+    update biz_menuoper
+    <set >
+      <if test="menuoperName != null" >
+        menuoper_name = #{menuoperName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperLink != null" >
+        menuoper_link = #{menuoperLink,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperOrder != null" >
+        menuoper_order = #{menuoperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="menuoperAppid != null" >
+        menuoper_appID = #{menuoperAppid,jdbcType=INTEGER},
+      </if>
+      <if test="menuoperClass != null" >
+        menuoper_class = #{menuoperClass,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperTarget != null" >
+        menuoper_target = #{menuoperTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="menuoperAppcode != null" >
+        menuoper_appcode = #{menuoperAppcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menuoperID = #{menuoperid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_menuoper" >
+    update biz_menuoper
+    set menuoper_name = #{menuoperName,jdbcType=VARCHAR},
+      menuoper_link = #{menuoperLink,jdbcType=VARCHAR},
+      menuoper_order = #{menuoperOrder,jdbcType=INTEGER},
+      menuoper_appID = #{menuoperAppid,jdbcType=INTEGER},
+      menuoper_class = #{menuoperClass,jdbcType=VARCHAR},
+      menuoper_target = #{menuoperTarget,jdbcType=VARCHAR},
+      menuoper_appcode = #{menuoperAppcode,jdbcType=VARCHAR}
+    where menuoperID = #{menuoperid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_classinfoclassMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_classinfoclass" >
+    <id column="cicID" property="cicid" jdbcType="INTEGER" />
+    <result column="cic_parentID" property="cicParentid" jdbcType="INTEGER" />
+    <result column="cic_name" property="cicName" jdbcType="VARCHAR" />
+    <result column="cic_code" property="cicCode" jdbcType="VARCHAR" />
+    <result column="cic_order" property="cicOrder" jdbcType="INTEGER" />    
+  </resultMap>
+  <resultMap id="ResultMapWithchild" type="com.hedgehog.domain.biz_classinfoclass" extends="BaseResultMap" >
+    <collection property="listchildclassinfoclass" column="cicID" javaType="ArrayList" ofType="com.hedgehog.domain.biz_classinfoclass" select="selectByParentID"/> 
+  </resultMap>
+  <resultMap id="ResultMapWithparent" type="com.hedgehog.domain.biz_classinfoclass" extends="BaseResultMap" >
+    <association property="parentclassinfoclass" column="cic_parentID" javaType="com.hedgehog.domain.biz_classinfoclass" select="selectByPrimaryKey"/>
+  </resultMap>
+  <resultMap id="ResultMapWithlist_parent_classinfo" type="com.hedgehog.domain.biz_classinfoclass" extends="ResultMapWithchild" >
+    <collection property="list_parent_classinfo" column="cicID" javaType="ArrayList" ofType="com.hedgehog.domain.biz_classinfo" select="com.hedgehog.mapper.biz_classinfoMapper.selectByParentclass"/>
+  </resultMap>  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cicID, cic_parentID, cic_name, cic_code, cic_order
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_classinfoclassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithparent" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass
+    where cicID = #{cicid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParentID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass
+    where cic_parentID = #{cicParentid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParent" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass
+    where cic_parentID = #{value}
+  </select>
+  <select id="selectcicAllRecord" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass
+  </select>
+  <select id="selectcicAllParentRecord" resultMap="ResultMapWithlist_parent_classinfo">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_classinfoclass where cic_parentID=0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_classinfoclass
+    where cicID = #{cicid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_classinfoclassExample" >
+    delete from biz_classinfoclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_classinfoclass" >
+    insert into biz_classinfoclass (cicID, cic_parentID, cic_name, 
+      cic_code, cic_order)
+    values (#{cicid,jdbcType=INTEGER}, #{cicParentid,jdbcType=INTEGER}, #{cicName,jdbcType=VARCHAR}, 
+      #{cicCode,jdbcType=VARCHAR}, #{cicOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_classinfoclass" >
+    insert into biz_classinfoclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cicid != null" >
+        cicID,
+      </if>
+      <if test="cicParentid != null" >
+        cic_parentID,
+      </if>
+      <if test="cicName != null" >
+        cic_name,
+      </if>
+      <if test="cicCode != null" >
+        cic_code,
+      </if>
+      <if test="cicOrder != null" >
+        cic_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cicid != null" >
+        #{cicid,jdbcType=INTEGER},
+      </if>
+      <if test="cicParentid != null" >
+        #{cicParentid,jdbcType=INTEGER},
+      </if>
+      <if test="cicName != null" >
+        #{cicName,jdbcType=VARCHAR},
+      </if>
+      <if test="cicCode != null" >
+        #{cicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cicOrder != null" >
+        #{cicOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_classinfoclassExample" resultType="java.lang.Integer" >
+    select count(*) from biz_classinfoclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_classinfoclass
+    <set >
+      <if test="record.cicid != null" >
+        cicID = #{record.cicid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cicParentid != null" >
+        cic_parentID = #{record.cicParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cicName != null" >
+        cic_name = #{record.cicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cicCode != null" >
+        cic_code = #{record.cicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cicOrder != null" >
+        cic_order = #{record.cicOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_classinfoclass
+    set cicID = #{record.cicid,jdbcType=INTEGER},
+      cic_parentID = #{record.cicParentid,jdbcType=INTEGER},
+      cic_name = #{record.cicName,jdbcType=VARCHAR},
+      cic_code = #{record.cicCode,jdbcType=VARCHAR},
+      cic_order = #{record.cicOrder,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_classinfoclass" >
+    update biz_classinfoclass
+    <set >
+      <if test="cicParentid != null" >
+        cic_parentID = #{cicParentid,jdbcType=INTEGER},
+      </if>
+      <if test="cicName != null" >
+        cic_name = #{cicName,jdbcType=VARCHAR},
+      </if>
+      <if test="cicCode != null" >
+        cic_code = #{cicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cicOrder != null" >
+        cic_order = #{cicOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cicID = #{cicid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_classinfoclass" >
+    update biz_classinfoclass
+    set cic_parentID = #{cicParentid,jdbcType=INTEGER},
+      cic_name = #{cicName,jdbcType=VARCHAR},
+      cic_code = #{cicCode,jdbcType=VARCHAR},
+      cic_order = #{cicOrder,jdbcType=INTEGER}
+    where cicID = #{cicid,jdbcType=INTEGER}
+  </update>
+</mapper>

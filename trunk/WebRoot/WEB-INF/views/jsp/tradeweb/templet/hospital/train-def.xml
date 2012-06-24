@@ -1,0 +1,43 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+<!--<start id="tile_template"/>-->
+   <definition name="hospital_template" template="/WEB-INF/views/jsp/tradeweb/templet/hospital/template.jsp">  
+     <put-attribute name="title" value="default title"/>  
+     <put-attribute name="header" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/tiles/header.jsp"/> 
+        <put-attribute name="top" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/tiles/top.jsp"/>  
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/tiles/content.jsp"/>  
+        <put-attribute name="footer" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/tiles/footer.jsp"/>  
+   </definition>
+<!--<end id="tile_template"/>-->
+<definition name="hospital_home" extends="hospital_template">  
+        <put-attribute name="title" value="首页"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/index.jsp"/>  
+      </definition>
+      <definition name="hospital_news" extends="hospital_template">  
+        <put-attribute name="title" value="新闻动态"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/news.jsp"/>  
+      </definition>
+      <definition name="hospital_product" extends="hospital_template">  
+        <put-attribute name="title" value="产品发布"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/product.jsp"/>  
+      </definition>
+      <definition name="hospital_purvey" extends="hospital_template">  
+        <put-attribute name="title" value="供求信息"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/purvey.jsp"/>  
+      </definition>
+      <definition name="hospital_purvey" extends="hospital_template">  
+        <put-attribute name="title" value="自由页面"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/freeweb.jsp"/>  
+      </definition>
+      <definition name="hospital_purvey" extends="hospital_template">  
+        <put-attribute name="title" value="客户留言"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/guestbook.jsp"/>  
+      </definition>
+      <definition name="hospital_purvey" extends="hospital_template">  
+        <put-attribute name="title" value="企业介绍"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tradeweb/templet/hospital/intro.jsp"/>  
+      </definition>
+</tiles-definitions>

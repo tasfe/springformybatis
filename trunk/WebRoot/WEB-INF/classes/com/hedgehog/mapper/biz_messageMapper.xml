@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_messageMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_message" >
+    <id column="messageID" property="messageid" jdbcType="INTEGER" />
+    <result column="message_sender" property="messageSender" jdbcType="VARCHAR" />
+    <result column="message_incept" property="messageIncept" jdbcType="VARCHAR" />
+    <result column="message_title" property="messageTitle" jdbcType="VARCHAR" />
+    <result column="message_flag" property="messageFlag" jdbcType="INTEGER" />
+    <result column="message_sendtime" property="messageSendtime" jdbcType="TIMESTAMP" />
+    <result column="message_delR" property="messageDelr" jdbcType="INTEGER" />
+    <result column="message_delS" property="messageDels" jdbcType="INTEGER" />
+    <result column="message_isSend" property="messageIssend" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.biz_message" extends="BaseResultMap" >
+    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    messageID, message_sender, message_incept, message_title, message_flag, message_sendtime, 
+    message_delR, message_delS, message_isSend
+  </sql>
+  <sql id="Blob_Column_List" >
+    message_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.biz_messageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_messageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_message
+    where messageID = #{messageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_message
+    where messageID = #{messageid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_messageExample" >
+    delete from biz_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_message" >
+    insert into biz_message (messageID, message_sender, message_incept, 
+      message_title, message_flag, message_sendtime, 
+      message_delR, message_delS, message_isSend, 
+      message_content)
+    values (#{messageid,jdbcType=INTEGER}, #{messageSender,jdbcType=VARCHAR}, #{messageIncept,jdbcType=VARCHAR}, 
+      #{messageTitle,jdbcType=VARCHAR}, #{messageFlag,jdbcType=INTEGER}, #{messageSendtime,jdbcType=TIMESTAMP}, 
+      #{messageDelr,jdbcType=INTEGER}, #{messageDels,jdbcType=INTEGER}, #{messageIssend,jdbcType=INTEGER}, 
+      #{messageContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_message" >
+    insert into biz_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        messageID,
+      </if>
+      <if test="messageSender != null" >
+        message_sender,
+      </if>
+      <if test="messageIncept != null" >
+        message_incept,
+      </if>
+      <if test="messageTitle != null" >
+        message_title,
+      </if>
+      <if test="messageFlag != null" >
+        message_flag,
+      </if>
+      <if test="messageSendtime != null" >
+        message_sendtime,
+      </if>
+      <if test="messageDelr != null" >
+        message_delR,
+      </if>
+      <if test="messageDels != null" >
+        message_delS,
+      </if>
+      <if test="messageIssend != null" >
+        message_isSend,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="messageSender != null" >
+        #{messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="messageIncept != null" >
+        #{messageIncept,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTitle != null" >
+        #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messageFlag != null" >
+        #{messageFlag,jdbcType=INTEGER},
+      </if>
+      <if test="messageSendtime != null" >
+        #{messageSendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageDelr != null" >
+        #{messageDelr,jdbcType=INTEGER},
+      </if>
+      <if test="messageDels != null" >
+        #{messageDels,jdbcType=INTEGER},
+      </if>
+      <if test="messageIssend != null" >
+        #{messageIssend,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_messageExample" resultType="java.lang.Integer" >
+    select count(*) from biz_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_message
+    <set >
+      <if test="record.messageid != null" >
+        messageID = #{record.messageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageSender != null" >
+        message_sender = #{record.messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageIncept != null" >
+        message_incept = #{record.messageIncept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageTitle != null" >
+        message_title = #{record.messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageFlag != null" >
+        message_flag = #{record.messageFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageSendtime != null" >
+        message_sendtime = #{record.messageSendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.messageDelr != null" >
+        message_delR = #{record.messageDelr,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageDels != null" >
+        message_delS = #{record.messageDels,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageIssend != null" >
+        message_isSend = #{record.messageIssend,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageContent != null" >
+        message_content = #{record.messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update biz_message
+    set messageID = #{record.messageid,jdbcType=INTEGER},
+      message_sender = #{record.messageSender,jdbcType=VARCHAR},
+      message_incept = #{record.messageIncept,jdbcType=VARCHAR},
+      message_title = #{record.messageTitle,jdbcType=VARCHAR},
+      message_flag = #{record.messageFlag,jdbcType=INTEGER},
+      message_sendtime = #{record.messageSendtime,jdbcType=TIMESTAMP},
+      message_delR = #{record.messageDelr,jdbcType=INTEGER},
+      message_delS = #{record.messageDels,jdbcType=INTEGER},
+      message_isSend = #{record.messageIssend,jdbcType=INTEGER},
+      message_content = #{record.messageContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_message
+    set messageID = #{record.messageid,jdbcType=INTEGER},
+      message_sender = #{record.messageSender,jdbcType=VARCHAR},
+      message_incept = #{record.messageIncept,jdbcType=VARCHAR},
+      message_title = #{record.messageTitle,jdbcType=VARCHAR},
+      message_flag = #{record.messageFlag,jdbcType=INTEGER},
+      message_sendtime = #{record.messageSendtime,jdbcType=TIMESTAMP},
+      message_delR = #{record.messageDelr,jdbcType=INTEGER},
+      message_delS = #{record.messageDels,jdbcType=INTEGER},
+      message_isSend = #{record.messageIssend,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_message" >
+    update biz_message
+    <set >
+      <if test="messageSender != null" >
+        message_sender = #{messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="messageIncept != null" >
+        message_incept = #{messageIncept,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTitle != null" >
+        message_title = #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messageFlag != null" >
+        message_flag = #{messageFlag,jdbcType=INTEGER},
+      </if>
+      <if test="messageSendtime != null" >
+        message_sendtime = #{messageSendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageDelr != null" >
+        message_delR = #{messageDelr,jdbcType=INTEGER},
+      </if>
+      <if test="messageDels != null" >
+        message_delS = #{messageDels,jdbcType=INTEGER},
+      </if>
+      <if test="messageIssend != null" >
+        message_isSend = #{messageIssend,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        message_content = #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where messageID = #{messageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.biz_message" >
+    update biz_message
+    set message_sender = #{messageSender,jdbcType=VARCHAR},
+      message_incept = #{messageIncept,jdbcType=VARCHAR},
+      message_title = #{messageTitle,jdbcType=VARCHAR},
+      message_flag = #{messageFlag,jdbcType=INTEGER},
+      message_sendtime = #{messageSendtime,jdbcType=TIMESTAMP},
+      message_delR = #{messageDelr,jdbcType=INTEGER},
+      message_delS = #{messageDels,jdbcType=INTEGER},
+      message_isSend = #{messageIssend,jdbcType=INTEGER},
+      message_content = #{messageContent,jdbcType=LONGVARCHAR}
+    where messageID = #{messageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_message" >
+    update biz_message
+    set message_sender = #{messageSender,jdbcType=VARCHAR},
+      message_incept = #{messageIncept,jdbcType=VARCHAR},
+      message_title = #{messageTitle,jdbcType=VARCHAR},
+      message_flag = #{messageFlag,jdbcType=INTEGER},
+      message_sendtime = #{messageSendtime,jdbcType=TIMESTAMP},
+      message_delR = #{messageDelr,jdbcType=INTEGER},
+      message_delS = #{messageDels,jdbcType=INTEGER},
+      message_isSend = #{messageIssend,jdbcType=INTEGER}
+    where messageID = #{messageid,jdbcType=INTEGER}
+  </update>
+</mapper>

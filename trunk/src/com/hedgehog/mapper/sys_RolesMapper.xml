@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_RolesMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_Roles" >
+    <id column="RoleID" property="roleid" jdbcType="INTEGER" />
+    <result column="R_UserID" property="rUserid" jdbcType="INTEGER" />
+    <result column="R_RoleName" property="rRolename" jdbcType="VARCHAR" />
+    <result column="R_Description" property="rDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RoleID, R_UserID, R_RoleName, R_Description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_RolesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_Roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_Roles
+    where RoleID = #{roleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_Roles
+    where RoleID = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_RolesExample" >
+    delete from sys_Roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_Roles" >
+    insert into sys_Roles (RoleID, R_UserID, R_RoleName, 
+      R_Description)
+    values (#{roleid,jdbcType=INTEGER}, #{rUserid,jdbcType=INTEGER}, #{rRolename,jdbcType=VARCHAR}, 
+      #{rDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_Roles" >
+    insert into sys_Roles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        RoleID,
+      </if>
+      <if test="rUserid != null" >
+        R_UserID,
+      </if>
+      <if test="rRolename != null" >
+        R_RoleName,
+      </if>
+      <if test="rDescription != null" >
+        R_Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="rUserid != null" >
+        #{rUserid,jdbcType=INTEGER},
+      </if>
+      <if test="rRolename != null" >
+        #{rRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="rDescription != null" >
+        #{rDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_RolesExample" resultType="java.lang.Integer" >
+    select count(*) from sys_Roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_Roles
+    <set >
+      <if test="record.roleid != null" >
+        RoleID = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rUserid != null" >
+        R_UserID = #{record.rUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rRolename != null" >
+        R_RoleName = #{record.rRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rDescription != null" >
+        R_Description = #{record.rDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_Roles
+    set RoleID = #{record.roleid,jdbcType=INTEGER},
+      R_UserID = #{record.rUserid,jdbcType=INTEGER},
+      R_RoleName = #{record.rRolename,jdbcType=VARCHAR},
+      R_Description = #{record.rDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_Roles" >
+    update sys_Roles
+    <set >
+      <if test="rUserid != null" >
+        R_UserID = #{rUserid,jdbcType=INTEGER},
+      </if>
+      <if test="rRolename != null" >
+        R_RoleName = #{rRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="rDescription != null" >
+        R_Description = #{rDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RoleID = #{roleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_Roles" >
+    update sys_Roles
+    set R_UserID = #{rUserid,jdbcType=INTEGER},
+      R_RoleName = #{rRolename,jdbcType=VARCHAR},
+      R_Description = #{rDescription,jdbcType=VARCHAR}
+    where RoleID = #{roleid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_applicationMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_application" >
+    <id column="appid" property="appid" jdbcType="INTEGER" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="a_createtime" property="aCreatetime" jdbcType="TIMESTAMP" />
+    <result column="a_note" property="aNote" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appid, m_id, a_createtime, a_note
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_applicationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_application
+    where appid = #{appid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_application
+    where appid = #{appid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_applicationExample" >
+    delete from web_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_application" >
+    insert into web_application (appid, m_id, a_createtime, 
+      a_note)
+    values (#{appid,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{aCreatetime,jdbcType=TIMESTAMP}, 
+      #{aNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_application" >
+    insert into web_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="aCreatetime != null" >
+        a_createtime,
+      </if>
+      <if test="aNote != null" >
+        a_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appid != null" >
+        #{appid,jdbcType=INTEGER},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="aCreatetime != null" >
+        #{aCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aNote != null" >
+        #{aNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_applicationExample" resultType="java.lang.Integer" >
+    select count(*) from web_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_application
+    <set >
+      <if test="record.appid != null" >
+        appid = #{record.appid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aCreatetime != null" >
+        a_createtime = #{record.aCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aNote != null" >
+        a_note = #{record.aNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_application
+    set appid = #{record.appid,jdbcType=INTEGER},
+      m_id = #{record.mId,jdbcType=INTEGER},
+      a_createtime = #{record.aCreatetime,jdbcType=TIMESTAMP},
+      a_note = #{record.aNote,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_application" >
+    update web_application
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="aCreatetime != null" >
+        a_createtime = #{aCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aNote != null" >
+        a_note = #{aNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_application" >
+    update web_application
+    set m_id = #{mId,jdbcType=INTEGER},
+      a_createtime = #{aCreatetime,jdbcType=TIMESTAMP},
+      a_note = #{aNote,jdbcType=VARCHAR}
+    where appid = #{appid,jdbcType=INTEGER}
+  </update>
+</mapper>

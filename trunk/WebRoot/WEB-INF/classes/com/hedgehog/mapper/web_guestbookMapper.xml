@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_guestbookMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_guestbook" >
+    <id column="guestbookID" property="guestbookid" jdbcType="INTEGER" />
+    <result column="gb_nikename" property="gbNikename" jdbcType="VARCHAR" />
+    <result column="gb_content" property="gbContent" jdbcType="VARCHAR" />
+    <result column="gb_datetime" property="gbDatetime" jdbcType="TIMESTAMP" />
+    <result column="gb_clientip" property="gbClientip" jdbcType="VARCHAR" />
+    <result column="gb_menuID" property="gbMenuid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    guestbookID, gb_nikename, gb_content, gb_datetime, gb_clientip, gb_menuID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_guestbookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_guestbook
+    where guestbookID = #{guestbookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_guestbook
+    where guestbookID = #{guestbookid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_guestbookExample" >
+    delete from web_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_guestbook" >
+    insert into web_guestbook (guestbookID, gb_nikename, gb_content, 
+      gb_datetime, gb_clientip, gb_menuID
+      )
+    values (#{guestbookid,jdbcType=INTEGER}, #{gbNikename,jdbcType=VARCHAR}, #{gbContent,jdbcType=VARCHAR}, 
+      #{gbDatetime,jdbcType=TIMESTAMP}, #{gbClientip,jdbcType=VARCHAR}, #{gbMenuid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_guestbook" >
+    insert into web_guestbook
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guestbookid != null" >
+        guestbookID,
+      </if>
+      <if test="gbNikename != null" >
+        gb_nikename,
+      </if>
+      <if test="gbContent != null" >
+        gb_content,
+      </if>
+      <if test="gbDatetime != null" >
+        gb_datetime,
+      </if>
+      <if test="gbClientip != null" >
+        gb_clientip,
+      </if>
+      <if test="gbMenuid != null" >
+        gb_menuID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guestbookid != null" >
+        #{guestbookid,jdbcType=INTEGER},
+      </if>
+      <if test="gbNikename != null" >
+        #{gbNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="gbContent != null" >
+        #{gbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="gbDatetime != null" >
+        #{gbDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gbClientip != null" >
+        #{gbClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="gbMenuid != null" >
+        #{gbMenuid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_guestbookExample" resultType="java.lang.Integer" >
+    select count(*) from web_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_guestbook
+    <set >
+      <if test="record.guestbookid != null" >
+        guestbookID = #{record.guestbookid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gbNikename != null" >
+        gb_nikename = #{record.gbNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gbContent != null" >
+        gb_content = #{record.gbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gbDatetime != null" >
+        gb_datetime = #{record.gbDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gbClientip != null" >
+        gb_clientip = #{record.gbClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gbMenuid != null" >
+        gb_menuID = #{record.gbMenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_guestbook
+    set guestbookID = #{record.guestbookid,jdbcType=INTEGER},
+      gb_nikename = #{record.gbNikename,jdbcType=VARCHAR},
+      gb_content = #{record.gbContent,jdbcType=VARCHAR},
+      gb_datetime = #{record.gbDatetime,jdbcType=TIMESTAMP},
+      gb_clientip = #{record.gbClientip,jdbcType=VARCHAR},
+      gb_menuID = #{record.gbMenuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_guestbook" >
+    update web_guestbook
+    <set >
+      <if test="gbNikename != null" >
+        gb_nikename = #{gbNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="gbContent != null" >
+        gb_content = #{gbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="gbDatetime != null" >
+        gb_datetime = #{gbDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gbClientip != null" >
+        gb_clientip = #{gbClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="gbMenuid != null" >
+        gb_menuID = #{gbMenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where guestbookID = #{guestbookid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_guestbook" >
+    update web_guestbook
+    set gb_nikename = #{gbNikename,jdbcType=VARCHAR},
+      gb_content = #{gbContent,jdbcType=VARCHAR},
+      gb_datetime = #{gbDatetime,jdbcType=TIMESTAMP},
+      gb_clientip = #{gbClientip,jdbcType=VARCHAR},
+      gb_menuID = #{gbMenuid,jdbcType=INTEGER}
+    where guestbookID = #{guestbookid,jdbcType=INTEGER}
+  </update>
+  <select id="selectwebGuestbookInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap">
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_classinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_classinfo" >
+    <id column="classinfoID" property="classinfoid" jdbcType="INTEGER" />
+    <result column="classinfo_title" property="classinfoTitle" jdbcType="VARCHAR" />
+    <result column="classinfo_class" property="classinfoClass" jdbcType="INTEGER" />
+    <result column="classinfo_properties" property="classinfoProperties" jdbcType="VARCHAR" />
+    <result column="classinfo_des" property="classinfoDes" jdbcType="VARCHAR" />
+    <result column="classinfo_pic" property="classinfoPic" jdbcType="VARCHAR" />
+    <result column="classinfo_price" property="classinfoPrice" jdbcType="VARCHAR" />
+    <result column="classinfo_email" property="classinfoEmail" jdbcType="VARCHAR" />
+    <result column="classinfo_name" property="classinfoName" jdbcType="VARCHAR" />
+    <result column="classinfo_addr" property="classinfoAddr" jdbcType="VARCHAR" />
+    <result column="classinfo_code" property="classinfoCode" jdbcType="VARCHAR" />
+    <result column="classinfo_tel" property="classinfoTel" jdbcType="VARCHAR" />
+    <result column="classinfo_ICQ" property="classinfoIcq" jdbcType="VARCHAR" />
+    <result column="classinfo_hits" property="classinfoHits" jdbcType="INTEGER" />
+    <result column="classinfo_clientip" property="classinfoClientip" jdbcType="VARCHAR" />
+    <result column="classinfo_publishdate" property="classinfoPublishdate" jdbcType="TIMESTAMP" />
+    <result column="classinfo_parentclass" property="classinfoParentclass" jdbcType="INTEGER" />
+    <association property="classinfoclass" column="classinfo_class" javaType="com.hedgehog.domain.biz_classinfoclass" select="com.hedgehog.mapper.biz_classinfoclassMapper.selectByPrimaryKey"/>
+    <collection property="list_reply" column="classinfoid" javaType="ArrayList" ofType="com.hedgehog.domain.biz_reply" select="com.hedgehog.mapper.biz_replyMapper.selectByInfoID"/> 
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    classinfoID, classinfo_title, classinfo_class, classinfo_properties, classinfo_des, 
+    classinfo_pic, classinfo_price, classinfo_email, classinfo_name, classinfo_addr, 
+    classinfo_code, classinfo_tel, classinfo_ICQ, classinfo_hits, classinfo_clientip, 
+    classinfo_publishdate, classinfo_parentclass
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_classinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_classinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_classinfo
+    where classinfoID = #{classinfoid,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectByParentclass" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select top 6 
+    <include refid="Base_Column_List" />
+    from biz_classinfo
+    where classinfo_parentclass = #{cicid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_classinfo
+    where classinfoID = #{classinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_classinfoExample" >
+    delete from biz_classinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_classinfo" >
+    insert into biz_classinfo (classinfoID, classinfo_title, classinfo_class, 
+      classinfo_properties, classinfo_des, classinfo_pic, 
+      classinfo_price, classinfo_email, classinfo_name, 
+      classinfo_addr, classinfo_code, classinfo_tel, 
+      classinfo_ICQ, classinfo_hits, classinfo_clientip, 
+      classinfo_publishdate, classinfo_parentclass
+      )
+    values (#{classinfoid,jdbcType=INTEGER}, #{classinfoTitle,jdbcType=VARCHAR}, #{classinfoClass,jdbcType=INTEGER}, 
+      #{classinfoProperties,jdbcType=VARCHAR}, #{classinfoDes,jdbcType=VARCHAR}, #{classinfoPic,jdbcType=VARCHAR}, 
+      #{classinfoPrice,jdbcType=VARCHAR}, #{classinfoEmail,jdbcType=VARCHAR}, #{classinfoName,jdbcType=VARCHAR}, 
+      #{classinfoAddr,jdbcType=VARCHAR}, #{classinfoCode,jdbcType=VARCHAR}, #{classinfoTel,jdbcType=VARCHAR}, 
+      #{classinfoIcq,jdbcType=VARCHAR}, #{classinfoHits,jdbcType=INTEGER}, #{classinfoClientip,jdbcType=VARCHAR}, 
+      #{classinfoPublishdate,jdbcType=TIMESTAMP}, #{classinfoParentclass,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_classinfo" >
+    insert into biz_classinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classinfoid != null" >
+        classinfoID,
+      </if>
+      <if test="classinfoTitle != null" >
+        classinfo_title,
+      </if>
+      <if test="classinfoClass != null" >
+        classinfo_class,
+      </if>
+      <if test="classinfoProperties != null" >
+        classinfo_properties,
+      </if>
+      <if test="classinfoDes != null" >
+        classinfo_des,
+      </if>
+      <if test="classinfoPic != null" >
+        classinfo_pic,
+      </if>
+      <if test="classinfoPrice != null" >
+        classinfo_price,
+      </if>
+      <if test="classinfoEmail != null" >
+        classinfo_email,
+      </if>
+      <if test="classinfoName != null" >
+        classinfo_name,
+      </if>
+      <if test="classinfoAddr != null" >
+        classinfo_addr,
+      </if>
+      <if test="classinfoCode != null" >
+        classinfo_code,
+      </if>
+      <if test="classinfoTel != null" >
+        classinfo_tel,
+      </if>
+      <if test="classinfoIcq != null" >
+        classinfo_ICQ,
+      </if>
+      <if test="classinfoHits != null" >
+        classinfo_hits,
+      </if>
+      <if test="classinfoClientip != null" >
+        classinfo_clientip,
+      </if>
+      <if test="classinfoPublishdate != null" >
+        classinfo_publishdate,
+      </if>
+      <if test="classinfoParentclass != null" >
+        classinfo_parentclass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classinfoid != null" >
+        #{classinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="classinfoTitle != null" >
+        #{classinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoClass != null" >
+        #{classinfoClass,jdbcType=INTEGER},
+      </if>
+      <if test="classinfoProperties != null" >
+        #{classinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoDes != null" >
+        #{classinfoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPic != null" >
+        #{classinfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPrice != null" >
+        #{classinfoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoEmail != null" >
+        #{classinfoEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoName != null" >
+        #{classinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoAddr != null" >
+        #{classinfoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoCode != null" >
+        #{classinfoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoTel != null" >
+        #{classinfoTel,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoIcq != null" >
+        #{classinfoIcq,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoHits != null" >
+        #{classinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="classinfoClientip != null" >
+        #{classinfoClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPublishdate != null" >
+        #{classinfoPublishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classinfoParentclass != null" >
+        #{classinfoParentclass,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_classinfoExample" resultType="java.lang.Integer" >
+    select count(*) from biz_classinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_classinfo
+    <set >
+      <if test="record.classinfoid != null" >
+        classinfoID = #{record.classinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classinfoTitle != null" >
+        classinfo_title = #{record.classinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoClass != null" >
+        classinfo_class = #{record.classinfoClass,jdbcType=INTEGER},
+      </if>
+      <if test="record.classinfoProperties != null" >
+        classinfo_properties = #{record.classinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoDes != null" >
+        classinfo_des = #{record.classinfoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoPic != null" >
+        classinfo_pic = #{record.classinfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoPrice != null" >
+        classinfo_price = #{record.classinfoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoEmail != null" >
+        classinfo_email = #{record.classinfoEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoName != null" >
+        classinfo_name = #{record.classinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoAddr != null" >
+        classinfo_addr = #{record.classinfoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoCode != null" >
+        classinfo_code = #{record.classinfoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoTel != null" >
+        classinfo_tel = #{record.classinfoTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoIcq != null" >
+        classinfo_ICQ = #{record.classinfoIcq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoHits != null" >
+        classinfo_hits = #{record.classinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.classinfoClientip != null" >
+        classinfo_clientip = #{record.classinfoClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinfoPublishdate != null" >
+        classinfo_publishdate = #{record.classinfoPublishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classinfoParentclass != null" >
+        classinfo_parentclass = #{record.classinfoParentclass,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_classinfo
+    set classinfoID = #{record.classinfoid,jdbcType=INTEGER},
+      classinfo_title = #{record.classinfoTitle,jdbcType=VARCHAR},
+      classinfo_class = #{record.classinfoClass,jdbcType=INTEGER},
+      classinfo_properties = #{record.classinfoProperties,jdbcType=VARCHAR},
+      classinfo_des = #{record.classinfoDes,jdbcType=VARCHAR},
+      classinfo_pic = #{record.classinfoPic,jdbcType=VARCHAR},
+      classinfo_price = #{record.classinfoPrice,jdbcType=VARCHAR},
+      classinfo_email = #{record.classinfoEmail,jdbcType=VARCHAR},
+      classinfo_name = #{record.classinfoName,jdbcType=VARCHAR},
+      classinfo_addr = #{record.classinfoAddr,jdbcType=VARCHAR},
+      classinfo_code = #{record.classinfoCode,jdbcType=VARCHAR},
+      classinfo_tel = #{record.classinfoTel,jdbcType=VARCHAR},
+      classinfo_ICQ = #{record.classinfoIcq,jdbcType=VARCHAR},
+      classinfo_hits = #{record.classinfoHits,jdbcType=INTEGER},
+      classinfo_clientip = #{record.classinfoClientip,jdbcType=VARCHAR},
+      classinfo_publishdate = #{record.classinfoPublishdate,jdbcType=TIMESTAMP},
+      classinfo_parentclass = #{record.classinfoParentclass,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_classinfo" >
+    update biz_classinfo
+    <set >
+      <if test="classinfoTitle != null" >
+        classinfo_title = #{classinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoClass != null" >
+        classinfo_class = #{classinfoClass,jdbcType=INTEGER},
+      </if>
+      <if test="classinfoProperties != null" >
+        classinfo_properties = #{classinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoDes != null" >
+        classinfo_des = #{classinfoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPic != null" >
+        classinfo_pic = #{classinfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPrice != null" >
+        classinfo_price = #{classinfoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoEmail != null" >
+        classinfo_email = #{classinfoEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoName != null" >
+        classinfo_name = #{classinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoAddr != null" >
+        classinfo_addr = #{classinfoAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoCode != null" >
+        classinfo_code = #{classinfoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoTel != null" >
+        classinfo_tel = #{classinfoTel,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoIcq != null" >
+        classinfo_ICQ = #{classinfoIcq,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoHits != null" >
+        classinfo_hits = #{classinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="classinfoClientip != null" >
+        classinfo_clientip = #{classinfoClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="classinfoPublishdate != null" >
+        classinfo_publishdate = #{classinfoPublishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classinfoParentclass != null" >
+        classinfo_parentclass = #{classinfoParentclass,jdbcType=INTEGER},
+      </if>
+    </set>
+    where classinfoID = #{classinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_classinfo" >
+    update biz_classinfo
+    set classinfo_title = #{classinfoTitle,jdbcType=VARCHAR},
+      classinfo_class = #{classinfoClass,jdbcType=INTEGER},
+      classinfo_properties = #{classinfoProperties,jdbcType=VARCHAR},
+      classinfo_des = #{classinfoDes,jdbcType=VARCHAR},
+      classinfo_pic = #{classinfoPic,jdbcType=VARCHAR},
+      classinfo_price = #{classinfoPrice,jdbcType=VARCHAR},
+      classinfo_email = #{classinfoEmail,jdbcType=VARCHAR},
+      classinfo_name = #{classinfoName,jdbcType=VARCHAR},
+      classinfo_addr = #{classinfoAddr,jdbcType=VARCHAR},
+      classinfo_code = #{classinfoCode,jdbcType=VARCHAR},
+      classinfo_tel = #{classinfoTel,jdbcType=VARCHAR},
+      classinfo_ICQ = #{classinfoIcq,jdbcType=VARCHAR},
+      classinfo_hits = #{classinfoHits,jdbcType=INTEGER},
+      classinfo_clientip = #{classinfoClientip,jdbcType=VARCHAR},
+      classinfo_publishdate = #{classinfoPublishdate,jdbcType=TIMESTAMP},
+      classinfo_parentclass = #{classinfoParentclass,jdbcType=INTEGER}
+    where classinfoID = #{classinfoid,jdbcType=INTEGER}
+  </update>
+  <select id="selectRecordInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

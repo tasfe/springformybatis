@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_friendlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_friendlink" >
+    <id column="friendlink_id" property="friendlinkId" jdbcType="INTEGER" />
+    <result column="friendlink_title" property="friendlinkTitle" jdbcType="VARCHAR" />
+    <result column="friendlink_URL" property="friendlinkUrl" jdbcType="VARCHAR" />
+    <result column="friendlink_imageURL" property="friendlinkImageurl" jdbcType="VARCHAR" />
+    <result column="friendlink_order" property="friendlinkOrder" jdbcType="INTEGER" />
+    <result column="friendlink_menuid" property="friendlinkMenuid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    friendlink_id, friendlink_title, friendlink_URL, friendlink_imageURL, friendlink_order, 
+    friendlink_menuid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_friendlinkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_friendlink
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllRecord" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from web_friendlink
+  </select>
+  <select id="selectRecordByWebsiteid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from web_friendlink
+    where friendlink_menuid=#{friendlinkMenuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_friendlink
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_friendlinkExample" >
+    delete from web_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_friendlink" >
+    insert into web_friendlink (friendlink_id, friendlink_title, friendlink_URL, 
+      friendlink_imageURL, friendlink_order, friendlink_menuid
+      )
+    values (#{friendlinkId,jdbcType=INTEGER}, #{friendlinkTitle,jdbcType=VARCHAR}, #{friendlinkUrl,jdbcType=VARCHAR}, 
+      #{friendlinkImageurl,jdbcType=VARCHAR}, #{friendlinkOrder,jdbcType=INTEGER}, #{friendlinkMenuid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_friendlink" >
+    insert into web_friendlink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="friendlinkId != null" >
+        friendlink_id,
+      </if>
+      <if test="friendlinkTitle != null" >
+        friendlink_title,
+      </if>
+      <if test="friendlinkUrl != null" >
+        friendlink_URL,
+      </if>
+      <if test="friendlinkImageurl != null" >
+        friendlink_imageURL,
+      </if>
+      <if test="friendlinkOrder != null" >
+        friendlink_order,
+      </if>
+      <if test="friendlinkMenuid != null" >
+        friendlink_menuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="friendlinkId != null" >
+        #{friendlinkId,jdbcType=INTEGER},
+      </if>
+      <if test="friendlinkTitle != null" >
+        #{friendlinkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkUrl != null" >
+        #{friendlinkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkImageurl != null" >
+        #{friendlinkImageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkOrder != null" >
+        #{friendlinkOrder,jdbcType=INTEGER},
+      </if>
+      <if test="friendlinkMenuid != null" >
+        #{friendlinkMenuid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_friendlinkExample" resultType="java.lang.Integer" >
+    select count(*) from web_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_friendlink
+    <set >
+      <if test="record.friendlinkId != null" >
+        friendlink_id = #{record.friendlinkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.friendlinkTitle != null" >
+        friendlink_title = #{record.friendlinkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendlinkUrl != null" >
+        friendlink_URL = #{record.friendlinkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendlinkImageurl != null" >
+        friendlink_imageURL = #{record.friendlinkImageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendlinkOrder != null" >
+        friendlink_order = #{record.friendlinkOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.friendlinkMenuid != null" >
+        friendlink_menuid = #{record.friendlinkMenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_friendlink
+    set friendlink_id = #{record.friendlinkId,jdbcType=INTEGER},
+      friendlink_title = #{record.friendlinkTitle,jdbcType=VARCHAR},
+      friendlink_URL = #{record.friendlinkUrl,jdbcType=VARCHAR},
+      friendlink_imageURL = #{record.friendlinkImageurl,jdbcType=VARCHAR},
+      friendlink_order = #{record.friendlinkOrder,jdbcType=INTEGER},
+      friendlink_menuid = #{record.friendlinkMenuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_friendlink" >
+    update web_friendlink
+    <set >
+      <if test="friendlinkTitle != null" >
+        friendlink_title = #{friendlinkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkUrl != null" >
+        friendlink_URL = #{friendlinkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkImageurl != null" >
+        friendlink_imageURL = #{friendlinkImageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="friendlinkOrder != null" >
+        friendlink_order = #{friendlinkOrder,jdbcType=INTEGER},
+      </if>
+      <if test="friendlinkMenuid != null" >
+        friendlink_menuid = #{friendlinkMenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_friendlink" >
+    update web_friendlink
+    set friendlink_title = #{friendlinkTitle,jdbcType=VARCHAR},
+      friendlink_URL = #{friendlinkUrl,jdbcType=VARCHAR},
+      friendlink_imageURL = #{friendlinkImageurl,jdbcType=VARCHAR},
+      friendlink_order = #{friendlinkOrder,jdbcType=INTEGER},
+      friendlink_menuid = #{friendlinkMenuid,jdbcType=INTEGER}
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </update>
+</mapper>

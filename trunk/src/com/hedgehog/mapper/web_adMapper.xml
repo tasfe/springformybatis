@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_adMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_ad" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="a_name" property="aName" jdbcType="VARCHAR" />
+    <result column="a_time" property="aTime" jdbcType="TIMESTAMP" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_ad" extends="BaseResultMap" >
+    <result column="a_content" property="aContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, a_name, a_time, m_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    a_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_adExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_ad
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_adExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_ad
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_ad
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_ad
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_adExample" >
+    delete from web_ad
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_ad" >
+    insert into web_ad (id, a_name, a_time, 
+      m_id, a_content)
+    values (#{id,jdbcType=INTEGER}, #{aName,jdbcType=VARCHAR}, #{aTime,jdbcType=TIMESTAMP}, 
+      #{mId,jdbcType=INTEGER}, #{aContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_ad" >
+    insert into web_ad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="aName != null" >
+        a_name,
+      </if>
+      <if test="aTime != null" >
+        a_time,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="aContent != null" >
+        a_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aName != null" >
+        #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aTime != null" >
+        #{aTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="aContent != null" >
+        #{aContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_adExample" resultType="java.lang.Integer" >
+    select count(*) from web_ad
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_ad
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.aName != null" >
+        a_name = #{record.aName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aTime != null" >
+        a_time = #{record.aTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aContent != null" >
+        a_content = #{record.aContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_ad
+    set id = #{record.id,jdbcType=INTEGER},
+      a_name = #{record.aName,jdbcType=VARCHAR},
+      a_time = #{record.aTime,jdbcType=TIMESTAMP},
+      m_id = #{record.mId,jdbcType=INTEGER},
+      a_content = #{record.aContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_ad
+    set id = #{record.id,jdbcType=INTEGER},
+      a_name = #{record.aName,jdbcType=VARCHAR},
+      a_time = #{record.aTime,jdbcType=TIMESTAMP},
+      m_id = #{record.mId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_ad" >
+    update web_ad
+    <set >
+      <if test="aName != null" >
+        a_name = #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aTime != null" >
+        a_time = #{aTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="aContent != null" >
+        a_content = #{aContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_ad" >
+    update web_ad
+    set a_name = #{aName,jdbcType=VARCHAR},
+      a_time = #{aTime,jdbcType=TIMESTAMP},
+      m_id = #{mId,jdbcType=INTEGER},
+      a_content = #{aContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_ad" >
+    update web_ad
+    set a_name = #{aName,jdbcType=VARCHAR},
+      a_time = #{aTime,jdbcType=TIMESTAMP},
+      m_id = #{mId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

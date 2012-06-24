@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_ComTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_ComType" >
+    <id column="ComTypeID" property="comtypeid" jdbcType="INTEGER" />
+    <result column="ComType_name" property="comtypeName" jdbcType="VARCHAR" />
+    <result column="ComType_code" property="comtypeCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ComTypeID, ComType_name, ComType_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_ComTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_ComType
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_ComType
+    where ComTypeID = #{comtypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_ComType
+    where ComTypeID = #{comtypeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_ComTypeExample" >
+    delete from biz_ComType
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_ComType" >
+    insert into biz_ComType (ComTypeID, ComType_name, ComType_code
+      )
+    values (#{comtypeid,jdbcType=INTEGER}, #{comtypeName,jdbcType=VARCHAR}, #{comtypeCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_ComType" >
+    insert into biz_ComType
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comtypeid != null" >
+        ComTypeID,
+      </if>
+      <if test="comtypeName != null" >
+        ComType_name,
+      </if>
+      <if test="comtypeCode != null" >
+        ComType_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comtypeid != null" >
+        #{comtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="comtypeName != null" >
+        #{comtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="comtypeCode != null" >
+        #{comtypeCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_ComTypeExample" resultType="java.lang.Integer" >
+    select count(*) from biz_ComType
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_ComType
+    <set >
+      <if test="record.comtypeid != null" >
+        ComTypeID = #{record.comtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.comtypeName != null" >
+        ComType_name = #{record.comtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comtypeCode != null" >
+        ComType_code = #{record.comtypeCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_ComType
+    set ComTypeID = #{record.comtypeid,jdbcType=INTEGER},
+      ComType_name = #{record.comtypeName,jdbcType=VARCHAR},
+      ComType_code = #{record.comtypeCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_ComType" >
+    update biz_ComType
+    <set >
+      <if test="comtypeName != null" >
+        ComType_name = #{comtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="comtypeCode != null" >
+        ComType_code = #{comtypeCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ComTypeID = #{comtypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_ComType" >
+    update biz_ComType
+    set ComType_name = #{comtypeName,jdbcType=VARCHAR},
+      ComType_code = #{comtypeCode,jdbcType=VARCHAR}
+    where ComTypeID = #{comtypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

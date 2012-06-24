@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_FieldValueMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_FieldValue" >
+    <id column="ValueID" property="valueid" jdbcType="INTEGER" />
+    <result column="V_F_Key" property="vFKey" jdbcType="VARCHAR" />
+    <result column="V_Text" property="vText" jdbcType="VARCHAR" />
+    <result column="V_Code" property="vCode" jdbcType="VARCHAR" />
+    <result column="V_ShowOrder" property="vShoworder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ValueID, V_F_Key, V_Text, V_Code, V_ShowOrder
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.sys_FieldValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_FieldValue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_FieldValue
+    where ValueID = #{valueid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_FieldValue
+    where ValueID = #{valueid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.sys_FieldValueExample" >
+    delete from sys_FieldValue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_FieldValue" >
+    insert into sys_FieldValue (ValueID, V_F_Key, V_Text, 
+      V_Code, V_ShowOrder)
+    values (#{valueid,jdbcType=INTEGER}, #{vFKey,jdbcType=VARCHAR}, #{vText,jdbcType=VARCHAR}, 
+      #{vCode,jdbcType=VARCHAR}, #{vShoworder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_FieldValue" >
+    insert into sys_FieldValue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="valueid != null" >
+        ValueID,
+      </if>
+      <if test="vFKey != null" >
+        V_F_Key,
+      </if>
+      <if test="vText != null" >
+        V_Text,
+      </if>
+      <if test="vCode != null" >
+        V_Code,
+      </if>
+      <if test="vShoworder != null" >
+        V_ShowOrder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="valueid != null" >
+        #{valueid,jdbcType=INTEGER},
+      </if>
+      <if test="vFKey != null" >
+        #{vFKey,jdbcType=VARCHAR},
+      </if>
+      <if test="vText != null" >
+        #{vText,jdbcType=VARCHAR},
+      </if>
+      <if test="vCode != null" >
+        #{vCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vShoworder != null" >
+        #{vShoworder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.sys_FieldValueExample" resultType="java.lang.Integer" >
+    select count(*) from sys_FieldValue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_FieldValue
+    <set >
+      <if test="record.valueid != null" >
+        ValueID = #{record.valueid,jdbcType=INTEGER},
+      </if>
+      <if test="record.vFKey != null" >
+        V_F_Key = #{record.vFKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vText != null" >
+        V_Text = #{record.vText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vCode != null" >
+        V_Code = #{record.vCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vShoworder != null" >
+        V_ShowOrder = #{record.vShoworder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_FieldValue
+    set ValueID = #{record.valueid,jdbcType=INTEGER},
+      V_F_Key = #{record.vFKey,jdbcType=VARCHAR},
+      V_Text = #{record.vText,jdbcType=VARCHAR},
+      V_Code = #{record.vCode,jdbcType=VARCHAR},
+      V_ShowOrder = #{record.vShoworder,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_FieldValue" >
+    update sys_FieldValue
+    <set >
+      <if test="vFKey != null" >
+        V_F_Key = #{vFKey,jdbcType=VARCHAR},
+      </if>
+      <if test="vText != null" >
+        V_Text = #{vText,jdbcType=VARCHAR},
+      </if>
+      <if test="vCode != null" >
+        V_Code = #{vCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vShoworder != null" >
+        V_ShowOrder = #{vShoworder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ValueID = #{valueid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_FieldValue" >
+    update sys_FieldValue
+    set V_F_Key = #{vFKey,jdbcType=VARCHAR},
+      V_Text = #{vText,jdbcType=VARCHAR},
+      V_Code = #{vCode,jdbcType=VARCHAR},
+      V_ShowOrder = #{vShoworder,jdbcType=INTEGER}
+    where ValueID = #{valueid,jdbcType=INTEGER}
+  </update>
+</mapper>

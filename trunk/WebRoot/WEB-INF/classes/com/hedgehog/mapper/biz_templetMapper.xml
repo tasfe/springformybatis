@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_templetMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_templet" >
+    <id column="TempletID" property="templetid" jdbcType="INTEGER" />
+    <result column="Templet_Type" property="templetType" jdbcType="INTEGER" />
+    <result column="Templet_Name" property="templetName" jdbcType="VARCHAR" />
+    <result column="Templet_Code" property="templetCode" jdbcType="VARCHAR" />
+    <result column="Templet_Intro" property="templetIntro" jdbcType="VARCHAR" />
+    <result column="Templet_Thumbs" property="templetThumbs" jdbcType="VARCHAR" />
+    <result column="Templet_member" property="templetMember" jdbcType="TINYINT" />
+    <result column="Templet_vote" property="templetVote" jdbcType="TINYINT" />
+    <result column="Templet_link" property="templetLink" jdbcType="TINYINT" />
+    <result column="Templet_server" property="templetServer" jdbcType="VARCHAR" />    
+    <association property="templetclass" column="Templet_Type" javaType="com.hedgehog.domain.biz_templet_class" select="com.hedgehog.mapper.biz_templet_classMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TempletID, Templet_Type, Templet_Name, Templet_Code, Templet_Intro, Templet_Thumbs, 
+    Templet_member, Templet_vote, Templet_link, Templet_server
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_templetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_templet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_templet
+    where TempletID = #{templetid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTempletType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_templet
+    where Templet_Type = #{tcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_templet
+    where TempletID = #{templetid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_templetExample" >
+    delete from biz_templet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_templet" >
+    insert into biz_templet (TempletID, Templet_Type, Templet_Name, 
+      Templet_Code, Templet_Intro, Templet_Thumbs, 
+      Templet_member, Templet_vote, Templet_link, 
+      Templet_server)
+    values (#{templetid,jdbcType=INTEGER}, #{templetType,jdbcType=INTEGER}, #{templetName,jdbcType=VARCHAR}, 
+      #{templetCode,jdbcType=VARCHAR}, #{templetIntro,jdbcType=VARCHAR}, #{templetThumbs,jdbcType=VARCHAR}, 
+      #{templetMember,jdbcType=TINYINT}, #{templetVote,jdbcType=TINYINT}, #{templetLink,jdbcType=TINYINT}, 
+      #{templetServer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_templet" >
+    insert into biz_templet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templetid != null" >
+        TempletID,
+      </if>
+      <if test="templetType != null" >
+        Templet_Type,
+      </if>
+      <if test="templetName != null" >
+        Templet_Name,
+      </if>
+      <if test="templetCode != null" >
+        Templet_Code,
+      </if>
+      <if test="templetIntro != null" >
+        Templet_Intro,
+      </if>
+      <if test="templetThumbs != null" >
+        Templet_Thumbs,
+      </if>
+      <if test="templetMember != null" >
+        Templet_member,
+      </if>
+      <if test="templetVote != null" >
+        Templet_vote,
+      </if>
+      <if test="templetLink != null" >
+        Templet_link,
+      </if>
+      <if test="templetServer != null" >
+        Templet_server,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templetid != null" >
+        #{templetid,jdbcType=INTEGER},
+      </if>
+      <if test="templetType != null" >
+        #{templetType,jdbcType=INTEGER},
+      </if>
+      <if test="templetName != null" >
+        #{templetName,jdbcType=VARCHAR},
+      </if>
+      <if test="templetCode != null" >
+        #{templetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templetIntro != null" >
+        #{templetIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="templetThumbs != null" >
+        #{templetThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="templetMember != null" >
+        #{templetMember,jdbcType=TINYINT},
+      </if>
+      <if test="templetVote != null" >
+        #{templetVote,jdbcType=TINYINT},
+      </if>
+      <if test="templetLink != null" >
+        #{templetLink,jdbcType=TINYINT},
+      </if>
+      <if test="templetServer != null" >
+        #{templetServer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_templetExample" resultType="java.lang.Integer" >
+    select count(*) from biz_templet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_templet
+    <set >
+      <if test="record.templetid != null" >
+        TempletID = #{record.templetid,jdbcType=INTEGER},
+      </if>
+      <if test="record.templetType != null" >
+        Templet_Type = #{record.templetType,jdbcType=INTEGER},
+      </if>
+      <if test="record.templetName != null" >
+        Templet_Name = #{record.templetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templetCode != null" >
+        Templet_Code = #{record.templetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templetIntro != null" >
+        Templet_Intro = #{record.templetIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templetThumbs != null" >
+        Templet_Thumbs = #{record.templetThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templetMember != null" >
+        Templet_member = #{record.templetMember,jdbcType=TINYINT},
+      </if>
+      <if test="record.templetVote != null" >
+        Templet_vote = #{record.templetVote,jdbcType=TINYINT},
+      </if>
+      <if test="record.templetLink != null" >
+        Templet_link = #{record.templetLink,jdbcType=TINYINT},
+      </if>
+      <if test="record.templetServer != null" >
+        Templet_server = #{record.templetServer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_templet
+    set TempletID = #{record.templetid,jdbcType=INTEGER},
+      Templet_Type = #{record.templetType,jdbcType=INTEGER},
+      Templet_Name = #{record.templetName,jdbcType=VARCHAR},
+      Templet_Code = #{record.templetCode,jdbcType=VARCHAR},
+      Templet_Intro = #{record.templetIntro,jdbcType=VARCHAR},
+      Templet_Thumbs = #{record.templetThumbs,jdbcType=VARCHAR},
+      Templet_member = #{record.templetMember,jdbcType=TINYINT},
+      Templet_vote = #{record.templetVote,jdbcType=TINYINT},
+      Templet_link = #{record.templetLink,jdbcType=TINYINT},
+      Templet_server = #{record.templetServer,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_templet" >
+    update biz_templet
+    <set >
+      <if test="templetType != null" >
+        Templet_Type = #{templetType,jdbcType=INTEGER},
+      </if>
+      <if test="templetName != null" >
+        Templet_Name = #{templetName,jdbcType=VARCHAR},
+      </if>
+      <if test="templetCode != null" >
+        Templet_Code = #{templetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templetIntro != null" >
+        Templet_Intro = #{templetIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="templetThumbs != null" >
+        Templet_Thumbs = #{templetThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="templetMember != null" >
+        Templet_member = #{templetMember,jdbcType=TINYINT},
+      </if>
+      <if test="templetVote != null" >
+        Templet_vote = #{templetVote,jdbcType=TINYINT},
+      </if>
+      <if test="templetLink != null" >
+        Templet_link = #{templetLink,jdbcType=TINYINT},
+      </if>
+      <if test="templetServer != null" >
+        Templet_server = #{templetServer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TempletID = #{templetid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_templet" >
+    update biz_templet
+    set Templet_Type = #{templetType,jdbcType=INTEGER},
+      Templet_Name = #{templetName,jdbcType=VARCHAR},
+      Templet_Code = #{templetCode,jdbcType=VARCHAR},
+      Templet_Intro = #{templetIntro,jdbcType=VARCHAR},
+      Templet_Thumbs = #{templetThumbs,jdbcType=VARCHAR},
+      Templet_member = #{templetMember,jdbcType=TINYINT},
+      Templet_vote = #{templetVote,jdbcType=TINYINT},
+      Templet_link = #{templetLink,jdbcType=TINYINT},
+      Templet_server = #{templetServer,jdbcType=VARCHAR}
+    where TempletID = #{templetid,jdbcType=INTEGER}
+  </update>
+  <select id="selectRecordInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+<select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+ select 
+    <include refid="Base_Column_List" />
+    from biz_templet
+    where Templet_Code = #{templetCode,jdbcType=VARCHAR}
+</select>
+</mapper>

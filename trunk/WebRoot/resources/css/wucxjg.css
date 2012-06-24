@@ -1,0 +1,67 @@
+
+@charset "utf-8";
+/* CSS Document */
+
+body{font-family:"宋体"; font-size:12px; margin:0 auto; padding:0; background:url(/resources/images/top_bg.gif) top repeat-x;}
+
+.wall{ width:970px; height:auto; margin:0 auto;}
+
+.top{ width:100%; height:28px; background-color:#f7f7f7; border-bottom:#d8d8d8 solid 1px;}
+.topd{width:960px; height:28px; margin:0 auto;}
+.top_left{ float:left; color:#444; line-height:28px;}
+.top_left a {color:#336699; text-decoration:none}
+.top_right{float:right;line-height:28px;}
+.top_right a {color:#444; text-decoration:none}
+
+.logo{width:960px; height:105px; margin:0px; padding:0px;}
+.logo_zggsdh{float:left; margin-top:20px; margin-left:5px;}
+.logo-right{ float:left; width:700px; margin-top:20px; margin-left:10px;}
+.logo-right ul{ margin:0; padding:0;width:500px; list-style:none}
+.logo-right ul li{ float:left; font-size:14px; width:60px; margin:0px 10px; line-height:30px;}
+.logo-right ul li a{ color:#00F;}
+.chaxun{ width:400px; height:20px; padding-top:5px;}
+.bt1{  width:60px; height:30px; vertical-align:bottom; margin-left:5px;}
+.logo-right-right{ float:right; width:200px; color:#ff7300;font-size:14px;}
+
+
+
+
+.zhongjian {
+	width:700px;  margin:10px 100px; height:300px; 
+}
+.zhongjian span{ font-size:14px; font-weight:bold; color:#F00; line-height:100px; }
+.bi {
+	margin-top: 5px; margin-bottom: 12px;width:100%; height: 25px; background-color: #e4e4e6; font-size:12px;
+}
+.bi a {
+	color: black
+}
+.bi .swsy {
+	padding-left: 12px; float: left; padding-top: 6px;
+}
+.bi .jrsc {
+	padding-left: 12px; float: left; padding-top: 6px
+}
+.bi .jgtj {
+ float: right; margin-right: 10px; padding-top: 6px
+}
+
+
+
+
+
+
+
+
+
+.link{width:960px; float:left; margin-top:10px;}
+.link  a{ color:#555; text-decoration:underline; line-height:15px;}
+
+.copyright {width:960px; margin:0 auto; }
+.copyright_sm {border-bottom:3px solid #ff7300; color:#cccccc; text-align:center; padding-bottom:3px;}
+.copyright_lj { text-align:center; margin-top:5px;}
+.copyright_lj a{color:#565455;}
+.copyright_body {color:000; text-align:center; margin-top:10px;}
+.copyright_body  a{ color:#565455}
+
+

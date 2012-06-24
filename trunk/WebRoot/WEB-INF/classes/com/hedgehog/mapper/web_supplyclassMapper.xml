@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_supplyclassMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_supplyclass" >
+    <id column="scID" property="scid" jdbcType="INTEGER" />
+    <result column="sc_parentID" property="scParentid" jdbcType="INTEGER" />
+    <result column="sc_name" property="scName" jdbcType="VARCHAR" />
+    <result column="sc_code" property="scCode" jdbcType="VARCHAR" />
+    <result column="sc_menuID" property="scMenuid" jdbcType="INTEGER" />
+    <result column="sc_order" property="scOrder" jdbcType="INTEGER" />
+    <result column="sc_des" property="scDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scID, sc_parentID, sc_name, sc_code, sc_menuID, sc_order, sc_des
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_supplyclassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_supplyclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_supplyclass
+    where scID = #{scid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMenuID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_supplyclass
+    where sc_menuID = #{scMenuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_supplyclass
+    where scID = #{scid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_supplyclassExample" >
+    delete from web_supplyclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_supplyclass" >
+    insert into web_supplyclass (scID, sc_parentID, sc_name, 
+      sc_code, sc_menuID, sc_order, 
+      sc_des)
+    values (#{scid,jdbcType=INTEGER}, #{scParentid,jdbcType=INTEGER}, #{scName,jdbcType=VARCHAR}, 
+      #{scCode,jdbcType=VARCHAR}, #{scMenuid,jdbcType=INTEGER}, #{scOrder,jdbcType=INTEGER}, 
+      #{scDes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_supplyclass" >
+    insert into web_supplyclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scid != null" >
+        scID,
+      </if>
+      <if test="scParentid != null" >
+        sc_parentID,
+      </if>
+      <if test="scName != null" >
+        sc_name,
+      </if>
+      <if test="scCode != null" >
+        sc_code,
+      </if>
+      <if test="scMenuid != null" >
+        sc_menuID,
+      </if>
+      <if test="scOrder != null" >
+        sc_order,
+      </if>
+      <if test="scDes != null" >
+        sc_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scid != null" >
+        #{scid,jdbcType=INTEGER},
+      </if>
+      <if test="scParentid != null" >
+        #{scParentid,jdbcType=INTEGER},
+      </if>
+      <if test="scName != null" >
+        #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scCode != null" >
+        #{scCode,jdbcType=VARCHAR},
+      </if>
+      <if test="scMenuid != null" >
+        #{scMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="scOrder != null" >
+        #{scOrder,jdbcType=INTEGER},
+      </if>
+      <if test="scDes != null" >
+        #{scDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_supplyclassExample" resultType="java.lang.Integer" >
+    select count(*) from web_supplyclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_supplyclass
+    <set >
+      <if test="record.scid != null" >
+        scID = #{record.scid,jdbcType=INTEGER},
+      </if>
+      <if test="record.scParentid != null" >
+        sc_parentID = #{record.scParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.scName != null" >
+        sc_name = #{record.scName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scCode != null" >
+        sc_code = #{record.scCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scMenuid != null" >
+        sc_menuID = #{record.scMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.scOrder != null" >
+        sc_order = #{record.scOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.scDes != null" >
+        sc_des = #{record.scDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_supplyclass
+    set scID = #{record.scid,jdbcType=INTEGER},
+      sc_parentID = #{record.scParentid,jdbcType=INTEGER},
+      sc_name = #{record.scName,jdbcType=VARCHAR},
+      sc_code = #{record.scCode,jdbcType=VARCHAR},
+      sc_menuID = #{record.scMenuid,jdbcType=INTEGER},
+      sc_order = #{record.scOrder,jdbcType=INTEGER},
+      sc_des = #{record.scDes,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_supplyclass" >
+    update web_supplyclass
+    <set >
+      <if test="scParentid != null" >
+        sc_parentID = #{scParentid,jdbcType=INTEGER},
+      </if>
+      <if test="scName != null" >
+        sc_name = #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scCode != null" >
+        sc_code = #{scCode,jdbcType=VARCHAR},
+      </if>
+      <if test="scMenuid != null" >
+        sc_menuID = #{scMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="scOrder != null" >
+        sc_order = #{scOrder,jdbcType=INTEGER},
+      </if>
+      <if test="scDes != null" >
+        sc_des = #{scDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scID = #{scid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_supplyclass" >
+    update web_supplyclass
+    set sc_parentID = #{scParentid,jdbcType=INTEGER},
+      sc_name = #{scName,jdbcType=VARCHAR},
+      sc_code = #{scCode,jdbcType=VARCHAR},
+      sc_menuID = #{scMenuid,jdbcType=INTEGER},
+      sc_order = #{scOrder,jdbcType=INTEGER},
+      sc_des = #{scDes,jdbcType=VARCHAR}
+    where scID = #{scid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.web_supplyinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.web_supplyinfo" >
+    <id column="supplyinfoID" property="supplyinfoid" jdbcType="INTEGER" />
+    <result column="supplyinfo_sc" property="supplyinfoSc" jdbcType="INTEGER" />
+    <result column="supplyinfo_Title" property="supplyinfoTitle" jdbcType="VARCHAR" />
+    <result column="supplyinfo_thumbs" property="supplyinfoThumbs" jdbcType="VARCHAR" />
+    <result column="supplyinfo_type" property="supplyinfoType" jdbcType="INTEGER" />
+    <result column="supplyinfo_menuID" property="supplyinfoMenuid" jdbcType="INTEGER" />
+    <result column="supplyinfo_updatetime" property="supplyinfoUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="supplyinfo_hits" property="supplyinfoHits" jdbcType="INTEGER" />
+    <result column="supplyinfo_properties" property="supplyinfoProperties" jdbcType="VARCHAR" />
+    <association property="menu" column="supplyinfo_menuID" javaType="com.hedgehog.domain.biz_menu" select="com.hedgehog.mapper.biz_menuMapper.selectByPrimaryKey"/>
+    <association property="supplyclass" column="supplyinfo_sc" javaType="com.hedgehog.domain.web_supplyclass" select="com.hedgehog.mapper.web_supplyclassMapper.selectByPrimaryKey" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.web_supplyinfo" extends="BaseResultMap" >
+    <result column="supplyinfo_des" property="supplyinfoDes" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    supplyinfoID, supplyinfo_sc, supplyinfo_Title, supplyinfo_thumbs, supplyinfo_type, 
+    supplyinfo_menuID, supplyinfo_updatetime, supplyinfo_hits, supplyinfo_properties
+  </sql>
+  <sql id="Blob_Column_List" >
+    supplyinfo_des
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.web_supplyinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_supplyinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.web_supplyinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from web_supplyinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from web_supplyinfo
+    where supplyinfoID = #{supplyinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_supplyinfo
+    where supplyinfoID = #{supplyinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.web_supplyinfoExample" >
+    delete from web_supplyinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.web_supplyinfo" >
+    insert into web_supplyinfo (supplyinfoID, supplyinfo_sc, supplyinfo_Title, 
+      supplyinfo_thumbs, supplyinfo_type, supplyinfo_menuID, 
+      supplyinfo_updatetime, supplyinfo_hits, 
+      supplyinfo_properties, supplyinfo_des
+      )
+    values (#{supplyinfoid,jdbcType=INTEGER}, #{supplyinfoSc,jdbcType=INTEGER}, #{supplyinfoTitle,jdbcType=VARCHAR}, 
+      #{supplyinfoThumbs,jdbcType=VARCHAR}, #{supplyinfoType,jdbcType=INTEGER}, #{supplyinfoMenuid,jdbcType=INTEGER}, 
+      #{supplyinfoUpdatetime,jdbcType=TIMESTAMP}, #{supplyinfoHits,jdbcType=INTEGER}, 
+      #{supplyinfoProperties,jdbcType=VARCHAR}, #{supplyinfoDes,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.web_supplyinfo" >
+    insert into web_supplyinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplyinfoid != null" >
+        supplyinfoID,
+      </if>
+      <if test="supplyinfoSc != null" >
+        supplyinfo_sc,
+      </if>
+      <if test="supplyinfoTitle != null" >
+        supplyinfo_Title,
+      </if>
+      <if test="supplyinfoThumbs != null" >
+        supplyinfo_thumbs,
+      </if>
+      <if test="supplyinfoType != null" >
+        supplyinfo_type,
+      </if>
+      <if test="supplyinfoMenuid != null" >
+        supplyinfo_menuID,
+      </if>
+      <if test="supplyinfoUpdatetime != null" >
+        supplyinfo_updatetime,
+      </if>
+      <if test="supplyinfoHits != null" >
+        supplyinfo_hits,
+      </if>
+      <if test="supplyinfoProperties != null" >
+        supplyinfo_properties,
+      </if>
+      <if test="supplyinfoDes != null" >
+        supplyinfo_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplyinfoid != null" >
+        #{supplyinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoSc != null" >
+        #{supplyinfoSc,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoTitle != null" >
+        #{supplyinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoThumbs != null" >
+        #{supplyinfoThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoType != null" >
+        #{supplyinfoType,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoMenuid != null" >
+        #{supplyinfoMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoUpdatetime != null" >
+        #{supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplyinfoHits != null" >
+        #{supplyinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoProperties != null" >
+        #{supplyinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoDes != null" >
+        #{supplyinfoDes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.web_supplyinfoExample" resultType="java.lang.Integer" >
+    select count(*) from web_supplyinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update web_supplyinfo
+    <set >
+      <if test="record.supplyinfoid != null" >
+        supplyinfoID = #{record.supplyinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyinfoSc != null" >
+        supplyinfo_sc = #{record.supplyinfoSc,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyinfoTitle != null" >
+        supplyinfo_Title = #{record.supplyinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyinfoThumbs != null" >
+        supplyinfo_thumbs = #{record.supplyinfoThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyinfoType != null" >
+        supplyinfo_type = #{record.supplyinfoType,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyinfoMenuid != null" >
+        supplyinfo_menuID = #{record.supplyinfoMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyinfoUpdatetime != null" >
+        supplyinfo_updatetime = #{record.supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplyinfoHits != null" >
+        supplyinfo_hits = #{record.supplyinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyinfoProperties != null" >
+        supplyinfo_properties = #{record.supplyinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyinfoDes != null" >
+        supplyinfo_des = #{record.supplyinfoDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update web_supplyinfo
+    set supplyinfoID = #{record.supplyinfoid,jdbcType=INTEGER},
+      supplyinfo_sc = #{record.supplyinfoSc,jdbcType=INTEGER},
+      supplyinfo_Title = #{record.supplyinfoTitle,jdbcType=VARCHAR},
+      supplyinfo_thumbs = #{record.supplyinfoThumbs,jdbcType=VARCHAR},
+      supplyinfo_type = #{record.supplyinfoType,jdbcType=INTEGER},
+      supplyinfo_menuID = #{record.supplyinfoMenuid,jdbcType=INTEGER},
+      supplyinfo_updatetime = #{record.supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      supplyinfo_hits = #{record.supplyinfoHits,jdbcType=INTEGER},
+      supplyinfo_properties = #{record.supplyinfoProperties,jdbcType=VARCHAR},
+      supplyinfo_des = #{record.supplyinfoDes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update web_supplyinfo
+    set supplyinfoID = #{record.supplyinfoid,jdbcType=INTEGER},
+      supplyinfo_sc = #{record.supplyinfoSc,jdbcType=INTEGER},
+      supplyinfo_Title = #{record.supplyinfoTitle,jdbcType=VARCHAR},
+      supplyinfo_thumbs = #{record.supplyinfoThumbs,jdbcType=VARCHAR},
+      supplyinfo_type = #{record.supplyinfoType,jdbcType=INTEGER},
+      supplyinfo_menuID = #{record.supplyinfoMenuid,jdbcType=INTEGER},
+      supplyinfo_updatetime = #{record.supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      supplyinfo_hits = #{record.supplyinfoHits,jdbcType=INTEGER},
+      supplyinfo_properties = #{record.supplyinfoProperties,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.web_supplyinfo" >
+    update web_supplyinfo
+    <set >
+      <if test="supplyinfoSc != null" >
+        supplyinfo_sc = #{supplyinfoSc,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoTitle != null" >
+        supplyinfo_Title = #{supplyinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoThumbs != null" >
+        supplyinfo_thumbs = #{supplyinfoThumbs,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoType != null" >
+        supplyinfo_type = #{supplyinfoType,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoMenuid != null" >
+        supplyinfo_menuID = #{supplyinfoMenuid,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoUpdatetime != null" >
+        supplyinfo_updatetime = #{supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplyinfoHits != null" >
+        supplyinfo_hits = #{supplyinfoHits,jdbcType=INTEGER},
+      </if>
+      <if test="supplyinfoProperties != null" >
+        supplyinfo_properties = #{supplyinfoProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyinfoDes != null" >
+        supplyinfo_des = #{supplyinfoDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where supplyinfoID = #{supplyinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.web_supplyinfo" >
+    update web_supplyinfo
+    set supplyinfo_sc = #{supplyinfoSc,jdbcType=INTEGER},
+      supplyinfo_Title = #{supplyinfoTitle,jdbcType=VARCHAR},
+      supplyinfo_thumbs = #{supplyinfoThumbs,jdbcType=VARCHAR},
+      supplyinfo_type = #{supplyinfoType,jdbcType=INTEGER},
+      supplyinfo_menuID = #{supplyinfoMenuid,jdbcType=INTEGER},
+      supplyinfo_updatetime = #{supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      supplyinfo_hits = #{supplyinfoHits,jdbcType=INTEGER},
+      supplyinfo_properties = #{supplyinfoProperties,jdbcType=VARCHAR},
+      supplyinfo_des = #{supplyinfoDes,jdbcType=LONGVARCHAR}
+    where supplyinfoID = #{supplyinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.web_supplyinfo" >
+    update web_supplyinfo
+    set supplyinfo_sc = #{supplyinfoSc,jdbcType=INTEGER},
+      supplyinfo_Title = #{supplyinfoTitle,jdbcType=VARCHAR},
+      supplyinfo_thumbs = #{supplyinfoThumbs,jdbcType=VARCHAR},
+      supplyinfo_type = #{supplyinfoType,jdbcType=INTEGER},
+      supplyinfo_menuID = #{supplyinfoMenuid,jdbcType=INTEGER},
+      supplyinfo_updatetime = #{supplyinfoUpdatetime,jdbcType=TIMESTAMP},
+      supplyinfo_hits = #{supplyinfoHits,jdbcType=INTEGER},
+      supplyinfo_properties = #{supplyinfoProperties,jdbcType=VARCHAR}
+    where supplyinfoID = #{supplyinfoid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectWebSupplyinfoInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="BaseResultMap">
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+<select id="selectCountByClass" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select count(*) from web_supplyinfo where supplyinfo_sc=#{value}
+</select>
+</mapper>

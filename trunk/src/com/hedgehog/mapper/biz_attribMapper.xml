@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_attribMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_attrib" >
+    <id column="attribID" property="attribid" jdbcType="INTEGER" />
+    <result column="k_name" property="kName" jdbcType="VARCHAR" />
+    <result column="k_value" property="kValue" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="k_type" property="kType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attribID, k_name, k_value, m_id, k_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_attribExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_attrib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_attrib
+    where attribID = #{attribid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_attrib
+    where attribID = #{attribid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_attribExample" >
+    delete from biz_attrib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_attrib" >
+    insert into biz_attrib (attribID, k_name, k_value, 
+      m_id, k_type)
+    values (#{attribid,jdbcType=INTEGER}, #{kName,jdbcType=VARCHAR}, #{kValue,jdbcType=VARCHAR}, 
+      #{mId,jdbcType=INTEGER}, #{kType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_attrib" >
+    insert into biz_attrib
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attribid != null" >
+        attribID,
+      </if>
+      <if test="kName != null" >
+        k_name,
+      </if>
+      <if test="kValue != null" >
+        k_value,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="kType != null" >
+        k_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attribid != null" >
+        #{attribid,jdbcType=INTEGER},
+      </if>
+      <if test="kName != null" >
+        #{kName,jdbcType=VARCHAR},
+      </if>
+      <if test="kValue != null" >
+        #{kValue,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="kType != null" >
+        #{kType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_attribExample" resultType="java.lang.Integer" >
+    select count(*) from biz_attrib
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_attrib
+    <set >
+      <if test="record.attribid != null" >
+        attribID = #{record.attribid,jdbcType=INTEGER},
+      </if>
+      <if test="record.kName != null" >
+        k_name = #{record.kName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kValue != null" >
+        k_value = #{record.kValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.kType != null" >
+        k_type = #{record.kType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_attrib
+    set attribID = #{record.attribid,jdbcType=INTEGER},
+      k_name = #{record.kName,jdbcType=VARCHAR},
+      k_value = #{record.kValue,jdbcType=VARCHAR},
+      m_id = #{record.mId,jdbcType=INTEGER},
+      k_type = #{record.kType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_attrib" >
+    update biz_attrib
+    <set >
+      <if test="kName != null" >
+        k_name = #{kName,jdbcType=VARCHAR},
+      </if>
+      <if test="kValue != null" >
+        k_value = #{kValue,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="kType != null" >
+        k_type = #{kType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attribID = #{attribid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_attrib" >
+    update biz_attrib
+    set k_name = #{kName,jdbcType=VARCHAR},
+      k_value = #{kValue,jdbcType=VARCHAR},
+      m_id = #{mId,jdbcType=INTEGER},
+      k_type = #{kType,jdbcType=VARCHAR}
+    where attribID = #{attribid,jdbcType=INTEGER}
+  </update>
+</mapper>

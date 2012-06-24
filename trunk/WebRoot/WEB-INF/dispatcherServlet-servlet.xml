@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:util="http://www.springframework.org/schema/util"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<!--  定义国际化消息-->
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">         
+<property name="basename">
+<value>messages</value>
+</property>
+</bean>
+<bean id="localeResolver" 
+class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver">
+</bean>
+   <!--<start id="multipart_resolver"/>-->   
+   <bean id="multipartResolver" class=
+	   "org.springframework.web.multipart.commons.CommonsMultipartResolver"
+     p:maxUploadSize="500000" />
+   <!--<end id="multipart_resolver"/>-->   
+   
+   <!--<start id="spring_component_scan" />-->
+<context:component-scan base-package="com.hedgehog.controller" />
+<!--   <context:component-scan base-package="com.hedgehog.controller" use-default-filters="false"> -->
+<!--    <context:include-filter type="regex" expression="com.hedgehog.controller.*"/>-->
+<!--</context:component-scan>-->
+   <!--<end id="spring_component_scan" />-->
+   
+   
+
+   <!--<start id="mvc_annotatedcontrollers" />-->
+  <mvc:annotation-driven/>
+<!--<bean  -->
+<!--        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  -->
+<!--        <property name="messageConverters">  -->
+<!--            <list>  -->
+<!--             -->
+<!--             <ref bean="xmlConverter" />-->
+<!--                <bean  -->
+<!--                    class="org.springframework.http.converter.StringHttpMessageConverter">                     -->
+<!--                    <property name="supportedMediaTypes">  -->
+<!--                        <list>  -->
+<!--                            <value>text/html;charset=UTF-8</value>  -->
+<!--                        </list>  -->
+<!--                    </property>  -->
+<!--                </bean> -->
+<!--                -->
+<!--            </list>  -->
+<!--        </property>  -->
+<!--    </bean>  -->
+<!--    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">    -->
+<!--   <property name="supportedMediaTypes" value="application/json" />-->
+<!--</bean>-->
+<!--<bean id="xmlConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">-->
+<!--<property name="marshaller" ref="castorMarshaller"/>-->
+<!--<property name="unmarshaller" ref="castorMarshaller"/>-->
+<!--</bean>-->
+<!---->
+<!--<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />-->
+
+<!--    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.  -->
+<!--    http.converter.json.MappingJacksonHttpMessageConverter">  -->
+<!--    <property name="supportedMediaTypes">  -->
+<!--        <list>  -->
+<!--            <value>text/html;charset=UTF-8</value>  -->
+<!--        </list>  -->
+<!--    </property>  -->
+<!--</bean>  -->
+<!--<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/> -->
+
+   <!--<end id="mvc_annotatedcontrollers" />-->
+
+   <!--<start id="mvc_resources"/>--> 
+   <mvc:resources mapping="/resources/**" location="/resources/" />
+   <mvc:resources mapping="/ckeditor/**" location="/ckeditor/" />
+   <mvc:resources mapping="/ckfinder/**" location="/ckfinder/" />
+   <mvc:resources mapping="/CKFinderJava/**" location="/CKFinderJava/" />
+   <!--<end id="mvc_resources"/>--> 
+   <mvc:interceptors>
+     <mvc:interceptor>
+       <mvc:mapping path="/**" />
+       <bean class="com.hedgehog.controller.SpittleBackingBeanInterceptor" />
+     </mvc:interceptor>
+   </mvc:interceptors>
+   
+<!--      <bean name="spitter/spittles" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />-->
+<!---->
+<!--   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">-->
+<!--     <property name="mediaTypes">-->
+<!--       <map>-->
+<!--         <entry key="htm" value="text/html"/>-->
+<!--         <entry key="json" value="application/json"/>-->
+<!--       </map>-->
+<!--     </property>-->
+<!--     <property name="defaultViews">-->
+<!--       <list>-->
+<!--         <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />-->
+<!--       </list>-->
+<!--     </property>-->
+<!--   </bean>-->
+
+
+<bean id="aclInterceptor" class="com.hedgehog.controller.AclInterceptor"></bean>
+<bean id="performanceHandler" class="com.hedgehog.controller.PerformanceHandlerInterceptor"></bean>
+
+<!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">    -->
+<!--    <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>-->
+<!--</bean>-->
+
+ <bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.InternalResourceView</value>
+        </property>
+        <!-- 定义JSP存放的路径 -->        
+        <property name="prefix">        
+        <value>/WEB-INF/views/</value>        
+        </property> 
+        <!-- 定义JSP页面后缀 -->        
+       <property name="suffix">        
+        <value>.jsp</value>        
+        </property>
+        <property name="order"><value>2</value></property>
+</bean>
+    <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>                
+                <value>/WEB-INF/views/**/train-def.xml</value>                
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+    <property name="viewClass"
+            value="org.springframework.web.servlet.view.tiles2.TilesView" />  
+            <property name="order"><value>1</value></property>
+    </bean>
+    
+	<!--Action Configuration-->		
+	<!-- servlet适配器，这里必须明确声明，因为spring默认没有初始化该适配器 -->  
+    <bean id="servletHandlerAdapter" class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter"/> 
+    
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
+        <property name="config">  
+            <bean class="com.google.code.kaptcha.util.Config">  
+                <constructor-arg>  
+                    <props>  
+                        <prop key="kaptcha.border">no</prop>  
+                        <prop key="kaptcha.border.color">105,179,90</prop>  
+                        <prop key="kaptcha.textproducer.font.color">red</prop>  
+                        <prop key="kaptcha.image.width">250</prop>  
+                        <prop key="kaptcha.textproducer.font.size">90</prop>  
+                        <prop key="kaptcha.image.height">120</prop>  
+                        <prop key="kaptcha.session.key">code</prop>  
+                        <prop key="kaptcha.textproducer.char.length">4</prop>  
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>  
+                    </props>  
+                </constructor-arg>  
+            </bean>  
+        </property>  
+    </bean>  
+<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+<property name="defaultErrorView">
+<value>jsp/failure</value>
+</property>
+</bean>
+</beans>

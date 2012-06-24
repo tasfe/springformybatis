@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_replyMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_reply" >
+    <id column="replyID" property="replyid" jdbcType="INTEGER" />
+    <result column="reply_infoID" property="replyInfoid" jdbcType="INTEGER" />
+    <result column="reply_nikename" property="replyNikename" jdbcType="VARCHAR" />
+    <result column="reply_email" property="replyEmail" jdbcType="VARCHAR" />
+    <result column="reply_datetime" property="replyDatetime" jdbcType="TIMESTAMP" />
+    <result column="reply_clientip" property="replyClientip" jdbcType="VARCHAR" />
+    <association property="classinfo" column="reply_infoID" javaType="com.hedgehog.domain.biz_classinfo" select="com.hedgehog.mapper.biz_classinfoMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.biz_reply" extends="BaseResultMap" >
+    <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    replyID, reply_infoID, reply_nikename, reply_email, reply_datetime, reply_clientip
+  </sql>
+  <sql id="Blob_Column_List" >
+    reply_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hedgehog.domain.biz_replyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_replyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_reply
+    where replyID = #{replyid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByInfoID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from biz_reply
+    where reply_infoID = #{classinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_reply
+    where replyID = #{replyid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByClassinfoid" parameterType="java.lang.Integer">
+  delete from biz_reply
+    where reply_infoID = #{classinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_replyExample" >
+    delete from biz_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_reply" >
+    insert into biz_reply (replyID, reply_infoID, reply_nikename, 
+      reply_email, reply_datetime, reply_clientip, 
+      reply_content)
+    values (#{replyid,jdbcType=INTEGER}, #{replyInfoid,jdbcType=INTEGER}, #{replyNikename,jdbcType=VARCHAR}, 
+      #{replyEmail,jdbcType=VARCHAR}, #{replyDatetime,jdbcType=TIMESTAMP}, #{replyClientip,jdbcType=VARCHAR}, 
+      #{replyContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_reply" >
+    insert into biz_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        replyID,
+      </if>
+      <if test="replyInfoid != null" >
+        reply_infoID,
+      </if>
+      <if test="replyNikename != null" >
+        reply_nikename,
+      </if>
+      <if test="replyEmail != null" >
+        reply_email,
+      </if>
+      <if test="replyDatetime != null" >
+        reply_datetime,
+      </if>
+      <if test="replyClientip != null" >
+        reply_clientip,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        #{replyid,jdbcType=INTEGER},
+      </if>
+      <if test="replyInfoid != null" >
+        #{replyInfoid,jdbcType=INTEGER},
+      </if>
+      <if test="replyNikename != null" >
+        #{replyNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="replyEmail != null" >
+        #{replyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDatetime != null" >
+        #{replyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyClientip != null" >
+        #{replyClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_replyExample" resultType="java.lang.Integer" >
+    select count(*) from biz_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_reply
+    <set >
+      <if test="record.replyid != null" >
+        replyID = #{record.replyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyInfoid != null" >
+        reply_infoID = #{record.replyInfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyNikename != null" >
+        reply_nikename = #{record.replyNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyEmail != null" >
+        reply_email = #{record.replyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyDatetime != null" >
+        reply_datetime = #{record.replyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyClientip != null" >
+        reply_clientip = #{record.replyClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyContent != null" >
+        reply_content = #{record.replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update biz_reply
+    set replyID = #{record.replyid,jdbcType=INTEGER},
+      reply_infoID = #{record.replyInfoid,jdbcType=INTEGER},
+      reply_nikename = #{record.replyNikename,jdbcType=VARCHAR},
+      reply_email = #{record.replyEmail,jdbcType=VARCHAR},
+      reply_datetime = #{record.replyDatetime,jdbcType=TIMESTAMP},
+      reply_clientip = #{record.replyClientip,jdbcType=VARCHAR},
+      reply_content = #{record.replyContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_reply
+    set replyID = #{record.replyid,jdbcType=INTEGER},
+      reply_infoID = #{record.replyInfoid,jdbcType=INTEGER},
+      reply_nikename = #{record.replyNikename,jdbcType=VARCHAR},
+      reply_email = #{record.replyEmail,jdbcType=VARCHAR},
+      reply_datetime = #{record.replyDatetime,jdbcType=TIMESTAMP},
+      reply_clientip = #{record.replyClientip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_reply" >
+    update biz_reply
+    <set >
+      <if test="replyInfoid != null" >
+        reply_infoID = #{replyInfoid,jdbcType=INTEGER},
+      </if>
+      <if test="replyNikename != null" >
+        reply_nikename = #{replyNikename,jdbcType=VARCHAR},
+      </if>
+      <if test="replyEmail != null" >
+        reply_email = #{replyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDatetime != null" >
+        reply_datetime = #{replyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyClientip != null" >
+        reply_clientip = #{replyClientip,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where replyID = #{replyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.biz_reply" >
+    update biz_reply
+    set reply_infoID = #{replyInfoid,jdbcType=INTEGER},
+      reply_nikename = #{replyNikename,jdbcType=VARCHAR},
+      reply_email = #{replyEmail,jdbcType=VARCHAR},
+      reply_datetime = #{replyDatetime,jdbcType=TIMESTAMP},
+      reply_clientip = #{replyClientip,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=LONGVARCHAR}
+    where replyID = #{replyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_reply" >
+    update biz_reply
+    set reply_infoID = #{replyInfoid,jdbcType=INTEGER},
+      reply_nikename = #{replyNikename,jdbcType=VARCHAR},
+      reply_email = #{replyEmail,jdbcType=VARCHAR},
+      reply_datetime = #{replyDatetime,jdbcType=TIMESTAMP},
+      reply_clientip = #{replyClientip,jdbcType=VARCHAR}
+    where replyID = #{replyid,jdbcType=INTEGER}
+  </update>
+  <select id="selectRecordInPager" statementType="CALLABLE" parameterType="com.hedgehog.domain.QueryParam" resultMap="ResultMapWithBLOBs" >
+{call SupesoftPage(
+#{TableName,javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{ReturnFields,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{PageSize,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{PageIndex,  javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{Where,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{Orderfld,  javaType=java.lang.String jdbcType=NVARCHAR mode=IN},
+#{OrderType,javaType=java.lang.Integer jdbcType=INTEGER mode=IN},
+#{RecordCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT},
+#{PageCount,javaType=java.lang.Integer jdbcType=INTEGER mode=INOUT}
+)} 
+</select>
+</mapper>

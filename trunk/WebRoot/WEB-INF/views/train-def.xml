@@ -1,0 +1,24 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions> 
+
+<!--<start id="tile_home"/>--> 
+   <definition name="news/list" extends="template">  
+        <put-attribute name="title" value="教育资讯"/>  
+        <put-attribute name="content" value="/WEB-INF/views/news/list.jsp"/>  
+      </definition>
+<!--<end id="tile_home"/>-->
+
+<definition name="news/detail" extends="template">  
+        <put-attribute name="title" value="news title"/>  
+        <put-attribute name="content" value="/WEB-INF/views/news/detail.jsp"/>  
+      </definition>
+   <definition name="news/edit" extends="template">  
+        <put-attribute name="title" value="news title"/>  
+        <put-attribute name="content" value="/WEB-INF/views/news/edit.jsp"/>  
+      </definition>
+   
+   
+</tiles-definitions>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.biz_prankMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.biz_prank" >
+    <id column="prankID" property="prankid" jdbcType="INTEGER" />
+    <result column="prank_name" property="prankName" jdbcType="VARCHAR" />
+    <result column="prank_code" property="prankCode" jdbcType="VARCHAR" />
+    <result column="prank_order" property="prankOrder" jdbcType="INTEGER" />
+    <result column="prank_des" property="prankDes" jdbcType="VARCHAR" />
+    <result column="prank_honor" property="prankHonor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    prankID, prank_name, prank_code, prank_order, prank_des, prank_honor
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hedgehog.domain.biz_prankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_prank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_prank
+    where prankID = #{prankid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_prank
+    where prankID = #{prankid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hedgehog.domain.biz_prankExample" >
+    delete from biz_prank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hedgehog.domain.biz_prank" >
+    insert into biz_prank (prankID, prank_name, prank_code, 
+      prank_order, prank_des, prank_honor
+      )
+    values (#{prankid,jdbcType=INTEGER}, #{prankName,jdbcType=VARCHAR}, #{prankCode,jdbcType=VARCHAR}, 
+      #{prankOrder,jdbcType=INTEGER}, #{prankDes,jdbcType=VARCHAR}, #{prankHonor,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.biz_prank" >
+    insert into biz_prank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prankid != null" >
+        prankID,
+      </if>
+      <if test="prankName != null" >
+        prank_name,
+      </if>
+      <if test="prankCode != null" >
+        prank_code,
+      </if>
+      <if test="prankOrder != null" >
+        prank_order,
+      </if>
+      <if test="prankDes != null" >
+        prank_des,
+      </if>
+      <if test="prankHonor != null" >
+        prank_honor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prankid != null" >
+        #{prankid,jdbcType=INTEGER},
+      </if>
+      <if test="prankName != null" >
+        #{prankName,jdbcType=VARCHAR},
+      </if>
+      <if test="prankCode != null" >
+        #{prankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prankOrder != null" >
+        #{prankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="prankDes != null" >
+        #{prankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="prankHonor != null" >
+        #{prankHonor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hedgehog.domain.biz_prankExample" resultType="java.lang.Integer" >
+    select count(*) from biz_prank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_prank
+    <set >
+      <if test="record.prankid != null" >
+        prankID = #{record.prankid,jdbcType=INTEGER},
+      </if>
+      <if test="record.prankName != null" >
+        prank_name = #{record.prankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prankCode != null" >
+        prank_code = #{record.prankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prankOrder != null" >
+        prank_order = #{record.prankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.prankDes != null" >
+        prank_des = #{record.prankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prankHonor != null" >
+        prank_honor = #{record.prankHonor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_prank
+    set prankID = #{record.prankid,jdbcType=INTEGER},
+      prank_name = #{record.prankName,jdbcType=VARCHAR},
+      prank_code = #{record.prankCode,jdbcType=VARCHAR},
+      prank_order = #{record.prankOrder,jdbcType=INTEGER},
+      prank_des = #{record.prankDes,jdbcType=VARCHAR},
+      prank_honor = #{record.prankHonor,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.biz_prank" >
+    update biz_prank
+    <set >
+      <if test="prankName != null" >
+        prank_name = #{prankName,jdbcType=VARCHAR},
+      </if>
+      <if test="prankCode != null" >
+        prank_code = #{prankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prankOrder != null" >
+        prank_order = #{prankOrder,jdbcType=INTEGER},
+      </if>
+      <if test="prankDes != null" >
+        prank_des = #{prankDes,jdbcType=VARCHAR},
+      </if>
+      <if test="prankHonor != null" >
+        prank_honor = #{prankHonor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prankID = #{prankid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.biz_prank" >
+    update biz_prank
+    set prank_name = #{prankName,jdbcType=VARCHAR},
+      prank_code = #{prankCode,jdbcType=VARCHAR},
+      prank_order = #{prankOrder,jdbcType=INTEGER},
+      prank_des = #{prankDes,jdbcType=VARCHAR},
+      prank_honor = #{prankHonor,jdbcType=VARCHAR}
+    where prankID = #{prankid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllRecord" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from biz_prank
+  </select>  
+</mapper>

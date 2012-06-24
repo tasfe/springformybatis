@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hedgehog.mapper.sys_SystemInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hedgehog.domain.sys_SystemInfo" >
+    <id column="SystemID" property="systemid" jdbcType="INTEGER" />
+    <result column="S_Name" property="sName" jdbcType="VARCHAR" />
+    <result column="S_Version" property="sVersion" jdbcType="VARCHAR" />
+    <result column="S_Licensed" property="sLicensed" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hedgehog.domain.sys_SystemInfo" extends="BaseResultMap" >
+    <result column="S_SystemConfigData" property="sSystemconfigdata" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SystemID, S_Name, S_Version, S_Licensed
+  </sql>
+  <sql id="Blob_Column_List" >
+    S_SystemConfigData
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_SystemInfo
+    where SystemID = #{systemid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_SystemInfo
+    where SystemID = #{systemid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.hedgehog.domain.sys_SystemInfo" >
+    insert into sys_SystemInfo (SystemID, S_Name, S_Version, 
+      S_Licensed, S_SystemConfigData)
+    values (#{systemid,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sVersion,jdbcType=VARCHAR}, 
+      #{sLicensed,jdbcType=VARCHAR}, #{sSystemconfigdata,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hedgehog.domain.sys_SystemInfo" >
+    insert into sys_SystemInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemid != null" >
+        SystemID,
+      </if>
+      <if test="sName != null" >
+        S_Name,
+      </if>
+      <if test="sVersion != null" >
+        S_Version,
+      </if>
+      <if test="sLicensed != null" >
+        S_Licensed,
+      </if>
+      <if test="sSystemconfigdata != null" >
+        S_SystemConfigData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemid != null" >
+        #{systemid,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sVersion != null" >
+        #{sVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="sLicensed != null" >
+        #{sLicensed,jdbcType=VARCHAR},
+      </if>
+      <if test="sSystemconfigdata != null" >
+        #{sSystemconfigdata,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_SystemInfo
+    <set >
+      <if test="record.systemid != null" >
+        SystemID = #{record.systemid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sName != null" >
+        S_Name = #{record.sName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sVersion != null" >
+        S_Version = #{record.sVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sLicensed != null" >
+        S_Licensed = #{record.sLicensed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sSystemconfigdata != null" >
+        S_SystemConfigData = #{record.sSystemconfigdata,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_SystemInfo
+    set SystemID = #{record.systemid,jdbcType=INTEGER},
+      S_Name = #{record.sName,jdbcType=VARCHAR},
+      S_Version = #{record.sVersion,jdbcType=VARCHAR},
+      S_Licensed = #{record.sLicensed,jdbcType=VARCHAR},
+      S_SystemConfigData = #{record.sSystemconfigdata,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_SystemInfo
+    set SystemID = #{record.systemid,jdbcType=INTEGER},
+      S_Name = #{record.sName,jdbcType=VARCHAR},
+      S_Version = #{record.sVersion,jdbcType=VARCHAR},
+      S_Licensed = #{record.sLicensed,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hedgehog.domain.sys_SystemInfo" >
+    update sys_SystemInfo
+    <set >
+      <if test="sName != null" >
+        S_Name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sVersion != null" >
+        S_Version = #{sVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="sLicensed != null" >
+        S_Licensed = #{sLicensed,jdbcType=VARCHAR},
+      </if>
+      <if test="sSystemconfigdata != null" >
+        S_SystemConfigData = #{sSystemconfigdata,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where SystemID = #{systemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hedgehog.domain.sys_SystemInfo" >
+    update sys_SystemInfo
+    set S_Name = #{sName,jdbcType=VARCHAR},
+      S_Version = #{sVersion,jdbcType=VARCHAR},
+      S_Licensed = #{sLicensed,jdbcType=VARCHAR},
+      S_SystemConfigData = #{sSystemconfigdata,jdbcType=LONGVARBINARY}
+    where SystemID = #{systemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hedgehog.domain.sys_SystemInfo" >
+    update sys_SystemInfo
+    set S_Name = #{sName,jdbcType=VARCHAR},
+      S_Version = #{sVersion,jdbcType=VARCHAR},
+      S_Licensed = #{sLicensed,jdbcType=VARCHAR}
+    where SystemID = #{systemid,jdbcType=INTEGER}
+  </update>
+</mapper>

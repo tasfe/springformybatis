@@ -1,0 +1,110 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+
+<!--<start id="tile_template"/>-->
+   <definition name="template" 
+               template="/WEB-INF/views/jsp/tiles/Template.jsp">  
+     <put-attribute name="title" value="default title"/>     
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header.jsp"/>        
+        <put-attribute name="content" value="/WEB-INF/views/jsp/tiles/content.jsp"/>         
+   </definition>
+<!--<end id="tile_template"/>-->
+
+   <definition name="home" extends="template">  
+        <put-attribute name="title" value="中国工商导航"/>         
+        <put-attribute name="content" value="/WEB-INF/views/jsp/index.jsp"/>  
+      </definition>
+      <definition name="trade" extends="template">  
+        <put-attribute name="title" value="商贸通"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_trade.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/trade.jsp"/>  
+      </definition>
+      <definition name="trade_list" extends="template">  
+        <put-attribute name="title" value="商贸通列表"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_trade_list.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/trade_list.jsp"/>  
+      </definition>
+      <definition name="business" extends="template">  
+        <put-attribute name="title" value="生意通"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_business.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/business.jsp"/>  
+      </definition>
+      <definition name="business_list" extends="template">  
+        <put-attribute name="title" value="生意通列表"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_business_list.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/business_list.jsp"/>  
+      </definition>
+      <definition name="product" extends="template">  
+        <put-attribute name="title" value="产品信息"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_product.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/product.jsp"/>
+      </definition>
+      <definition name="product_list" extends="template">  
+        <put-attribute name="title" value="产品信息列表"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_product_list.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/product_list.jsp"/>
+      </definition>
+      <definition name="purvey" extends="template">  
+        <put-attribute name="title" value="供求信息"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_purvey.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/purvey.jsp"/>
+      </definition>
+      <definition name="purvey_list" extends="template">  
+        <put-attribute name="title" value="供求信息列表"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_purvey_list.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/purvey_list.jsp"/>
+      </definition>
+      <definition name="classify" extends="template">  
+        <put-attribute name="title" value="分类信息"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify.jsp"/>
+      </definition>
+      <definition name="classify_list" extends="template">  
+        <put-attribute name="title" value="分类信息"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_list.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_list.jsp"/>
+      </definition>
+      <definition name="classify_infoselmode" extends="template">  
+        <put-attribute name="title" value="分类信息发布 选择模式"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_publish.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_infoselmode.jsp"/>
+      </definition>
+      <definition name="classify_infoseltype" extends="template">  
+        <put-attribute name="title" value="分类信息发布 选择分类"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_prepublish.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_infoseltype.jsp"/>
+      </definition>
+      <definition name="classify_infopublish" extends="template">  
+        <put-attribute name="title" value="分类信息发布 信息表单"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_infopublish.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_infopublish.jsp"/>
+      </definition>
+      <definition name="classify_success" extends="template">  
+        <put-attribute name="title" value="分类信息发布 成功"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_fabuchenggong.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_infopublishok.jsp"/>
+      </definition>
+      <definition name="classify_hotinfoview" extends="template">  
+        <put-attribute name="title" value="分类信息发布 详细"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_classify_hotinfoview.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/classify_hotinfoview.jsp"/>
+      </definition>
+      
+      <definition name="agent" extends="template">  
+        <put-attribute name="title" value="加盟代理"/>
+        <put-attribute name="content" value="/WEB-INF/views/jsp/agent.jsp"/>
+      </definition>
+      <definition name="login" extends="template">  
+        <put-attribute name="title" value="企业登陆"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_login.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/login.jsp"/>
+      </definition>
+      <definition name="registersuc" extends="template">  
+        <put-attribute name="title" value="注册成功"/>
+        <put-attribute name="header" value="/WEB-INF/views/jsp/tiles/header_login.jsp"/> 
+        <put-attribute name="content" value="/WEB-INF/views/jsp/registersuc.jsp"/>
+      </definition>
+</tiles-definitions>
